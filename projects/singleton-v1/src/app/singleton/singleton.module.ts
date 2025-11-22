@@ -1,8 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { LoggerModule } from 'src/public_api';
-import { SingletonComponent } from './singleton.component';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {LoggerModule} from '../../../../ngx-logging-kit/src/public-api';
+import {SingletonComponent} from './singleton.component';
 
 const singletonRoutes = [
   {

@@ -1,19 +1,21 @@
-import { Injectable } from '@angular/core';
-import { INGXLoggerConfig, INGXLoggerRulesService, NgxLoggerLevel } from 'ngx-logger';
+import {Injectable} from '@angular/core';
+import {INGXLoggerConfig} from "../../../projects/ngx-logging-kit/src/lib/config/iconfig";
+import {INGXLoggerRulesService} from "../../../projects/ngx-logging-kit/src/lib/rules/irules.service";
+import {NgxLoggerLevel} from "../../../projects/ngx-logging-kit/src/lib/types/logger-level.enum";
 
 
 @Injectable()
 export class NGXLoggerRulesServiceMock implements INGXLoggerRulesService {
 
-  public shouldCallWriter(level: NgxLoggerLevel, config: INGXLoggerConfig, message?: any, additional?: any[]): boolean {
+  shouldCallWriter(level: NgxLoggerLevel, config: INGXLoggerConfig, message?: any, additional?: any[]): boolean {
     return false;
   }
 
-  public shouldCallServer(level: NgxLoggerLevel, config: INGXLoggerConfig, message?: any, additional?: any[]): boolean {
+  shouldCallServer(level: NgxLoggerLevel, config: INGXLoggerConfig, message?: any, additional?: any[]): boolean {
     return false;
   }
 
-  public shouldCallMonitor(level: NgxLoggerLevel, config: INGXLoggerConfig, message?: any, additional?: any[]): boolean {
+  shouldCallMonitor(level: NgxLoggerLevel, config: INGXLoggerConfig, message?: any, additional?: any[]): boolean {
     return false;
   }
 }

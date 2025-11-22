@@ -1,5 +1,5 @@
-import { NgxLoggerLevel } from './../types/logger-level.enum';
-import { INGXLoggerConfig } from './iconfig';
+import {NgxLoggerLevel} from '../types/logger-level.enum';
+import {INGXLoggerConfig} from './iconfig';
 
 export interface INGXLoggerConfigEngine {
 

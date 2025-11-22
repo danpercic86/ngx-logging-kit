@@ -1,20 +1,20 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import {MatSlideToggleChange} from "@angular/material/slide-toggle";
-import { NgxLoggerLevel } from '../../../../../src/public_api';
+import {NgxLoggerLevel} from '../../../../ngx-logging-kit/src/public-api';
 
 @Component({
-    selector: 'app-log-config',
-    templateUrl: './log-config.component.html',
-    styleUrls: ['./log-config.component.scss'],
-    standalone: false
+  selector: 'app-log-config',
+  templateUrl: './log-config.component.html',
+  styleUrls: ['./log-config.component.scss'],
+  standalone: false
 })
 /**
  * The LogConfigComponent allows a user to set the current log level for ngx-logger
  */
 export class LogConfigComponent {
   @Output()
-  loggerLevelChange: EventEmitter<NgxLoggerLevel> = new EventEmitter();
-  public currentLogLevel: NgxLoggerLevel = NgxLoggerLevel.DEBUG;
+  loggerLevelChange = new EventEmitter<NgxLoggerLevel>();
+  currentLogLevel: NgxLoggerLevel = NgxLoggerLevel.DEBUG;
 
   NgxLoggerLevel = NgxLoggerLevel;
 

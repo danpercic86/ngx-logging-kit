@@ -1,16 +1,15 @@
-import { Inject, Injectable } from '@angular/core';
-import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { NgxLoggerLevel } from './types/logger-level.enum';
-import { INGXLoggerConfigEngine } from './config/iconfig-engine';
-import { INGXLoggerConfig, TOKEN_LOGGER_CONFIG } from './config/iconfig';
-import { INGXLoggerMetadataService, TOKEN_LOGGER_METADATA_SERVICE } from './metadata/imetadata.service';
-import { INGXLoggerRulesService, TOKEN_LOGGER_RULES_SERVICE } from './rules/irules.service';
-import { INGXLoggerMapperService, TOKEN_LOGGER_MAPPER_SERVICE } from './mapper/imapper.service';
-import { INGXLoggerMonitor } from './monitor/ilogger-monitor';
-import { INGXLoggerWriterService, TOKEN_LOGGER_WRITER_SERVICE } from './writer/iwriter.service';
-import { INGXLoggerServerService, TOKEN_LOGGER_SERVER_SERVICE } from './server/iserver.service';
-import { take } from 'rxjs/operators';
-import { INGXLoggerConfigEngineFactory, TOKEN_LOGGER_CONFIG_ENGINE_FACTORY } from './config/iconfig-engine-factory';
+import {Inject, Injectable} from '@angular/core';
+import {take} from 'rxjs/operators';
+import {INGXLoggerConfig, TOKEN_LOGGER_CONFIG} from './config/iconfig';
+import {INGXLoggerConfigEngine} from './config/iconfig-engine';
+import {INGXLoggerConfigEngineFactory, TOKEN_LOGGER_CONFIG_ENGINE_FACTORY} from './config/iconfig-engine-factory';
+import {INGXLoggerMapperService, TOKEN_LOGGER_MAPPER_SERVICE} from './mapper/imapper.service';
+import {INGXLoggerMetadataService, TOKEN_LOGGER_METADATA_SERVICE} from './metadata/imetadata.service';
+import {INGXLoggerMonitor} from './monitor/ilogger-monitor';
+import {INGXLoggerRulesService, TOKEN_LOGGER_RULES_SERVICE} from './rules/irules.service';
+import {INGXLoggerServerService, TOKEN_LOGGER_SERVER_SERVICE} from './server/iserver.service';
+import {NgxLoggerLevel} from './types/logger-level.enum';
+import {INGXLoggerWriterService, TOKEN_LOGGER_WRITER_SERVICE} from './writer/iwriter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,86 +40,65 @@ export class NGXLogger {
     return this.configEngine.serverLogLevel;
   }
 
-  public trace(message?: any | (() => any), ...additional: any[]): void {
+  trace(message?: any | (() => any), ...additional: any[]): void {
     this._log(NgxLoggerLevel.TRACE, message, additional);
   }
 
-  public debug(message?: any | (() => any), ...additional: any[]): void {
+  debug(message?: any | (() => any), ...additional: any[]): void {
     this._log(NgxLoggerLevel.DEBUG, message, additional);
   }
 
-  public info(message?: any | (() => any), ...additional: any[]): void {
+  info(message?: any | (() => any), ...additional: any[]): void {
     this._log(NgxLoggerLevel.INFO, message, additional);
   }
 
-  public log(message?: any | (() => any), ...additional: any[]): void {
+  log(message?: any | (() => any), ...additional: any[]): void {
     this._log(NgxLoggerLevel.LOG, message, additional);
   }
 
-  public warn(message?: any | (() => any), ...additional: any[]): void {
+  warn(message?: any | (() => any), ...additional: any[]): void {
     this._log(NgxLoggerLevel.WARN, message, additional);
   }
 
-  public error(message?: any | (() => any), ...additional: any[]): void {
+  error(message?: any | (() => any), ...additional: any[]): void {
     this._log(NgxLoggerLevel.ERROR, message, additional);
   }
 
-  public fatal(message?: any | (() => any), ...additional: any[]): void {
+  fatal(message?: any | (() => any), ...additional: any[]): void {
     this._log(NgxLoggerLevel.FATAL, message, additional);
-  }
-
-  /** @deprecated customHttpHeaders is now part of the config, this should be updated via @see updateConfig */
-  public setCustomHttpHeaders(headers: HttpHeaders) {
-    const config = this.getConfigSnapshot();
-    config.customHttpHeaders = headers;
-    this.updateConfig(config);
-  }
-
-  /** @deprecated customHttpParams is now part of the config, this should be updated via @see updateConfig */
-  public setCustomParams(params: HttpParams) {
-    const config = this.getConfigSnapshot();
-    config.customHttpParams = params;
-    this.updateConfig(config);
-  }
-
-  /** @deprecated withCredentials is now part of the config, this should be updated via @see updateConfig */
-  public setWithCredentialsOptionValue(withCredentials: boolean) {
-    const config = this.getConfigSnapshot();
-    config.withCredentials = withCredentials;
-    this.updateConfig(config);
   }
 
   /**
    * Register a INGXLoggerMonitor that will be trigger when a log is either written or sent to server
-   * 
+   *
    * There is only one monitor, registering one will overwrite the last one if there was one
-   * @param monitor 
+   * @param monitor
    */
-  public registerMonitor(monitor: INGXLoggerMonitor) {
+  registerMonitor(monitor: INGXLoggerMonitor) {
     this._loggerMonitor = monitor;
   }
 
   /** Set config of logger
-   * 
+   *
    * Warning : This overwrites all the config, if you want to update only one property, you should use @see getConfigSnapshot before
    */
-  public updateConfig(config: INGXLoggerConfig) {
+  updateConfig(config: INGXLoggerConfig) {
     this.configEngine.updateConfig(config);
   }
 
-  public partialUpdateConfig(partialConfig: Partial<INGXLoggerConfig>): void {
+  partialUpdateConfig(partialConfig: Partial<INGXLoggerConfig>): void {
     this.configEngine.partialUpdateConfig(partialConfig);
   }
 
   /** Get config of logger */
-  public getConfigSnapshot(): INGXLoggerConfig {
+  getConfigSnapshot(): INGXLoggerConfig {
     return this.configEngine.getConfig();
   }
 
   /**
-   * Flush the serveur queue
+   * Flush the server queue
    */
-  public flushServerQueue(): void {
+  flushServerQueue(): void {
     this.serverService.flushQueue(this.getConfigSnapshot());
   }
 

@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
-import { CustomNGXLoggerService, NGXLogger, NgxLoggerLevel } from '../../../../../src/public_api';;
+import {Injectable} from '@angular/core';
+import {CustomNGXLoggerService, NGXLogger, NgxLoggerLevel} from '../../../../ngx-logging-kit/src/public-api';
+
+;
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +29,3 @@ export class BusinessService {
     // Do stuff
   }
 }
-
-

@@ -5,12 +5,14 @@ NGXLogger is fully customisable
 Before customising please be mindful of the following
 
 Customising is for :
- - Specific behaviors that contributors do not wish to include in the lib (several reasons could be invoked, too complex, too specific, makes the lib too heavy etc...)
- - Specific behaviors that can't be configured
+
+- Specific behaviors that contributors do not wish to include in the lib (several reasons could be invoked, too complex, too specific, makes the lib too heavy etc...)
+- Specific behaviors that can't be configured
 
 Customising is not for :
- - Bug fixes
- - Improvements of the NGXLogger
+
+- Bug fixes
+- Improvements of the NGXLogger
 
 In those cases, please submit a PR or an issue
 
@@ -24,13 +26,14 @@ So you can code your own service and then provide it to the logger to tweak the 
 
 ### List of services
 
-All the services can be found in the [logger constructor](../src/lib/logger.service.ts) :
- - INGXLoggerConfigEngineFactory is used to provide the INGXLoggerConfigEngine that stores the INGXLoggerConfig
- - INGXLoggerMetadataService is used to create the INGXLoggerMetadata that store all the data (and metadata) that will be logged
- - INGXLoggerRulesService is used to know what logger should be called (writer, server and monitor)
- - INGXLoggerMapperService is used to map the logger call to its source position
- - INGXLoggerWriterService is used to write the log
- - INGXLoggerServerService is used to send the log to a server
+All the services can be found in the [logger constructor](../projects/ngx-logging-kit/src/lib/logger.service.ts) :
+
+- INGXLoggerConfigEngineFactory is used to provide the INGXLoggerConfigEngine that stores the INGXLoggerConfig
+- INGXLoggerMetadataService is used to create the INGXLoggerMetadata that store all the data (and metadata) that will be logged
+- INGXLoggerRulesService is used to know what logger should be called (writer, server and monitor)
+- INGXLoggerMapperService is used to map the logger call to its source position
+- INGXLoggerWriterService is used to write the log
+- INGXLoggerServerService is used to send the log to a server
 
 All thoses services are also extendable, this allows to be specific on the behavior you customise and keep all the other feature you don't want to change
 
@@ -65,7 +68,6 @@ And now your logger will write to the sessionStorage instead of the console
 
 Full code [here](../projects/customise/src/app/writer)
 
-
 ### (example) Send the log to the server only if "SERVER" is in the message
 
 Tweak the rule service :
@@ -94,7 +96,6 @@ LoggerModule.forRoot(
 ```
 
 And now everytime you have 'SERVER' in your message, the log will be sent to your server
-
 
 ### (example) Adds a property to the server log
 
@@ -141,7 +142,6 @@ And now another property levelName will be sent to your API
 
 Full code [here](../projects/customise/src/app/customise-body-server-log)
 
-
 ### (example) Adds an authorization header to the request
 
 This example adds a header "authorization" to the request sent to the API
@@ -179,4 +179,3 @@ LoggerModule.forRoot(
 And now another your authorization header will be used when logging to your API
 
 Full code [here](../projects/customise/src/app/auth-token)
-

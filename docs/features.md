@@ -8,7 +8,7 @@ To log on your server you need to set `serverLogLevel` and `serverLoggingUrl` ac
 
 When you call the logger, the content will be sent to your server
 
-The type of the payload is `INGXLoggerMetadata` see details [here](../src/lib/metadata/imetadata.ts)
+The type of the payload is `INGXLoggerMetadata` see details [here](../projects/ngx-logging-kit/src/lib/metadata/imetadata.ts)
 
 ```typescript
 LoggerModule.forRoot({
@@ -96,6 +96,7 @@ export class MyService {
   - Context is specific to the instance of the logger, if you want several contexts, you need several instances
 
 Simple example
+
 ```typescript
 LoggerModule.forRoot({
 ...,

@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { LoggerModule, NgxLoggerLevel, TOKEN_LOGGER_SERVER_SERVICE } from 'src/public_api';
-import { ServerCustomisedService } from './server-customised.service';
-import { CustomiseBodyServerLogComponent } from './customise-body-server-log.component';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {LoggerModule, NgxLoggerLevel, TOKEN_LOGGER_SERVER_SERVICE} from '../../../../ngx-logging-kit/src/public-api';
+import {ServerCustomisedService} from './server-customised.service';
+import {CustomiseBodyServerLogComponent} from './customise-body-server-log.component';
 
 const customiseBodyServerLogRoutes = [
   {
@@ -20,7 +20,7 @@ const customiseBodyServerLogRoutes = [
     CommonModule,
     RouterModule.forChild(customiseBodyServerLogRoutes),
     LoggerModule.forRoot(
-      { level: NgxLoggerLevel.TRACE, serverLogLevel: NgxLoggerLevel.TRACE, serverLoggingUrl: 'dummyURL' },
+      {level: NgxLoggerLevel.TRACE, serverLogLevel: NgxLoggerLevel.TRACE, serverLoggingUrl: 'dummyURL'},
       {
         serverProvider: {
           provide: TOKEN_LOGGER_SERVER_SERVICE, useClass: ServerCustomisedService

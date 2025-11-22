@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
-import { INGXLoggerConfig, INGXLoggerConfigEngine, NgxLoggerLevel } from 'ngx-logger';
+import {Injectable} from '@angular/core';
+import {INGXLoggerConfig} from "../../../projects/ngx-logging-kit/src/lib/config/iconfig";
+import {INGXLoggerConfigEngine} from "../../../projects/ngx-logging-kit/src/lib/config/iconfig-engine";
+import {NgxLoggerLevel} from "../../../projects/ngx-logging-kit/src/lib/types/logger-level.enum";
 
 @Injectable()
 export class NGXLoggerConfigEngineMock implements INGXLoggerConfigEngine {
@@ -19,6 +21,6 @@ export class NGXLoggerConfigEngineMock implements INGXLoggerConfigEngine {
   }
 
   getConfig(): INGXLoggerConfig {
-    return { level: NgxLoggerLevel.ERROR };
+    return {level: NgxLoggerLevel.ERROR};
   }
 }

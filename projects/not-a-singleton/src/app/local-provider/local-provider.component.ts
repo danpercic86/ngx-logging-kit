@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
-import { NGXLogger, NgxLoggerLevel } from "src/public_api";
+import {Component} from "@angular/core";
+import {NGXLogger, NgxLoggerLevel} from "../../../../ngx-logging-kit/src/public-api";
 
 @Component({
-    templateUrl: './local-provider.component.html',
-    providers: [NGXLogger],
-    standalone: false
+  templateUrl: './local-provider.component.html',
+  providers: [NGXLogger],
+  standalone: false
 })
 export class LocalProviderComponent {
 

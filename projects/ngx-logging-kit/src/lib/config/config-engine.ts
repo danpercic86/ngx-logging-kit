@@ -1,6 +1,6 @@
-import { NgxLoggerLevel } from './../types/logger-level.enum';
-import { INGXLoggerConfigEngine } from './iconfig-engine';
-import { INGXLoggerConfig } from './iconfig';
+import {NgxLoggerLevel} from '../types/logger-level.enum';
+import {INGXLoggerConfigEngine} from './iconfig-engine';
+import {INGXLoggerConfig} from './iconfig';
 
 export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
 
@@ -46,7 +46,7 @@ export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
 
   // TODO: This is a shallow clone, If the config ever becomes hierarchical we must make this a deep clone
   private _clone(object: any) {
-    const cloneConfig: INGXLoggerConfig = { level: null };
+    const cloneConfig: INGXLoggerConfig = {level: null};
 
     Object.keys(object).forEach((key) => {
       cloneConfig[key] = object[key];

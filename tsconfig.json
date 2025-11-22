@@ -1,29 +1,38 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "declaration": false,
-    "moduleResolution": "bundler",
-    "experimentalDecorators": true,
-    "target": "ES2022",
-    "module": "es2020",
-    "importHelpers": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
     "paths": {
-      "ngx-logger": [
-        "dist/ngx-logger"
+      "ngx-logging-kit": [
+        "./dist/ngx-logging-kit"
       ]
     },
-    "useDefineForClassFields": false
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve"
   },
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
+    "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
-    "enableIvy": true
-  }
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/ngx-logging-kit/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ngx-logging-kit/tsconfig.spec.json"
+    }
+  ]
 }

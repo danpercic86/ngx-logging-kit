@@ -1,32 +1,32 @@
-import { inject, TestBed } from '@angular/core/testing';
-import { TOKEN_LOGGER_CONFIG } from './config/iconfig';
-import { TOKEN_LOGGER_CONFIG_ENGINE_FACTORY } from './config/iconfig-engine-factory';
-import { NGXLogger } from './logger.service';
-import { TOKEN_LOGGER_MAPPER_SERVICE } from './mapper/imapper.service';
-import { TOKEN_LOGGER_METADATA_SERVICE } from './metadata/imetadata.service';
-import { TOKEN_LOGGER_RULES_SERVICE } from './rules/irules.service';
-import { TOKEN_LOGGER_SERVER_SERVICE } from './server/iserver.service';
-import { NGXLoggerConfigEngineFactoryMock } from 'testing/src/lib/config-engine-factory.mock';
-import { NGXLoggerMapperServiceMock } from 'testing/src/lib/mapper.service.mock';
-import { NGXLoggerMetadataServiceMock } from 'testing/src/lib/metadata.service.mock';
-import { NGXLoggerRulesServiceMock } from 'testing/src/lib/rules.service.mock';
-import { NGXLoggerServerServiceMock } from 'testing/src/lib/server.service.mock';
-import { NGXLoggerWriterServiceMock } from 'testing/src/lib/writer.service.mock';
-import { NgxLoggerLevel } from './types/logger-level.enum';
-import { TOKEN_LOGGER_WRITER_SERVICE } from './writer/iwriter.service';
+import {inject, TestBed} from '@angular/core/testing';
+import {TOKEN_LOGGER_CONFIG} from './config/iconfig';
+import {TOKEN_LOGGER_CONFIG_ENGINE_FACTORY} from './config/iconfig-engine-factory';
+import {NGXLogger} from './logger.service';
+import {TOKEN_LOGGER_MAPPER_SERVICE} from './mapper/imapper.service';
+import {TOKEN_LOGGER_METADATA_SERVICE} from './metadata/imetadata.service';
+import {TOKEN_LOGGER_RULES_SERVICE} from './rules/irules.service';
+import {TOKEN_LOGGER_SERVER_SERVICE} from './server/iserver.service';
+import {NGXLoggerConfigEngineFactoryMock} from '../../../../testing/src/lib/config-engine-factory.mock';
+import {NGXLoggerMapperServiceMock} from '../../../../testing/src/lib/mapper.service.mock';
+import {NGXLoggerMetadataServiceMock} from '../../../../testing/src/lib/metadata.service.mock';
+import {NGXLoggerRulesServiceMock} from '../../../../testing/src/lib/rules.service.mock';
+import {NGXLoggerServerServiceMock} from '../../../../testing/src/lib/server.service.mock';
+import {NGXLoggerWriterServiceMock} from '../../../../testing/src/lib/writer.service.mock';
+import {NgxLoggerLevel} from './types/logger-level.enum';
+import {TOKEN_LOGGER_WRITER_SERVICE} from './writer/iwriter.service';
 
 describe('NGXLogger', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         NGXLogger,
-        { provide: TOKEN_LOGGER_CONFIG, useValue: { level: NgxLoggerLevel.ERROR } },
-        { provide: TOKEN_LOGGER_CONFIG_ENGINE_FACTORY, useClass: NGXLoggerConfigEngineFactoryMock },
-        { provide: TOKEN_LOGGER_METADATA_SERVICE, useClass: NGXLoggerMetadataServiceMock },
-        { provide: TOKEN_LOGGER_RULES_SERVICE, useClass: NGXLoggerRulesServiceMock },
-        { provide: TOKEN_LOGGER_MAPPER_SERVICE, useClass: NGXLoggerMapperServiceMock },
-        { provide: TOKEN_LOGGER_WRITER_SERVICE, useClass: NGXLoggerWriterServiceMock },
-        { provide: TOKEN_LOGGER_SERVER_SERVICE, useClass: NGXLoggerServerServiceMock },
+        {provide: TOKEN_LOGGER_CONFIG, useValue: {level: NgxLoggerLevel.ERROR}},
+        {provide: TOKEN_LOGGER_CONFIG_ENGINE_FACTORY, useClass: NGXLoggerConfigEngineFactoryMock},
+        {provide: TOKEN_LOGGER_METADATA_SERVICE, useClass: NGXLoggerMetadataServiceMock},
+        {provide: TOKEN_LOGGER_RULES_SERVICE, useClass: NGXLoggerRulesServiceMock},
+        {provide: TOKEN_LOGGER_MAPPER_SERVICE, useClass: NGXLoggerMapperServiceMock},
+        {provide: TOKEN_LOGGER_WRITER_SERVICE, useClass: NGXLoggerWriterServiceMock},
+        {provide: TOKEN_LOGGER_SERVER_SERVICE, useClass: NGXLoggerServerServiceMock},
       ]
     });
   });
@@ -35,7 +35,7 @@ describe('NGXLogger', () => {
     it('should call _log with trace', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn(<any>logger, '_log');
+        const logSpy = spyOn((logger as any), '_log');
 
         logger.trace('message');
 
@@ -48,7 +48,7 @@ describe('NGXLogger', () => {
     it('should call _log with debug', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn(<any>logger, '_log');
+        const logSpy = spyOn((logger as any), '_log');
 
         logger.debug('message');
 
@@ -61,7 +61,7 @@ describe('NGXLogger', () => {
     it('should call _log with info', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn(<any>logger, '_log');
+        const logSpy = spyOn((logger as any), '_log');
 
         logger.info('message');
 
@@ -74,7 +74,7 @@ describe('NGXLogger', () => {
     it('should call _log with log', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn(<any>logger, '_log');
+        const logSpy = spyOn((logger as any), '_log');
 
         logger.log('message');
 
@@ -87,7 +87,7 @@ describe('NGXLogger', () => {
     it('should call _log with warn', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn(<any>logger, '_log');
+        const logSpy = spyOn((logger as any), '_log');
 
         logger.warn('message');
 
@@ -100,7 +100,7 @@ describe('NGXLogger', () => {
     it('should call _log with error', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn(<any>logger, '_log');
+        const logSpy = spyOn((logger as any), '_log');
 
         logger.error('message');
 
@@ -113,7 +113,7 @@ describe('NGXLogger', () => {
     it('should call _log with fatal', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn(<any>logger, '_log');
+        const logSpy = spyOn((logger as any), '_log');
 
         logger.fatal('message');
 

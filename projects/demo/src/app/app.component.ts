@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { NGXLogger, NgxLoggerLevel } from '../../../../src/public_api';
+import {Component} from '@angular/core';
+import {NGXLogger, NgxLoggerLevel} from '../../../ngx-logging-kit/src/public-api';
 
-import { LogEvent } from './models/log-event.model';
+import {LogEvent} from './models/log-event.model';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: false
 })
 export class AppComponent {
   constructor(private logger: NGXLogger) {

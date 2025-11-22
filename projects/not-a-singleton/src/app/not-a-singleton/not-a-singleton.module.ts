@@ -1,8 +1,8 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { LoggerModule, NgxLoggerLevel } from 'src/public_api';
-import { NotASingletonComponent } from './not-a-singleton.component';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {LoggerModule, NgxLoggerLevel} from '../../../../ngx-logging-kit/src/public-api';
+import {NotASingletonComponent} from './not-a-singleton.component';
 
 const singletonRoutes = [
   {
@@ -18,7 +18,7 @@ const singletonRoutes = [
   imports: [
     CommonModule,
     RouterModule.forChild(singletonRoutes),
-    LoggerModule.forRoot({ level: NgxLoggerLevel.TRACE }),
+    LoggerModule.forRoot({level: NgxLoggerLevel.TRACE}),
   ],
 })
 export class NotASingletonModule {

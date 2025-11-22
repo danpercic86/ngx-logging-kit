@@ -1,6 +1,8 @@
-import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from "@angular/core";
-import { INGXLoggerConfig, INGXLoggerMonitor, NgxLoggerLevel } from 'ngx-logger';
+import {HttpHeaders, HttpParams} from '@angular/common/http';
+import {Injectable} from "@angular/core";
+import {INGXLoggerConfig} from "../../../projects/ngx-logging-kit/src/lib/config/iconfig";
+import {INGXLoggerMonitor} from "../../../projects/ngx-logging-kit/src/lib/monitor/ilogger-monitor";
+import {NgxLoggerLevel} from "../../../projects/ngx-logging-kit/src/lib/types/logger-level.enum";
 
 // todo bmtheo, there should be an interface or something to make sure this mock sticks to the real API
 @Injectable()
@@ -55,6 +57,6 @@ export class NGXLoggerMock {
   }
 
   getConfigSnapshot(): INGXLoggerConfig {
-    return { level: NgxLoggerLevel.ERROR };
+    return {level: NgxLoggerLevel.ERROR};
   }
 }

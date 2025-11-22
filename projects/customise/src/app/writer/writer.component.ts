@@ -1,9 +1,9 @@
-import { Component } from "@angular/core";
-import { NGXLogger } from "src/public_api";
+import {Component} from "@angular/core";
+import {NGXLogger} from "../../../../ngx-logging-kit/src/public-api";
 
 @Component({
-    templateUrl: './writer.component.html',
-    standalone: false
+  templateUrl: './writer.component.html',
+  standalone: false
 })
 export class WriterComponent {
 

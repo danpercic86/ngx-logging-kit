@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { INGXLoggerConfig, INGXLoggerMetadata, INGXLoggerMonitor, NGXLogger } from 'src/public_api';
+import {Component} from '@angular/core';
+import {
+  INGXLoggerConfig,
+  INGXLoggerMetadata,
+  INGXLoggerMonitor,
+  NGXLogger
+} from '../../../ngx-logging-kit/src/public-api';
 
 export class AppMonitor implements INGXLoggerMonitor {
   onLog(logObject: INGXLoggerMetadata, config: INGXLoggerConfig): void {
@@ -9,10 +14,10 @@ export class AppMonitor implements INGXLoggerMonitor {
 
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: false
 })
 export class AppComponent {
 

@@ -1,0 +1,20 @@
+{
+  "semi": true,
+  "useTabs": false,
+  "printWidth": 110,
+  "tabWidth": 4,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "experimentalTernaries": true,
+  "htmlWhitespaceSensitivity": "ignore",
+  "arrowParens": "avoid",
+  "overrides": [
+    {
+      "files": "**/*.html",
+      "options": {
+        "parser": "angular",
+        "editorconfig": true
+      }
+    }
+  ]
+}

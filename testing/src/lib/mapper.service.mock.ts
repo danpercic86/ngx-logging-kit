@@ -1,11 +1,14 @@
-import { Injectable } from '@angular/core';
-import { INGXLoggerConfig, INGXLoggerLogPosition, INGXLoggerMapperService, INGXLoggerMetadata } from 'ngx-logger';
-import { Observable, of } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable, of} from 'rxjs';
+import {INGXLoggerConfig} from "../../../projects/ngx-logging-kit/src/lib/config/iconfig";
+import {INGXLoggerLogPosition} from "../../../projects/ngx-logging-kit/src/lib/mapper/ilog-position";
+import {INGXLoggerMapperService} from "../../../projects/ngx-logging-kit/src/lib/mapper/imapper.service";
+import {INGXLoggerMetadata} from "../../../projects/ngx-logging-kit/src/lib/metadata/imetadata";
 
 
 @Injectable()
 export class NGXLoggerMapperServiceMock implements INGXLoggerMapperService {
-  public getLogPosition(config: INGXLoggerConfig, metadata: INGXLoggerMetadata): Observable<INGXLoggerLogPosition> {
-    return of({ fileName: 'test.ts' });
+  getLogPosition(config: INGXLoggerConfig, metadata: INGXLoggerMetadata): Observable<INGXLoggerLogPosition> {
+    return of({fileName: 'test.ts'});
   }
 }

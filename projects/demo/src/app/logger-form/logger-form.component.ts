@@ -1,9 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Validators, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { NGXLogger, NgxLoggerLevel } from '../../../../../src/public_api';
-import { BusinessService } from '../business-service/business.service';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Validators, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
+import {NGXLogger, NgxLoggerLevel} from '../../../../ngx-logging-kit/src/public-api';
+import {BusinessService} from '../business-service/business.service';
 
-import { LogEvent } from '../models/log-event.model';
+import {LogEvent} from '../models/log-event.model';
 
 export interface LoggerSelectionOption {
   value: NgxLoggerLevel;
@@ -11,10 +11,10 @@ export interface LoggerSelectionOption {
 }
 
 @Component({
-    selector: 'app-logger',
-    templateUrl: './logger-form.component.html',
-    styleUrls: ['./logger-form.component.scss'],
-    standalone: false
+  selector: 'app-logger',
+  templateUrl: './logger-form.component.html',
+  styleUrls: ['./logger-form.component.scss'],
+  standalone: false
 })
 /**
  * The LoggerComponent allows a user to enter a message and log it using ngx-logger. The user can select the type of log message.
@@ -30,12 +30,12 @@ export class LoggerFormComponent implements OnInit {
 
   /* Used in the mat-select on the form */
   logTypes: LoggerSelectionOption[] = [
-    { value: NgxLoggerLevel.TRACE, viewValue: 'Trace' },
-    { value: NgxLoggerLevel.DEBUG, viewValue: 'Debug' },
-    { value: NgxLoggerLevel.INFO, viewValue: 'Info' },
-    { value: NgxLoggerLevel.LOG, viewValue: 'Log' },
-    { value: NgxLoggerLevel.WARN, viewValue: 'Warn' },
-    { value: NgxLoggerLevel.ERROR, viewValue: 'Error' }
+    {value: NgxLoggerLevel.TRACE, viewValue: 'Trace'},
+    {value: NgxLoggerLevel.DEBUG, viewValue: 'Debug'},
+    {value: NgxLoggerLevel.INFO, viewValue: 'Info'},
+    {value: NgxLoggerLevel.LOG, viewValue: 'Log'},
+    {value: NgxLoggerLevel.WARN, viewValue: 'Warn'},
+    {value: NgxLoggerLevel.ERROR, viewValue: 'Error'}
   ];
 
   constructor(
@@ -56,14 +56,14 @@ export class LoggerFormComponent implements OnInit {
   }
 
   logComplex() {
-    const complexStructure = new UntypedFormGroup({ sub: new UntypedFormGroup({}) });
+    const complexStructure = new UntypedFormGroup({sub: new UntypedFormGroup({})});
     this.logger.error('Test complex', complexStructure);
     this.logger.error(complexStructure);
   }
 
   logError() {
     try {
-      var test = '';
+      let test = '';
       test = null;
       test.padEnd(1);
     } catch (err) {

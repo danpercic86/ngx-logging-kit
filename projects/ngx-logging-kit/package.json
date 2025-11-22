@@ -1,0 +1,13 @@
+{
+  "name": "ngx-logging-kit",
+  "version": "21.0.0-next.1",
+  "peerDependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "vlq": "^2.0.4"
+  },
+  "sideEffects": false
+}

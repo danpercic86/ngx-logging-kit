@@ -2,9 +2,10 @@
 
 ## Options
 
-You can see all config details in `INGXLoggerConfig` interface located [here](../src/lib/config/iconfig.ts)
+You can see all config details in `INGXLoggerConfig` interface located [here](../projects/ngx-logging-kit/src/lib/config/iconfig.ts)
 
 Some of the options are detailed below :
+
 - `level` {NgxLoggerLevel}: only log messages of this level or higher (`OFF` disables the logger for the client).
 - `disableConsoleLogging` {boolean}: disables console logging (does not disable other feature like server logging or log monitoring).
 - `serverLogLevel` {NgxLoggerLevel}: only send log messages of this level or higher to the server (`OFF` disables the logger for the server).
@@ -24,6 +25,7 @@ Some of the options are detailed below :
 ## Setting up the config
 
 You can set it straight from the forRoot call, ex:
+
 ```typescript
 @NgModule({
   ...
@@ -51,4 +53,3 @@ config.disableFileDetails = true;
 // Setting the config
 logger.updateConfig(config);
 ```
-

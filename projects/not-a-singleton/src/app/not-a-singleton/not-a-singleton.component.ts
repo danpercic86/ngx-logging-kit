@@ -1,5 +1,11 @@
-import { Component } from "@angular/core";
-import { NGXLogger, INGXLoggerMonitor, INGXLoggerConfig, INGXLoggerMetadata, NgxLoggerLevel } from "src/public_api";
+import {Component} from "@angular/core";
+import {
+  NGXLogger,
+  INGXLoggerMonitor,
+  INGXLoggerConfig,
+  INGXLoggerMetadata,
+  NgxLoggerLevel
+} from "../../../../ngx-logging-kit/src/public-api";
 
 export class LocalMonitor implements INGXLoggerMonitor {
   onLog(logObject: INGXLoggerMetadata, config: INGXLoggerConfig): void {
@@ -8,8 +14,8 @@ export class LocalMonitor implements INGXLoggerMonitor {
 }
 
 @Component({
-    templateUrl: './not-a-singleton.component.html',
-    standalone: false
+  templateUrl: './not-a-singleton.component.html',
+  standalone: false
 })
 export class NotASingletonComponent {
 
