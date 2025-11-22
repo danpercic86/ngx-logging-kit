@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import { Component, inject } from "@angular/core";
 import {NGXLogger} from "../../../../ngx-logging-kit/src/public-api";
 
 @Component({
@@ -6,9 +6,8 @@ import {NGXLogger} from "../../../../ngx-logging-kit/src/public-api";
   standalone: false
 })
 export class MainComponent {
+  logger = inject(NGXLogger);
 
-  constructor(public logger: NGXLogger) {
-  }
 
   log(): void {
     this.logger.debug('Test');

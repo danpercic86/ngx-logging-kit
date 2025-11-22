@@ -1,11 +1,12 @@
-import { HttpHeaders, HttpParams } from "@angular/common/http";
-import { NgxLoggerLevel } from "../types/logger-level.enum";
-import { NGXLoggerColorScheme } from "../writer/color-scheme";
+import {HttpHeaders, HttpParams} from "@angular/common/http";
+import {InjectionToken} from "@angular/core";
+import {NgxLoggerLevel} from "../types/logger-level.enum";
+import {NGXLoggerColorScheme} from "../writer/color-scheme";
 
 /**
  * Injection token of logger config
  */
-export const TOKEN_LOGGER_CONFIG = 'TOKEN_LOGGER_CONFIG';
+export const TOKEN_LOGGER_CONFIG = new InjectionToken('TOKEN_LOGGER_CONFIG');
 
 /**
  * Interface that defines logger config data

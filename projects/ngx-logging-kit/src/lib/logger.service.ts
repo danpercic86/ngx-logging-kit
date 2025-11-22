@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {take} from 'rxjs/operators';
 import {INGXLoggerConfig, TOKEN_LOGGER_CONFIG} from './config/iconfig';
 import {INGXLoggerConfigEngine} from './config/iconfig-engine';
@@ -15,18 +15,19 @@ import {INGXLoggerWriterService, TOKEN_LOGGER_WRITER_SERVICE} from './writer/iwr
   providedIn: 'root'
 })
 export class NGXLogger {
-  private _loggerMonitor?: INGXLoggerMonitor;
-  private configEngine: INGXLoggerConfigEngine;
+  private readonly metadataService = inject<INGXLoggerMetadataService>(TOKEN_LOGGER_METADATA_SERVICE);
+  private readonly ruleService = inject<INGXLoggerRulesService>(TOKEN_LOGGER_RULES_SERVICE);
+  private readonly mapperService = inject<INGXLoggerMapperService>(TOKEN_LOGGER_MAPPER_SERVICE);
+  private readonly writerService = inject<INGXLoggerWriterService>(TOKEN_LOGGER_WRITER_SERVICE);
+  private readonly serverService = inject<INGXLoggerServerService>(TOKEN_LOGGER_SERVER_SERVICE);
 
-  constructor(
-    @Inject(TOKEN_LOGGER_CONFIG) config: INGXLoggerConfig,
-    @Inject(TOKEN_LOGGER_CONFIG_ENGINE_FACTORY) configEngineFactory: INGXLoggerConfigEngineFactory,
-    @Inject(TOKEN_LOGGER_METADATA_SERVICE) private metadataService: INGXLoggerMetadataService,
-    @Inject(TOKEN_LOGGER_RULES_SERVICE) private ruleService: INGXLoggerRulesService,
-    @Inject(TOKEN_LOGGER_MAPPER_SERVICE) private mapperService: INGXLoggerMapperService,
-    @Inject(TOKEN_LOGGER_WRITER_SERVICE) private writerService: INGXLoggerWriterService,
-    @Inject(TOKEN_LOGGER_SERVER_SERVICE) private serverService: INGXLoggerServerService,
-  ) {
+  private _loggerMonitor?: INGXLoggerMonitor;
+  private readonly configEngine: INGXLoggerConfigEngine;
+
+  constructor() {
+    const config = inject<INGXLoggerConfig>(TOKEN_LOGGER_CONFIG);
+    const configEngineFactory = inject<INGXLoggerConfigEngineFactory>(TOKEN_LOGGER_CONFIG_ENGINE_FACTORY);
+
     this.configEngine = configEngineFactory.provideConfigEngine(config);
   }
 
@@ -74,7 +75,7 @@ export class NGXLogger {
    * There is only one monitor, registering one will overwrite the last one if there was one
    * @param monitor
    */
-  registerMonitor(monitor: INGXLoggerMonitor) {
+  registerMonitor(monitor: INGXLoggerMonitor): void {
     this._loggerMonitor = monitor;
   }
 
@@ -82,7 +83,7 @@ export class NGXLogger {
    *
    * Warning : This overwrites all the config, if you want to update only one property, you should use @see getConfigSnapshot before
    */
-  updateConfig(config: INGXLoggerConfig) {
+  updateConfig(config: INGXLoggerConfig): void {
     this.configEngine.updateConfig(config);
   }
 

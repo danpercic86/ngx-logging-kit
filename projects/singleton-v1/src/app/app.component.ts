@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   INGXLoggerConfig,
   INGXLoggerMetadata,
@@ -20,8 +20,10 @@ export class AppMonitor implements INGXLoggerMonitor {
   standalone: false
 })
 export class AppComponent {
+  private logger = inject(NGXLogger);
 
-  constructor(private logger: NGXLogger) {
+
+  constructor() {
     this.logger.registerMonitor(new AppMonitor());
   }
 

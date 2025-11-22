@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NgxLoggerLevel } from '../types/logger-level.enum';
 import { INGXLoggerConfig } from '../config/iconfig';
 import { INGXLoggerMetadata } from './imetadata';
@@ -7,10 +7,8 @@ import { INGXLoggerMetadataService } from './imetadata.service';
 
 @Injectable()
 export class NGXLoggerMetadataService implements INGXLoggerMetadataService {
+  protected readonly datePipe = inject(DatePipe, { optional: true });
 
-  constructor(
-    @Optional() protected readonly datePipe: DatePipe,
-  ) { }
 
   protected computeTimestamp(config: INGXLoggerConfig): string {
     const defaultTimestamp = () => new Date().toISOString();

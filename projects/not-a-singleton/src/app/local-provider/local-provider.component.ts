@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import { Component, inject } from "@angular/core";
 import {NGXLogger, NgxLoggerLevel} from "../../../../ngx-logging-kit/src/public-api";
 
 @Component({
@@ -7,9 +7,8 @@ import {NGXLogger, NgxLoggerLevel} from "../../../../ngx-logging-kit/src/public-
   standalone: false
 })
 export class LocalProviderComponent {
+  logger = inject(NGXLogger);
 
-  constructor(public logger: NGXLogger) {
-  }
 
   log(): void {
     this.logger.debug('Test');

@@ -1,5 +1,4 @@
 export * from './lib/config-engine.mock';
-export * from './lib/custom-logger.service.mock';
 export * from './lib/logger-testing.module';
 export * from './lib/logger.service.mock';
 export * from './lib/mapper.service.mock';

@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { INGXLoggerMetadata } from '../metadata/imetadata';
 import { INGXLoggerConfig } from '../config/iconfig';
 import { INGXLoggerWriterService } from './iwriter.service';
@@ -8,6 +8,8 @@ import { DEFAULT_COLOR_SCHEME } from './color-scheme';
 
 @Injectable()
 export class NGXLoggerWriterService implements INGXLoggerWriterService {
+  protected platformId = inject<Object>(PLATFORM_ID);
+
 
   protected readonly isIE: boolean;
   protected readonly logFunc: (metadata: INGXLoggerMetadata, config: INGXLoggerConfig, metaString: string) => void;
@@ -20,9 +22,9 @@ export class NGXLoggerWriterService implements INGXLoggerWriterService {
     this.getContextToWrite,
   ];
 
-  constructor(
-    @Inject(PLATFORM_ID) protected platformId: Object,
-  ) {
+  constructor() {
+    const platformId = this.platformId;
+
     this.isIE = !!(isPlatformBrowser(platformId) && navigator && navigator.userAgent &&
       (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.userAgent.match(/Trident\//) || navigator.userAgent.match(/Edge\//)));
 

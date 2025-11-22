@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {NGXLogger, NgxLoggerLevel} from '../../../ngx-logging-kit/src/public-api';
 
 import {LogEvent} from './models/log-event.model';
@@ -10,7 +10,11 @@ import {LogEvent} from './models/log-event.model';
   standalone: false
 })
 export class AppComponent {
-  constructor(private logger: NGXLogger) {
+  private logger = inject(NGXLogger);
+
+  constructor() {
+    const logger = this.logger;
+
     logger.updateConfig
   }
 

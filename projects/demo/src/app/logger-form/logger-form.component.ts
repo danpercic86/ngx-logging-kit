@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
 import {Validators, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import {NGXLogger, NgxLoggerLevel} from '../../../../ngx-logging-kit/src/public-api';
 import {BusinessService} from '../business-service/business.service';
@@ -21,6 +21,10 @@ export interface LoggerSelectionOption {
  * This component emits an event to the parent of the message and log type so the parent can perform the logging operation.
  */
 export class LoggerFormComponent implements OnInit {
+  private fb = inject(UntypedFormBuilder);
+  private logger = inject(NGXLogger);
+  private businessService = inject(BusinessService);
+
   @Output() logToConsole: EventEmitter<LogEvent> = new EventEmitter<LogEvent>();
 
   loggerForm = this.fb.group({
@@ -37,13 +41,6 @@ export class LoggerFormComponent implements OnInit {
     {value: NgxLoggerLevel.WARN, viewValue: 'Warn'},
     {value: NgxLoggerLevel.ERROR, viewValue: 'Error'}
   ];
-
-  constructor(
-    private fb: UntypedFormBuilder,
-    private logger: NGXLogger,
-    private businessService: BusinessService,
-  ) {
-  }
 
   ngOnInit() {
   }

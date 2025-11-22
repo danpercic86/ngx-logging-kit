@@ -1,6 +1,6 @@
 import { HttpBackend, HttpRequest, HttpResponse } from '@angular/common/http';
 import { SourceMap } from '@angular/compiler';
-import { Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, filter, map, retry, shareReplay } from 'rxjs/operators';
 // @ts-ignore
@@ -12,17 +12,14 @@ import { INGXLoggerMapperService } from './imapper.service';
 
 @Injectable()
 export class NGXLoggerMapperService implements INGXLoggerMapperService {
+  private httpBackend = inject(HttpBackend, { optional: true });
+
 
   /** cache for source maps, key is source map location, ie. 'http://localhost:4200/main.js.map' */
   protected sourceMapCache: Map<string, Observable<SourceMap>> = new Map();
 
   /** cache for specific log position, key is the dist position, ie 'main.js:339:21' */
   protected logPositionCache: Map<string, Observable<INGXLoggerLogPosition>> = new Map();
-
-  constructor(
-    @Optional() private httpBackend: HttpBackend
-  ) {
-  }
 
   /**
    * Returns the log position of the caller

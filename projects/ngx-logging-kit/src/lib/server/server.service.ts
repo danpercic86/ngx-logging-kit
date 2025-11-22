@@ -1,5 +1,5 @@
 import { HttpBackend, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Injectable, NgZone, OnDestroy, Optional } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, inject } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, isObservable, of, throwError, timer } from 'rxjs';
 import { catchError, concatMap, filter, map, take } from 'rxjs/operators';
 import { INGXLoggerConfig } from '../config/iconfig';
@@ -8,14 +8,12 @@ import { INGXLoggerServerService } from './iserver.service';
 
 @Injectable()
 export class NGXLoggerServerService implements INGXLoggerServerService, OnDestroy {
+  protected readonly httpBackend = inject(HttpBackend, { optional: true });
+  protected readonly ngZone = inject(NgZone, { optional: true });
+
   protected serverCallsQueue: INGXLoggerMetadata[] = [];
   protected flushingQueue: BehaviorSubject<boolean> = new BehaviorSubject(false);
   protected addToQueueTimer: Subscription | null = null;
-
-  constructor(
-    @Optional() protected readonly httpBackend: HttpBackend,
-    @Optional() protected readonly ngZone: NgZone,
-  ) { }
 
   ngOnDestroy(): void {
     if (this.flushingQueue) {
