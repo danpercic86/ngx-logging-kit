@@ -73,12 +73,15 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/demo",
+            "outputPath": {
+              "base": "dist/demo"
+            },
             "index": "projects/demo/src/index.html",
-            "main": "projects/demo/src/main.ts",
-            "polyfills": "projects/demo/src/polyfills.ts",
+            "polyfills": [
+              "projects/demo/src/polyfills.ts"
+            ],
             "tsConfig": "projects/demo/tsconfig.app.json",
             "assets": [
               "projects/demo/src/favicon.ico",
@@ -88,12 +91,11 @@
               "projects/demo/src/styles.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/demo/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -112,9 +114,7 @@
               "optimization": true,
               "outputHashing": "all",
               "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
+              "extractLicenses": true
             }
           },
           "defaultConfiguration": ""
@@ -200,12 +200,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/forchild",
+            "outputPath": {
+              "base": "dist/forchild"
+            },
             "index": "projects/forchild/src/index.html",
-            "main": "projects/forchild/src/main.ts",
-            "polyfills": "projects/forchild/src/polyfills.ts",
+            "polyfills": [
+              "projects/forchild/src/polyfills.ts"
+            ],
             "tsConfig": "projects/forchild/tsconfig.app.json",
             "assets": [
               "projects/forchild/src/favicon.ico",
@@ -215,12 +218,11 @@
               "projects/forchild/src/styles.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/forchild/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -235,8 +237,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -316,12 +316,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/customise",
+            "outputPath": {
+              "base": "dist/customise"
+            },
             "index": "projects/customise/src/index.html",
-            "main": "projects/customise/src/main.ts",
-            "polyfills": "projects/customise/src/polyfills.ts",
+            "polyfills": [
+              "projects/customise/src/polyfills.ts"
+            ],
             "tsConfig": "projects/customise/tsconfig.app.json",
             "assets": [
               "projects/customise/src/favicon.ico",
@@ -331,12 +334,11 @@
               "projects/customise/src/styles.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/customise/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -351,8 +353,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -413,12 +413,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/singleton-v1",
+            "outputPath": {
+              "base": "dist/singleton-v1"
+            },
             "index": "projects/singleton-v1/src/index.html",
-            "main": "projects/singleton-v1/src/main.ts",
-            "polyfills": "projects/singleton-v1/src/polyfills.ts",
+            "polyfills": [
+              "projects/singleton-v1/src/polyfills.ts"
+            ],
             "tsConfig": "projects/singleton-v1/tsconfig.app.json",
             "assets": [
               "projects/singleton-v1/src/favicon.ico",
@@ -428,12 +431,11 @@
               "projects/singleton-v1/src/styles.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/singleton-v1/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -448,8 +450,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -497,12 +497,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/not-a-singleton",
+            "outputPath": {
+              "base": "dist/not-a-singleton"
+            },
             "index": "projects/not-a-singleton/src/index.html",
-            "main": "projects/not-a-singleton/src/main.ts",
-            "polyfills": "projects/not-a-singleton/src/polyfills.ts",
+            "polyfills": [
+              "projects/not-a-singleton/src/polyfills.ts"
+            ],
             "tsConfig": "projects/not-a-singleton/tsconfig.app.json",
             "assets": [
               "projects/not-a-singleton/src/favicon.ico",
@@ -512,12 +515,11 @@
               "projects/not-a-singleton/src/styles.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/not-a-singleton/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -532,8 +534,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",

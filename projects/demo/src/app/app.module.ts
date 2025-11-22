@@ -15,26 +15,20 @@ import { LoggerModule, NgxLoggerLevel } from '../../../../src/public_api';
 import { AppComponent } from './app.component';
 import { LogConfigComponent } from './log-config/log-config.component';
 import { LoggerFormComponent } from './logger-form/logger-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CustomInstanceComponent } from './custom-instance/custom-instance.component';
 
-@NgModule({
-  declarations: [AppComponent, LogConfigComponent, LoggerFormComponent, CustomInstanceComponent],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ReactiveFormsModule,
-    LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG}),
-    MatToolbarModule,
-    MatCardModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSlideToggleModule,
-    MatTooltipModule,
-    MatSelectModule,
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [AppComponent, LogConfigComponent, LoggerFormComponent, CustomInstanceComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        LoggerModule.forRoot({ level: NgxLoggerLevel.DEBUG }),
+        MatToolbarModule,
+        MatCardModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSlideToggleModule,
+        MatTooltipModule,
+        MatSelectModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

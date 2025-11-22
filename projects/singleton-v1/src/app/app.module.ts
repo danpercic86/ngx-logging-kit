@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LoggerModule, NgxLoggerLevel } from 'src/public_api';
@@ -6,19 +6,12 @@ import { LoggerModule, NgxLoggerLevel } from 'src/public_api';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    LoggerModule.forRoot({
-      level: NgxLoggerLevel.TRACE,
-    }),
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        LoggerModule.forRoot({
+            level: NgxLoggerLevel.TRACE,
+        })], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

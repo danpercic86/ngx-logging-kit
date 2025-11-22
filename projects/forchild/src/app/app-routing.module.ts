@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main/main.component';
@@ -19,12 +19,6 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({
-  declarations: [MainComponent],
-  imports: [
-    RouterModule.forRoot(routes),
-    HttpClientModule,
-  ],
-  exports: [RouterModule]
-})
+@NgModule({ declarations: [MainComponent],
+    exports: [RouterModule], imports: [RouterModule.forRoot(routes)], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppRoutingModule { }

@@ -1,7 +1,8 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { NgxLoggerLevel } from '../types/logger-level.enum';
 import { NGXLoggerMapperService } from './mapper.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('NGXLoggerMapperService', () => {
   let mapper: NGXLoggerMapperService;
@@ -9,13 +10,13 @@ describe('NGXLoggerMapperService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-      ],
-      providers: [
+    imports: [],
+    providers: [
         NGXLoggerMapperService,
-      ]
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
 
     mapper = TestBed.inject(NGXLoggerMapperService);
   });
