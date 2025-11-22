@@ -7,9 +7,11 @@
 
       <mat-form-field>
         <mat-select placeholder="Log Type" name="logType" formControlName="logType" required>
-          <mat-option *ngFor="let logType of logTypes" [value]="logType.value">
-            {{logType.viewValue}}
-          </mat-option>
+          @for (logType of logTypes; track logType) {
+            <mat-option [value]="logType.value">
+              {{logType.viewValue}}
+            </mat-option>
+          }
         </mat-select>
       </mat-form-field>
 

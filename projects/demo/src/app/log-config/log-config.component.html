@@ -6,32 +6,33 @@
   </mat-card-header>
   <mat-card-content>
     <div class="log-level-display">
-<!--      TODO: Fix this after migration-->
-<!--      <mat-chip-list [selectable]="false">-->
-<!--        <strong>Logger Level</strong>-->
-<!--        <mat-chip [color]="loggerColor" [selected]="currentLogLevel !== NgxLoggerLevel.OFF">{{NgxLoggerLevel[currentLogLevel]}}</mat-chip>-->
-<!--      </mat-chip-list>-->
-    </div>
-    <div class="button-row">
-      <button mat-flat-button color="primary" (click)="handleButtonClick(NgxLoggerLevel.TRACE)">Trace</button>
-      <button mat-flat-button color="primary" (click)="handleButtonClick(NgxLoggerLevel.DEBUG)">Debug</button>
-    </div>
-    <div class="button-row">
-      <button mat-flat-button color="accent" (click)="handleButtonClick(NgxLoggerLevel.INFO)">Info</button>
-      <button mat-flat-button color="accent" (click)="handleButtonClick(NgxLoggerLevel.LOG)">Log</button>
-    </div>
-    <div class="button-row">
-      <button mat-flat-button color="warn" (click)="handleButtonClick(NgxLoggerLevel.WARN)">Warn</button>
-      <button mat-flat-button color="warn" (click)="handleButtonClick(NgxLoggerLevel.ERROR)">Error</button>
-    </div>
-    <div class="button-row">
-      <button mat-flat-button color="warn" (click)="handleButtonClick(NgxLoggerLevel.FATAL)">Fatal</button>
-    </div>
-    <div class="button-row">
-      <button mat-stroked-button (click)="handleButtonClick(NgxLoggerLevel.OFF)">Off (Nothing will be logged)</button>
-    </div>
+      <!--      TODO: Fix this after migration-->
+      <!--      <mat-chip-list [selectable]="false">-->
+      <!--        <strong>Logger Level</strong>-->
+      <!--        <mat-chip [color]="loggerColor" [selected]="currentLogLevel !== NgxLoggerLevel.OFF">{{NgxLoggerLevel[currentLogLevel]}}</mat-chip>-->
+    <!--      </mat-chip-list>-->
+  </div>
+  <div class="button-row">
+    <button mat-flat-button color="primary" (click)="handleButtonClick(NgxLoggerLevel.TRACE)">Trace</button>
+    <button mat-flat-button color="primary" (click)="handleButtonClick(NgxLoggerLevel.DEBUG)">Debug</button>
+  </div>
+  <div class="button-row">
+    <button mat-flat-button color="accent" (click)="handleButtonClick(NgxLoggerLevel.INFO)">Info</button>
+    <button mat-flat-button color="accent" (click)="handleButtonClick(NgxLoggerLevel.LOG)">Log</button>
+  </div>
+  <div class="button-row">
+    <button mat-flat-button color="warn" (click)="handleButtonClick(NgxLoggerLevel.WARN)">Warn</button>
+    <button mat-flat-button color="warn" (click)="handleButtonClick(NgxLoggerLevel.ERROR)">Error</button>
+  </div>
+  <div class="button-row">
+    <button mat-flat-button color="warn" (click)="handleButtonClick(NgxLoggerLevel.FATAL)">Fatal</button>
+  </div>
+  <div class="button-row">
+    <button mat-stroked-button (click)="handleButtonClick(NgxLoggerLevel.OFF)">Off (Nothing will be logged)</button>
+  </div>
 
-    <div *ngIf="serverLogging.checked" class="batch-config">
+  @if (serverLogging.checked) {
+    <div class="batch-config">
       <mat-form-field>
         <input #batchSize matInput placeholder="Batch size" type="number" (change)="batchSizeChange(batchSize.value)">
       </mat-form-field>
@@ -39,10 +40,11 @@
         <input #batchTimer matInput placeholder="Batch timer in miliseconds" type="number" (change)="batchTimerChange(batchTimer.value)">
       </mat-form-field>
     </div>
-    <hr/>
+  }
+  <hr/>
 
-    <mat-slide-toggle (change)="disableFileDetailsChange($event)" color="primary" matTooltip="The file name and line won't be logged">Disable file details</mat-slide-toggle>
-    <mat-slide-toggle #serverLogging class="server-logging" (change)="serverLoggingChange($event)" color="primary" matTooltip="The logger will send logs on a dummy url" >Server logging</mat-slide-toggle>
+  <mat-slide-toggle (change)="disableFileDetailsChange($event)" color="primary" matTooltip="The file name and line won't be logged">Disable file details</mat-slide-toggle>
+  <mat-slide-toggle #serverLogging class="server-logging" (change)="serverLoggingChange($event)" color="primary" matTooltip="The logger will send logs on a dummy url" >Server logging</mat-slide-toggle>
 
-  </mat-card-content>
+</mat-card-content>
 </mat-card>
