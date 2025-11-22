@@ -122,18 +122,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "demo:build"
+            "buildTarget": "demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "demo:build:production"
+              "buildTarget": "demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo:build"
+            "buildTarget": "demo:build"
           }
         },
         "test": {
@@ -256,18 +256,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "forchild:build"
+            "buildTarget": "forchild:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "forchild:build:production"
+              "buildTarget": "forchild:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "forchild:build"
+            "buildTarget": "forchild:build"
           }
         },
         "lint": {
@@ -372,18 +372,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "customise:build"
+            "buildTarget": "customise:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "customise:build:production"
+              "buildTarget": "customise:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "customise:build"
+            "buildTarget": "customise:build"
           }
         },
         "lint": {
@@ -469,18 +469,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "singleton-v1:build"
+            "buildTarget": "singleton-v1:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "singleton-v1:build:production"
+              "buildTarget": "singleton-v1:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "singleton-v1:build"
+            "buildTarget": "singleton-v1:build"
           }
         }
       }
@@ -553,18 +553,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "not-a-singleton:build"
+            "buildTarget": "not-a-singleton:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "not-a-singleton:build:production"
+              "buildTarget": "not-a-singleton:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "not-a-singleton:build"
+            "buildTarget": "not-a-singleton:build"
           }
         }
       }

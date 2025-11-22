@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import { NgxLoggerLevel } from '../../../../../src/public_api';
 
 @Component({
@@ -70,11 +70,11 @@ export class LogConfigComponent {
     this.serverLogging.emit(change.checked);
   }
 
-  batchSizeChange(batchSize: number) {
-    this.batchSize.emit(batchSize);
+  batchSizeChange(batchSize: string) {
+    this.batchSize.emit(parseInt(batchSize, 10));
   }
 
-  batchTimerChange(batchTimer: number) {
-    this.batchTimer.emit(batchTimer);
+  batchTimerChange(batchTimer: string) {
+    this.batchTimer.emit(parseInt(batchTimer, 10));
   }
 }
