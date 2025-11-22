@@ -3,12 +3,13 @@ import { NGXLogger } from '../../../../../src/public_api';
 import { CustomInstanceService } from './custom-instance.service';
 
 @Component({
-  selector: 'app-custom-instance',
-  templateUrl: './custom-instance.component.html',
-  styleUrls: ['./custom-instance.component.scss'],
-  providers: [
-    NGXLogger
-  ]
+    selector: 'app-custom-instance',
+    templateUrl: './custom-instance.component.html',
+    styleUrls: ['./custom-instance.component.scss'],
+    providers: [
+        NGXLogger
+    ],
+    standalone: false
 })
 /**
  * The CustomInstanceComponent uses a specific instance of the logger

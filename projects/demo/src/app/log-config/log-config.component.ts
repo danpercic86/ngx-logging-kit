@@ -3,9 +3,10 @@ import {MatSlideToggleChange} from "@angular/material/slide-toggle";
 import { NgxLoggerLevel } from '../../../../../src/public_api';
 
 @Component({
-  selector: 'app-log-config',
-  templateUrl: './log-config.component.html',
-  styleUrls: ['./log-config.component.scss']
+    selector: 'app-log-config',
+    templateUrl: './log-config.component.html',
+    styleUrls: ['./log-config.component.scss'],
+    standalone: false
 })
 /**
  * The LogConfigComponent allows a user to set the current log level for ngx-logger

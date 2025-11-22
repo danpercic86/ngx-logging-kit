@@ -8,7 +8,8 @@ export class LocalMonitor implements INGXLoggerMonitor {
 }
 
 @Component({
-  templateUrl: './singleton.component.html',
+    templateUrl: './singleton.component.html',
+    standalone: false
 })
 export class SingletonComponent {
 

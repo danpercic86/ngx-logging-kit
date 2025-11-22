@@ -4,9 +4,10 @@ import { NGXLogger, NgxLoggerLevel } from '../../../../src/public_api';
 import { LogEvent } from './models/log-event.model';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent {
   constructor(private logger: NGXLogger) {

@@ -2,7 +2,8 @@ import { Component } from "@angular/core";
 import { NGXLogger } from "src/public_api";
 
 @Component({
-  templateUrl: './auth-token.component.html',
+    templateUrl: './auth-token.component.html',
+    standalone: false
 })
 export class AuthTokenComponent {
 

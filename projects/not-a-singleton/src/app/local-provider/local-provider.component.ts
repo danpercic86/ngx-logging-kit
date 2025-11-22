@@ -2,8 +2,9 @@ import { Component } from "@angular/core";
 import { NGXLogger, NgxLoggerLevel } from "src/public_api";
 
 @Component({
-  templateUrl: './local-provider.component.html',
-  providers: [NGXLogger],
+    templateUrl: './local-provider.component.html',
+    providers: [NGXLogger],
+    standalone: false
 })
 export class LocalProviderComponent {
 

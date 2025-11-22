@@ -11,9 +11,10 @@ export interface LoggerSelectionOption {
 }
 
 @Component({
-  selector: 'app-logger',
-  templateUrl: './logger-form.component.html',
-  styleUrls: ['./logger-form.component.scss']
+    selector: 'app-logger',
+    templateUrl: './logger-form.component.html',
+    styleUrls: ['./logger-form.component.scss'],
+    standalone: false
 })
 /**
  * The LoggerComponent allows a user to enter a message and log it using ngx-logger. The user can select the type of log message.

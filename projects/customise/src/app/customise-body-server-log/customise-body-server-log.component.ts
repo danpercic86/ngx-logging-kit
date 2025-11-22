@@ -2,7 +2,8 @@ import { Component } from "@angular/core";
 import { NGXLogger } from "src/public_api";
 
 @Component({
-  templateUrl: './customise-body-server-log.component.html',
+    templateUrl: './customise-body-server-log.component.html',
+    standalone: false
 })
 export class CustomiseBodyServerLogComponent {
 
