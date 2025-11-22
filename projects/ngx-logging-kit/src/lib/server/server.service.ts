@@ -135,9 +135,13 @@ export class NGXLoggerServerService implements INGXLoggerServerService, OnDestro
 
     return finalRequest.pipe(
       concatMap(req => {
+        if (!this.httpBackend) {
+          console.error('NGXLogger : HttpBackend is not provided. Cannot send log to server.');
+          return throwError(() => new Error('HttpBackend not provided'));
+        }
         if (!req) {
           console.warn('NGXLogger : alterHttpRequest returned an invalid request (observable). Using default one instead');
-          return this.httpBackend.handle(defaultRequest)
+          return this.httpBackend.handle(defaultRequest);
         }
         return this.httpBackend.handle(req);
       }),

@@ -8,6 +8,7 @@
   "experimentalTernaries": true,
   "htmlWhitespaceSensitivity": "ignore",
   "arrowParens": "avoid",
+  "bracketSpacing": true,
   "overrides": [
     {
       "files": "**/*.html",

@@ -1,135 +1,93 @@
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { INGXLoggerMetadata } from '../metadata/imetadata';
-import { INGXLoggerConfig } from '../config/iconfig';
-import { INGXLoggerWriterService } from './iwriter.service';
-import { isPlatformBrowser } from '@angular/common';
-import { NgxLoggerLevel } from '../types/logger-level.enum';
-import { DEFAULT_COLOR_SCHEME } from './color-scheme';
+import {Injectable} from "@angular/core";
+import {INGXLoggerConfig} from "../config/iconfig";
+import {INGXLoggerMetadata} from "../metadata/imetadata";
+import {NgxLoggerLevel} from "../types/logger-level.enum";
+import {DEFAULT_COLOR_SCHEME} from "./color-scheme";
+import {INGXLoggerWriterService} from "./iwriter.service";
 
 @Injectable()
 export class NGXLoggerWriterService implements INGXLoggerWriterService {
-  protected platformId = inject<Object>(PLATFORM_ID);
+    /** List of functions called when preparing meta string */
+    protected prepareMetaStringFuncs: ((metadata: INGXLoggerMetadata, config: INGXLoggerConfig) => string)[] =
+        [this.getTimestampToWrite, this.getLevelToWrite, this.getFileDetailsToWrite, this.getContextToWrite];
 
+    /** Write the content sent to the log function to the console */
+    writeMessage(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): void {
+        const metaString = this.prepareMetaString(metadata, config);
 
-  protected readonly isIE: boolean;
-  protected readonly logFunc: (metadata: INGXLoggerMetadata, config: INGXLoggerConfig, metaString: string) => void;
-
-  /** List of functions called when preparing meta string */
-  protected prepareMetaStringFuncs: ((metadata: INGXLoggerMetadata, config: INGXLoggerConfig) => string)[] = [
-    this.getTimestampToWrite,
-    this.getLevelToWrite,
-    this.getFileDetailsToWrite,
-    this.getContextToWrite,
-  ];
-
-  constructor() {
-    const platformId = this.platformId;
-
-    this.isIE = !!(isPlatformBrowser(platformId) && navigator && navigator.userAgent &&
-      (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.userAgent.match(/Trident\//) || navigator.userAgent.match(/Edge\//)));
-
-    this.logFunc = this.isIE ? this.logIE.bind(this) : this.logModern.bind(this);
-  }
-
-  protected getTimestampToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
-    return metadata.timestamp || '';
-  }
-
-  protected getLevelToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
-    return NgxLoggerLevel[metadata.level];
-  }
-
-  protected getFileDetailsToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
-    return config.disableFileDetails === true ? '' : `[${metadata.fileName}:${metadata.lineNumber}:${metadata.columnNumber}]`;
-  }
-
-  protected getContextToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
-    return config.context ? `{${config.context}}` : '';
-  }
-
-  /** Generate a "meta" string that is displayed before the content sent to the log function */
-  protected prepareMetaString(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
-    let metaString = '';
-    this.prepareMetaStringFuncs.forEach(prepareMetaStringFunc => {
-      const metaItem = prepareMetaStringFunc(metadata, config);
-      if (metaItem) {
-        metaString = metaString + ' ' + metaItem;
-      }
-    })
-    return metaString.trim();
-  }
-
-  /** Get the color to use when writing to console */
-  protected getColor(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string | undefined {
-    const configColorScheme = config.colorScheme ?? DEFAULT_COLOR_SCHEME;
-
-    // this is needed to avoid a build error
-    if (metadata.level === NgxLoggerLevel.OFF) {
-      return undefined;
+        this.logFunc(metadata, config, metaString);
     }
-    return configColorScheme[metadata.level];
-  }
 
-  /** Log to the console specifically for IE */
-  protected logIE(metadata: INGXLoggerMetadata, config: INGXLoggerConfig, metaString: string): void {
-
-    // Coloring doesn't work in IE
-
-    // make sure additional isn't null or undefined so that ...additional doesn't error
-    const additional = metadata.additional || [];
-
-    switch (metadata.level) {
-      case NgxLoggerLevel.WARN:
-        console.warn(`${metaString} `, metadata.message, ...additional);
-        break;
-      case NgxLoggerLevel.ERROR:
-      case NgxLoggerLevel.FATAL:
-        console.error(`${metaString} `, metadata.message, ...additional);
-        break;
-      case NgxLoggerLevel.INFO:
-        console.info(`${metaString} `, metadata.message, ...additional);
-        break;
-      default:
-        console.log(`${metaString} `, metadata.message, ...additional);
+    protected getTimestampToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
+        return metadata.timestamp || "";
     }
-  }
 
-  /** Log to the console */
-  protected logModern(metadata: INGXLoggerMetadata, config: INGXLoggerConfig, metaString: string): void {
-    const color = this.getColor(metadata, config);
-
-    // make sure additional isn't null or undefined so that ...additional doesn't error
-    const additional = metadata.additional || [];
-
-    switch (metadata.level) {
-      case NgxLoggerLevel.WARN:
-        console.warn(`%c${metaString}`, `color:${color}`, metadata.message, ...additional);
-        break;
-      case NgxLoggerLevel.ERROR:
-      case NgxLoggerLevel.FATAL:
-        console.error(`%c${metaString}`, `color:${color}`, metadata.message, ...additional);
-        break;
-      case NgxLoggerLevel.INFO:
-        console.info(`%c${metaString}`, `color:${color}`, metadata.message, ...additional);
-        break;
-      //  Disabling console.trace since the stack trace is not helpful. it is showing the stack trace of
-      // the console.trace statement
-      // case NgxLoggerLevel.TRACE:
-      //   console.trace(`%c${metaString}`, `color:${color}`, message, ...additional);
-      //   break;
-
-      case NgxLoggerLevel.DEBUG:
-        console.debug(`%c${metaString}`, `color:${color}`, metadata.message, ...additional);
-        break;
-      default:
-        console.log(`%c${metaString}`, `color:${color}`, metadata.message, ...additional);
+    protected getLevelToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
+        return NgxLoggerLevel[metadata.level];
     }
-  }
 
-  /** Write the content sent to the log function to the console */
-  public writeMessage(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): void {
-    const metaString = this.prepareMetaString(metadata, config);
+    protected getFileDetailsToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
+        return config.disableFileDetails === true ?
+            ""
+            : `[${metadata.fileName}:${metadata.lineNumber}:${metadata.columnNumber}]`;
+    }
 
-    this.logFunc(metadata, config, metaString);
-  }
+    protected getContextToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
+        return config.context ? `{${config.context}}` : "";
+    }
+
+    /** Generate a "meta" string that is displayed before the content sent to the log function */
+    protected prepareMetaString(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
+        let metaString = "";
+        this.prepareMetaStringFuncs.forEach(prepareMetaStringFunc => {
+            const metaItem = prepareMetaStringFunc(metadata, config);
+            if (metaItem) {
+                metaString = metaString + " " + metaItem;
+            }
+        });
+        return metaString.trim();
+    }
+
+    /** Get the color to use when writing to console */
+    protected getColor(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string | undefined {
+        const configColorScheme = config.colorScheme ?? DEFAULT_COLOR_SCHEME;
+
+        // this is needed to avoid a build error
+        if (metadata.level === NgxLoggerLevel.OFF) {
+            return undefined;
+        }
+        return configColorScheme[metadata.level];
+    }
+
+    /** Log to the console */
+    protected logFunc(metadata: INGXLoggerMetadata, config: INGXLoggerConfig, metaString: string): void {
+        const color = this.getColor(metadata, config);
+
+        // make sure additional isn't null or undefined so that ...additional doesn't error
+        const additional = metadata.additional || [];
+
+        switch (metadata.level) {
+            case NgxLoggerLevel.WARN:
+                console.warn(`%c${metaString}`, `color:${color}`, metadata.message, ...additional);
+                break;
+            case NgxLoggerLevel.ERROR:
+            case NgxLoggerLevel.FATAL:
+                console.error(`%c${metaString}`, `color:${color}`, metadata.message, ...additional);
+                break;
+            case NgxLoggerLevel.INFO:
+                console.info(`%c${metaString}`, `color:${color}`, metadata.message, ...additional);
+                break;
+            //  Disabling console.trace since the stack trace is not helpful. it is showing the stack trace of
+            // the console.trace statement
+            // case NgxLoggerLevel.TRACE:
+            //   console.trace(`%c${metaString}`, `color:${color}`, message, ...additional);
+            //   break;
+
+            case NgxLoggerLevel.DEBUG:
+                console.debug(`%c${metaString}`, `color:${color}`, metadata.message, ...additional);
+                break;
+            default:
+                console.log(`%c${metaString}`, `color:${color}`, metadata.message, ...additional);
+        }
+    }
 }
