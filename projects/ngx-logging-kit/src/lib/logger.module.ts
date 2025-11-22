@@ -1,4 +1,3 @@
-import {CommonModule} from '@angular/common';
 import {
     ClassProvider,
     ConstructorProvider,
@@ -24,11 +23,7 @@ import {NGXLoggerServerService} from './server/server.service';
 import {TOKEN_LOGGER_WRITER_SERVICE} from './writer/iwriter.service';
 import {NGXLoggerWriterService} from './writer/writer.service';
 
-@NgModule({
-    imports: [
-        CommonModule
-    ],
-})
+@NgModule({})
 /**
  * @deprecated Use `provideLogger` instead.
  */
@@ -45,9 +40,7 @@ export class LoggerModule {
             serverProvider?: ValueProvider | ClassProvider | ConstructorProvider | ExistingProvider | FactoryProvider,
         }
     ): ModuleWithProviders<LoggerModule> {
-        if (!customProvider) {
-            customProvider = {}
-        }
+        customProvider ??= {};
 
         // default config provider
         if (!customProvider.configProvider) {
