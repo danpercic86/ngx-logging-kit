@@ -3,5 +3,8 @@
   "dest": "../../dist/ngx-logging-kit",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": [
+    "vlq"
+  ]
 }

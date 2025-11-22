@@ -22,6 +22,9 @@ import { TOKEN_LOGGER_CONFIG_ENGINE_FACTORY } from './config/iconfig-engine-fact
     CommonModule
   ],
 })
+/**
+ * @deprecated Use `provideLogger` instead.
+ */
 export class LoggerModule {
   static forRoot(
     config: INGXLoggerConfig | null | undefined,

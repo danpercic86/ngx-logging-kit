@@ -10,7 +10,7 @@ import { INGXLoggerServerService } from './iserver.service';
 export class NGXLoggerServerService implements INGXLoggerServerService, OnDestroy {
   protected serverCallsQueue: INGXLoggerMetadata[] = [];
   protected flushingQueue: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  protected addToQueueTimer: Subscription;
+  protected addToQueueTimer: Subscription | null = null;
 
   constructor(
     @Optional() protected readonly httpBackend: HttpBackend,
@@ -20,7 +20,7 @@ export class NGXLoggerServerService implements INGXLoggerServerService, OnDestro
   ngOnDestroy(): void {
     if (this.flushingQueue) {
       this.flushingQueue.complete();
-      this.flushingQueue = null;
+      this.flushingQueue = null!;
     }
     if (this.addToQueueTimer) {
       this.addToQueueTimer.unsubscribe();
@@ -35,7 +35,7 @@ export class NGXLoggerServerService implements INGXLoggerServerService, OnDestro
    * @returns The stack of the error
    */
   protected secureErrorObject(err: Error): string {
-    return err?.stack;
+    return err?.stack || '';
   }
 
   /**
@@ -46,7 +46,7 @@ export class NGXLoggerServerService implements INGXLoggerServerService, OnDestro
    */
   protected secureAdditionalParameters(additional: any[]): any[] {
     if (additional === null || additional === undefined) {
-      return null;
+      return null!;
     }
 
     return additional.map((next, idx) => {
@@ -185,7 +185,7 @@ export class NGXLoggerServerService implements INGXLoggerServerService, OnDestro
     const secureMetadata = (pMetadata: INGXLoggerMetadata) => {
       // Copying metadata locally because we don't want to change the object for the caller
       const securedMetadata: INGXLoggerMetadata = { ...pMetadata };
-      securedMetadata.additional = this.secureAdditionalParameters(securedMetadata.additional);
+      securedMetadata.additional = this.secureAdditionalParameters(securedMetadata.additional || []);
       securedMetadata.message = this.secureMessage(securedMetadata.message);
       return securedMetadata;
     }
@@ -209,7 +209,7 @@ export class NGXLoggerServerService implements INGXLoggerServerService, OnDestro
 
     const logOnServerAction = () => {
       this.logOnServer(
-        config.serverLoggingUrl,
+        config.serverLoggingUrl!,
         requestBody,
         {
           headers,
@@ -256,8 +256,8 @@ export class NGXLoggerServerService implements INGXLoggerServerService, OnDestro
         this.flushQueue(config);
       }
       // Call timer only if it is in the config and timer is not already running
-      if (config.serverCallsTimer > 0 && !this.addToQueueTimer) {
-        this.addToQueueTimer = timer(config.serverCallsTimer).subscribe(_ => {
+      if ((config.serverCallsTimer || 0) > 0 && !this.addToQueueTimer) {
+        this.addToQueueTimer = timer(config.serverCallsTimer!).subscribe(_ => {
           this.flushQueue(config);
         });
       }

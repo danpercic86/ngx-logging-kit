@@ -40,22 +40,22 @@ describe('NGXLoggerRulesService', () => {
       spyOn(rulesService, 'shouldCallServer').and.returnValue(false);
       spyOn(rulesService, 'shouldCallWriter').and.returnValue(false);
 
-      expect(rulesService.shouldCallMonitor(null, null)).toBe(false);
+      expect(rulesService.shouldCallMonitor(null as any, null as any)).toBe(false);
 
       rulesService.shouldCallServer = jasmine.createSpy().and.returnValue(true);
       rulesService.shouldCallWriter = jasmine.createSpy().and.returnValue(false);
 
-      expect(rulesService.shouldCallMonitor(null, null)).toBe(true);
+      expect(rulesService.shouldCallMonitor(null as any, null as any)).toBe(true);
 
       rulesService.shouldCallServer = jasmine.createSpy().and.returnValue(false);
       rulesService.shouldCallWriter = jasmine.createSpy().and.returnValue(true);
 
-      expect(rulesService.shouldCallMonitor(null, null)).toBe(true);
+      expect(rulesService.shouldCallMonitor(null as any, null as any)).toBe(true);
 
       rulesService.shouldCallServer = jasmine.createSpy().and.returnValue(true);
       rulesService.shouldCallWriter = jasmine.createSpy().and.returnValue(true);
 
-      expect(rulesService.shouldCallMonitor(null, null)).toBe(true);
+      expect(rulesService.shouldCallMonitor(null as any, null as any)).toBe(true);
     });
   });
 });

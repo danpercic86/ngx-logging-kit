@@ -3,6 +3,7 @@ import { SourceMap } from '@angular/compiler';
 import { Injectable, Optional } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, filter, map, retry, shareReplay } from 'rxjs/operators';
+// @ts-ignore
 import * as vlq from 'vlq';
 import { INGXLoggerConfig } from '../config/iconfig';
 import { INGXLoggerMetadata } from '../metadata/imetadata';
@@ -80,15 +81,15 @@ export class NGXLoggerMapperService implements INGXLoggerMapperService {
         // at AppComponent.handleLog (app.component.ts:38)
 
         let defaultProxy = 4; // We make 4 functions call before getting here
-        const firstStackLine = error.stack.split('\n')[0];
+        const firstStackLine = (error.stack || '').split('\n')[0];
         if (!firstStackLine.includes('.js:')) {
           // The stacktrace starts with no function call (example in Chrome or Edge)
           defaultProxy = defaultProxy + 1;
         }
 
-        return error.stack.split('\n')[(defaultProxy + (config.proxiedSteps || 0))];
+        return (error.stack || '').split('\n')[(defaultProxy + (config.proxiedSteps || 0))];
       } catch (e) {
-        return null;
+        return null!;
       }
     }
   }
@@ -108,7 +109,7 @@ export class NGXLoggerMapperService implements INGXLoggerMapperService {
     const positionStartIndex = stackLine.lastIndexOf('\/');
     let positionEndIndex = stackLine.indexOf(')');
     if (positionEndIndex < 0) {
-      positionEndIndex = undefined;
+      positionEndIndex = -1;
     }
 
     const position = stackLine.substring(positionStartIndex + 1, positionEndIndex);
@@ -133,7 +134,7 @@ export class NGXLoggerMapperService implements INGXLoggerMapperService {
 
     let locationEndIndex = stackLine.indexOf(')');
     if (locationEndIndex < 0) {
-      locationEndIndex = undefined;
+      locationEndIndex = -1;
     }
 
     return stackLine.substring(locationStartIndex + 1, locationEndIndex);
@@ -203,14 +204,14 @@ export class NGXLoggerMapperService implements INGXLoggerMapperService {
 
     // if the specific log position is already in cache return it
     if (this.logPositionCache.has(distPositionKey)) {
-      return this.logPositionCache.get(distPositionKey);
+      return this.logPositionCache.get(distPositionKey)!;
     }
 
     // otherwise check if the source map is already cached for given source map location
     if (!this.sourceMapCache.has(sourceMapLocation)) {
       if (!this.httpBackend) {
         console.error('NGXLogger : Can\'t get sourcemap because HttpBackend is not provided. You need to import HttpClientModule');
-        this.sourceMapCache.set(sourceMapLocation, of(null));
+        this.sourceMapCache.set(sourceMapLocation, of(null as unknown as SourceMap));
       } else {
         // obtain the source map if not cached
         this.sourceMapCache.set(
@@ -218,7 +219,7 @@ export class NGXLoggerMapperService implements INGXLoggerMapperService {
           this.httpBackend.handle(req).pipe(
             filter((e) => e instanceof HttpResponse),
             map<HttpResponse<SourceMap>, SourceMap>(
-              (httpResponse: HttpResponse<SourceMap>) => httpResponse.body
+              (httpResponse: HttpResponse<SourceMap>) => httpResponse.body!
             ),
             retry(3),
             shareReplay(1)
@@ -228,7 +229,7 @@ export class NGXLoggerMapperService implements INGXLoggerMapperService {
     }
 
     // at this point the source map is cached, use it to get specific log position mapping
-    const logPosition$ = this.sourceMapCache.get(sourceMapLocation).pipe(
+    const logPosition$ = this.sourceMapCache.get(sourceMapLocation)!.pipe(
       map<SourceMap, INGXLoggerLogPosition>((sourceMap) => {
         // sourceMap can be null if HttpBackend is not provided for example
         if (!sourceMap) {

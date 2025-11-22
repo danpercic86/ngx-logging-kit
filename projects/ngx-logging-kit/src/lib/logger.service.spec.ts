@@ -140,17 +140,17 @@ describe('NGXLogger', () => {
     ));
   });
 
-  describe('registerMonitor', () => {
-    // TODO
-  });
+  // xdescribe('registerMonitor', () => {
+  //   // TODO
+  // });
 
-  describe('updateConfig', () => {
-    // TODO
-  });
+  // xdescribe('updateConfig', () => {
+  //   // TODO
+  // });
 
-  describe('getConfigSnapshot', () => {
-    // TODO
-  });
+  // xdescribe('getConfigSnapshot', () => {
+  //   // TODO
+  // });
 
   describe('_log', () => {
     it('should not do anything if nothing should be called', inject(

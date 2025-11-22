@@ -15,7 +15,7 @@ import {INGXLoggerWriterService, TOKEN_LOGGER_WRITER_SERVICE} from './writer/iwr
   providedIn: 'root'
 })
 export class NGXLogger {
-  private _loggerMonitor: INGXLoggerMonitor;
+  private _loggerMonitor?: INGXLoggerMonitor;
   private configEngine: INGXLoggerConfigEngine;
 
   constructor(

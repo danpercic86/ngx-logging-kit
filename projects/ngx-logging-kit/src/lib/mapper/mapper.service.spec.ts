@@ -25,13 +25,13 @@ describe('NGXLoggerMapperService', () => {
     it('should return good logPosition', (done: DoneFn) => {
 
       mapper.getLogPosition({ level: NgxLoggerLevel.ERROR, enableSourceMaps: false, proxiedSteps }, { level: NgxLoggerLevel.ERROR, message: 'test' }).subscribe(result => {
-        expect(result).toEqual({ fileName: 'mapper.service.spec.ts', lineNumber: 26, columnNumber: 14 });
+        expect(result).toEqual({ fileName: 'mapper.service.spec.ts', lineNumber: 27, columnNumber: 14 });
         done();
       });
     });
   });
 
-  describe('getLogPosition with sourcemap', () => {
-    // todo
-  });
+  // xdescribe('getLogPosition with sourcemap', () => {
+  //   // todo
+  // });
 });

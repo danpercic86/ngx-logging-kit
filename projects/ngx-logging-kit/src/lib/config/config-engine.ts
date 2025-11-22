@@ -19,7 +19,7 @@ export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
 
   /** Get a readonly access to the serverLogLevel configured for the NGXLogger */
   get serverLogLevel(): NgxLoggerLevel {
-    return this.config.serverLogLevel;
+    return this.config.serverLogLevel!;
   }
 
   updateConfig(config: INGXLoggerConfig) {
@@ -36,7 +36,7 @@ export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
     }
 
     Object.keys(partialConfig).forEach(configParamKey => {
-      this.config[configParamKey] = partialConfig[configParamKey];
+      (this.config as any)[configParamKey] = (partialConfig as any)[configParamKey];
     });
   }
 
@@ -46,7 +46,7 @@ export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
 
   // TODO: This is a shallow clone, If the config ever becomes hierarchical we must make this a deep clone
   private _clone(object: any) {
-    const cloneConfig: INGXLoggerConfig = {level: null};
+    const cloneConfig: any = {};
 
     Object.keys(object).forEach((key) => {
       cloneConfig[key] = object[key];

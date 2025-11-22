@@ -21,16 +21,16 @@ export class NGXLoggerWriterService implements INGXLoggerWriterService {
   ];
 
   constructor(
-    @Inject(PLATFORM_ID) protected platformId,
+    @Inject(PLATFORM_ID) protected platformId: Object,
   ) {
-    this.isIE = isPlatformBrowser(platformId) && navigator && navigator.userAgent &&
-      !!(navigator.userAgent.indexOf('MSIE') !== -1 || navigator.userAgent.match(/Trident\//) || navigator.userAgent.match(/Edge\//));
+    this.isIE = !!(isPlatformBrowser(platformId) && navigator && navigator.userAgent &&
+      (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.userAgent.match(/Trident\//) || navigator.userAgent.match(/Edge\//)));
 
     this.logFunc = this.isIE ? this.logIE.bind(this) : this.logModern.bind(this);
   }
 
   protected getTimestampToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
-    return metadata.timestamp;
+    return metadata.timestamp || '';
   }
 
   protected getLevelToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {

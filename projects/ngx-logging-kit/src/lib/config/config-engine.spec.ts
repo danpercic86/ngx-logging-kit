@@ -22,7 +22,7 @@ describe('NGXLoggerConfigEngine', () => {
     it('should return good serverLogLevel', () => {
       const configEngine = new NGXLoggerConfigEngine({ level: NgxLoggerLevel.ERROR });
 
-      expect(configEngine.serverLogLevel).toBe(undefined);
+      expect(configEngine.serverLogLevel).toBe(undefined as any);
     });
   });
 

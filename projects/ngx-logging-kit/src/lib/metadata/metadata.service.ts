@@ -20,7 +20,7 @@ export class NGXLoggerMetadataService implements INGXLoggerMetadataService {
         console.error('NGXLogger : Can\'t use timeStampFormat because DatePipe is not provided. You need to provide DatePipe');
         return defaultTimestamp();
       } else {
-        return this.datePipe.transform(new Date(), config.timestampFormat);
+        return this.datePipe.transform(new Date(), config.timestampFormat) || defaultTimestamp();
       }
     }
 
