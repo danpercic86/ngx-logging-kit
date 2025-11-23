@@ -4,10 +4,13 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/lib",
+    "baseUrl": ".",
+    "paths": {
+      "vlq": ["src/types.d.ts"]
+    },
     "declaration": true,
     "declarationMap": true,
-    "inlineSources": true,
-    "types": []
+    "inlineSources": true
   },
   "include": [
     "src/**/*.ts"
