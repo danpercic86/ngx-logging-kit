@@ -2,7 +2,7 @@
  * Position of caller
  */
 export interface INGXLoggerLogPosition {
-    fileName?: string;
-    lineNumber?: number;
-    columnNumber?: number;
+    readonly fileName: string;
+    readonly lineNumber: number;
+    readonly columnNumber: number;
 }

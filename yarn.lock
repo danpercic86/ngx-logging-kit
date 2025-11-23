@@ -397,6 +397,20 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/platform-browser-dynamic@^21.0.0":
+  version "21.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-21.0.0.tgz#2bd67ab293575107445fbbb86b01f943f78a837f"
+  integrity sha512-H7nfgQvtzl242Tjs34k20XQC3ZNssJCCvYkGTkVowR61khsX87OE5ggKqTSnLiqq1+OoR29hyvvqn5e9truS7w==
+  dependencies:
+    tslib "^2.3.0"
+
+"@angular/platform-browser@^21.0.0":
+  version "21.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-21.0.0.tgz#85465cfb4c7e254803725f1bd1651f1d4bd8a1e4"
+  integrity sha512-KQrANla4RBLhcGkwlndqsKzBwVFOWQr1640CfBVjj2oz4M3dW5hyMtXivBACvuwyUhYU/qJbqlDMBXl/OUSudQ==
+  dependencies:
+    tslib "^2.3.0"
+
 "@asamuzakjp/css-color@^4.0.3":
   version "4.1.0"
   resolved "https://registry.npmjs.org/@asamuzakjp/css-color/-/css-color-4.1.0.tgz"

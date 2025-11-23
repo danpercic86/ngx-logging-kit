@@ -1,5 +1,4 @@
 import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
-import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 import { beforeEach, describe, expect, it } from "vitest";
 import { NgxLogLevels } from "../types/logger-levels";
@@ -11,12 +10,7 @@ describe("NGXLoggerMapperService", () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [],
-            providers: [
-                NGXLoggerMapperService,
-                provideHttpClient(withInterceptorsFromDi()),
-                provideHttpClientTesting(),
-            ],
+            providers: [NGXLoggerMapperService, provideHttpClient(withInterceptorsFromDi())],
         });
 
         mapper = TestBed.inject(NGXLoggerMapperService);
@@ -30,16 +24,13 @@ describe("NGXLoggerMapperService", () => {
                     { level: NgxLogLevels.ERROR, message: "test" },
                 )
                 .subscribe(result => {
+                    console.log(result);
                     expect(result).toEqual({
                         fileName: "mapper.service.spec.ts",
-                        lineNumber: 27,
-                        columnNumber: 14,
+                        lineNumber: 22,
+                        columnNumber: 18,
                     });
                 });
         });
     });
-
-    // xdescribe('getLogPosition with sourcemap', () => {
-    //   // todo
-    // });
 });
