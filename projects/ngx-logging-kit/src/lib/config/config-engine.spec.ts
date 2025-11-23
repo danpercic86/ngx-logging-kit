@@ -18,12 +18,13 @@ describe('NGXLoggerConfigEngine', () => {
     });
 
     describe('get serverLogLevel', () => {
-        it('should return good serverLogLevel', () => {
-            const configEngine = new NGXLoggerConfigEngine({level: NgxLoggerLevel.ERROR});
+    it('should return good serverLogLevel', () => {
+      const configEngine = new NGXLoggerConfigEngine({ level: NgxLoggerLevel.ERROR });
 
-            expect(configEngine.serverLogLevel).toBe(NgxLoggerLevel.ERROR);
-        });
+      // When serverLogLevel is not set, it defaults to OFF
+      expect(configEngine.serverLogLevel).toBe(NgxLoggerLevel.OFF);
     });
+  });
 
     describe('updateConfig', () => {
         it('should update config without keeping the reference to the object', () => {
@@ -32,13 +33,13 @@ describe('NGXLoggerConfigEngine', () => {
 
             configEngine.updateConfig(myNewConfig);
 
-            expect(configEngine['config'].serverLoggingUrl).toEqual('test');
+            expect(configEngine.getConfig().serverLoggingUrl).toEqual('test');
 
             myNewConfig.serverLoggingUrl = 'changed value';
 
             // if value here is 'changed value', this means the update config took the reference to the object
             // we don't want that because if the object is changed later it also changes the logger config
-            expect(configEngine['config'].serverLoggingUrl).toEqual('test');
+            expect(configEngine.getConfig().serverLoggingUrl).toEqual('test');
         });
     });
 

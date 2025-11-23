@@ -35,7 +35,7 @@ describe('NGXLogger', () => {
     it('should call _log with trace', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), '_log');
+        const logSpy = spyOn((logger as any), 'log_internal');
 
         logger.trace('message');
 
@@ -48,7 +48,7 @@ describe('NGXLogger', () => {
     it('should call _log with debug', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), '_log');
+        const logSpy = spyOn((logger as any), 'log_internal');
 
         logger.debug('message');
 
@@ -61,7 +61,7 @@ describe('NGXLogger', () => {
     it('should call _log with info', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), '_log');
+        const logSpy = spyOn((logger as any), 'log_internal');
 
         logger.info('message');
 
@@ -74,7 +74,7 @@ describe('NGXLogger', () => {
     it('should call _log with log', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), '_log');
+        const logSpy = spyOn((logger as any), 'log_internal');
 
         logger.log('message');
 
@@ -87,7 +87,7 @@ describe('NGXLogger', () => {
     it('should call _log with warn', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), '_log');
+        const logSpy = spyOn((logger as any), 'log_internal');
 
         logger.warn('message');
 
@@ -100,7 +100,7 @@ describe('NGXLogger', () => {
     it('should call _log with error', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), '_log');
+        const logSpy = spyOn((logger as any), 'log_internal');
 
         logger.error('message');
 
@@ -113,7 +113,7 @@ describe('NGXLogger', () => {
     it('should call _log with fatal', inject(
       [NGXLogger],
       (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), '_log');
+        const logSpy = spyOn((logger as any), 'log_internal');
 
         logger.fatal('message');
 
@@ -152,7 +152,7 @@ describe('NGXLogger', () => {
   //   // TODO
   // });
 
-  describe('_log', () => {
+  describe('log_internal', () => {
     it('should not do anything if nothing should be called', inject(
       [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_METADATA_SERVICE],
       (logger: NGXLogger, ruleService: NGXLoggerRulesServiceMock, metadataService: NGXLoggerMetadataServiceMock) => {

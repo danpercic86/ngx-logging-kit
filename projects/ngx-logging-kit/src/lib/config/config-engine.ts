@@ -1,57 +1,78 @@
-import {NgxLoggerLevel} from '../types/logger-level.enum';
-import {INGXLoggerConfigEngine} from './iconfig-engine';
-import {INGXLoggerConfig} from './iconfig';
+import { computed, signal, type Signal, type WritableSignal } from '@angular/core';
+import { NgxLoggerLevel } from '../types/logger-level.enum';
+import { INGXLoggerConfigEngine } from './iconfig-engine';
+import { INGXLoggerConfig } from './iconfig';
 
+/**
+ * Configuration engine using Angular signals for reactive state management
+ * Provides immutable config updates and computed derived values
+ */
 export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
+  private readonly configSignal: WritableSignal<INGXLoggerConfig>;
 
-  private config: INGXLoggerConfig;
+  // Internal computed signals for reactive state
+  private readonly levelSignal: Signal<NgxLoggerLevel>;
+  private readonly serverLogLevelSignal: Signal<NgxLoggerLevel>;
 
-  constructor(
-    config: INGXLoggerConfig,
-  ) {
-    this.config = this._clone(config);
+  constructor(initialConfig: INGXLoggerConfig) {
+    this.configSignal = signal(this.cloneConfig(initialConfig));
+
+    this.levelSignal = computed(() => this.configSignal().level);
+    this.serverLogLevelSignal = computed(
+      () => this.configSignal().serverLogLevel ?? NgxLoggerLevel.OFF
+    );
   }
 
-  /** Get a readonly access to the level configured for the NGXLogger */
+  /**
+   * Get a readonly access to the level configured for the NGXLogger
+   * @returns The configured minimum log level
+   */
   get level(): NgxLoggerLevel {
-    return this.config.level;
+    return this.levelSignal();
   }
 
-  /** Get a readonly access to the serverLogLevel configured for the NGXLogger */
+  /**
+   * Get a readonly access to the serverLogLevel configured for the NGXLogger
+   * @returns The configured minimum server log level
+   */
   get serverLogLevel(): NgxLoggerLevel {
-    return this.config.serverLogLevel!;
+    return this.serverLogLevelSignal();
   }
 
-  updateConfig(config: INGXLoggerConfig) {
-    this.config = this._clone(config);
+  /**
+   * Updates the entire configuration
+   * @param config New configuration to set
+   */
+  updateConfig(config: INGXLoggerConfig): void {
+    this.configSignal.set(this.cloneConfig(config));
   }
 
-  /** Update the config partially
+  /**
+   * Updates the config partially
    * This is useful if you want to update only one parameter of the config
+   * @param partialConfig Partial configuration to merge with current config
    */
   partialUpdateConfig(partialConfig: Partial<INGXLoggerConfig>): void {
-    // avoid any error if the config is incorrect
-    if (!partialConfig) {
-      return;
-    }
-
-    Object.keys(partialConfig).forEach(configParamKey => {
-      (this.config as any)[configParamKey] = (partialConfig as any)[configParamKey];
-    });
+    this.configSignal.update((current) => ({
+      ...current,
+      ...partialConfig,
+    }));
   }
 
+  /**
+   * Get a snapshot of the current configuration
+   * @returns A cloned copy of the current configuration
+   */
   getConfig(): INGXLoggerConfig {
-    return this._clone(this.config);
+    return this.cloneConfig(this.configSignal());
   }
 
-  // TODO: This is a shallow clone, If the config ever becomes hierarchical we must make this a deep clone
-  private _clone(object: any) {
-    const cloneConfig: any = {};
-
-    Object.keys(object).forEach((key) => {
-      cloneConfig[key] = object[key];
-    });
-
-    return cloneConfig;
+  /**
+   * Creates a shallow clone of the configuration object
+   * @param config Configuration to clone
+   * @returns Cloned configuration
+   */
+  private cloneConfig(config: INGXLoggerConfig): INGXLoggerConfig {
+    return { ...config };
   }
 }
