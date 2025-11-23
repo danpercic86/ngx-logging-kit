@@ -1,6 +1,6 @@
 import { InjectionToken } from "@angular/core";
 import { INGXLoggerConfig } from "../config/iconfig";
-import { NgxLoggerLevel } from "../types/logger-level.enum";
+import { NgxLogLevel } from "../types/logger-levels";
 import { INGXLoggerMetadata } from "./imetadata";
 
 /**
@@ -17,7 +17,7 @@ export interface INGXLoggerMetadataService {
      * @param additional
      */
     getMetadata(
-        level: NgxLoggerLevel,
+        level: NgxLogLevel,
         config: INGXLoggerConfig,
         message?: unknown | (() => unknown),
         additional?: unknown[],

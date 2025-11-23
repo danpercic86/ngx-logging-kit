@@ -1,12 +1,12 @@
-import { NgxLoggerLevel } from "../types/logger-level.enum";
+import { NgxLogLevel } from "../types/logger-levels";
 import { INGXLoggerConfig } from "./iconfig";
 
 export interface INGXLoggerConfigEngine {
     /** Get a readonly access to the level configured for the NGXLogger */
-    readonly level: NgxLoggerLevel;
+    readonly level: NgxLogLevel;
 
     /** Get a readonly access to the serverLogLevel configured for the NGXLogger */
-    readonly serverLogLevel: NgxLoggerLevel;
+    readonly serverLogLevel: NgxLogLevel;
 
     /** Update the config */
     updateConfig(config: INGXLoggerConfig): void;

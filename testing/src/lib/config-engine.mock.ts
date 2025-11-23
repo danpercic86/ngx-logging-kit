@@ -1,26 +1,27 @@
-import {Injectable} from '@angular/core';
-import {INGXLoggerConfig} from "../../../projects/ngx-logging-kit/src/lib/config/iconfig";
-import {INGXLoggerConfigEngine} from "../../../projects/ngx-logging-kit/src/lib/config/iconfig-engine";
-import {NgxLoggerLevel} from "../../../projects/ngx-logging-kit/src/lib/types/logger-level.enum";
+import { Injectable } from "@angular/core";
+import { INGXLoggerConfig } from "../../../projects/ngx-logging-kit/src/lib/config/iconfig";
+import { INGXLoggerConfigEngine } from "../../../projects/ngx-logging-kit/src/lib/config/iconfig-engine";
+import { NgxLogLevel, NgxLogLevels } from "../../../projects/ngx-logging-kit/src/lib/types/logger-levels";
 
 @Injectable()
 export class NGXLoggerConfigEngineMock implements INGXLoggerConfigEngine {
+    get level(): NgxLogLevel {
+        return NgxLogLevels.ERROR;
+    }
 
-  get level(): NgxLoggerLevel {
-    return NgxLoggerLevel.ERROR;
-  }
+    get serverLogLevel(): NgxLogLevel {
+        return NgxLogLevels.OFF;
+    }
 
-  get serverLogLevel(): NgxLoggerLevel {
-    return NgxLoggerLevel.OFF;
-  }
+    updateConfig(config: INGXLoggerConfig): void {
+        /* empty */
+    }
 
-  updateConfig(config: INGXLoggerConfig) {
-  }
+    partialUpdateConfig(partialConfig: Partial<INGXLoggerConfig>): void {
+        /* empty */
+    }
 
-  partialUpdateConfig(partialConfig: Partial<INGXLoggerConfig>): void {
-  }
-
-  getConfig(): INGXLoggerConfig {
-    return {level: NgxLoggerLevel.ERROR};
-  }
+    getConfig(): INGXLoggerConfig {
+        return { level: NgxLogLevels.ERROR };
+    }
 }

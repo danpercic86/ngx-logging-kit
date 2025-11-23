@@ -9,6 +9,6 @@ import {INGXLoggerMetadata} from "../../../projects/ngx-logging-kit/src/lib/meta
 @Injectable()
 export class NGXLoggerMapperServiceMock implements INGXLoggerMapperService {
   getLogPosition(config: INGXLoggerConfig, metadata: INGXLoggerMetadata): Observable<INGXLoggerLogPosition> {
-    return of({fileName: 'test.ts'});
+    return of({fileName: 'public-api.ts'});
   }
 }

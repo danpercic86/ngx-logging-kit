@@ -1,7 +1,8 @@
 import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import { provideHttpClientTesting } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
-import { NgxLoggerLevel } from "../types/logger-level.enum";
+import { beforeEach, describe, expect, it } from "vitest";
+import { NgxLogLevels } from "../types/logger-levels";
 import { NGXLoggerMapperService } from "./mapper.service";
 
 describe("NGXLoggerMapperService", () => {
@@ -22,11 +23,11 @@ describe("NGXLoggerMapperService", () => {
     });
 
     describe("getLogPosition", () => {
-        it("should return good logPosition", (done: DoneFn) => {
+        it("should return good logPosition", () => {
             mapper
                 .getLogPosition(
-                    { level: NgxLoggerLevel.ERROR, enableSourceMaps: false, proxiedSteps },
-                    { level: NgxLoggerLevel.ERROR, message: "test" },
+                    { level: NgxLogLevels.ERROR, enableSourceMaps: false, proxiedSteps },
+                    { level: NgxLogLevels.ERROR, message: "test" },
                 )
                 .subscribe(result => {
                     expect(result).toEqual({
@@ -34,7 +35,6 @@ describe("NGXLoggerMapperService", () => {
                         lineNumber: 27,
                         columnNumber: 14,
                     });
-                    done();
                 });
         });
     });

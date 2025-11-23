@@ -1,4 +1,4 @@
-[//]: # ([![npm version]&#40;https://badge.fury.io/js/ngx-logger.svg&#41;]&#40;https://www.npmjs.com/package/ngx-logger&#41;)
+[![npm version](https://badge.fury.io/js/ngx-logger.svg)](https://www.npmjs.com/package/ngx-logging-kit)
 
 # NGX Logging Kit
 
@@ -94,7 +94,7 @@ If you inject any of the NGX Logger services into your application, you will nee
 To provide them in your Testing Module:
 
 ```typescript
-import {LoggerTestingModule} from 'ngx-logger/testing';
+import {LoggerTestingModule} from 'ngx-logging-kit/testing';
 
 TestBed.configureTestingModule({
     imports: [

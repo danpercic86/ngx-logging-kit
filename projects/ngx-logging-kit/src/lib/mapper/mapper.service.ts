@@ -56,7 +56,6 @@ export class NGXLoggerMapperService implements INGXLoggerMapperService {
         const error = new Error();
 
         try {
-            // noinspection ExceptionCaughtLocallyJS
             throw error;
         } catch (e) {
             try {

@@ -22,10 +22,7 @@
                     "defaultConfiguration": "production"
                 },
                 "test": {
-                    "builder": "@angular/build:karma",
-                    "options": {
-                        "tsConfig": "projects/ngx-logging-kit/tsconfig.spec.json"
-                    }
+                    "builder": "@angular/build:unit-test"
                 }
             }
         }

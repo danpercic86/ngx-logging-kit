@@ -1,7 +1,7 @@
 import { DatePipe } from "@angular/common";
 import { inject, Injectable } from "@angular/core";
 import { INGXLoggerConfig } from "../config/iconfig";
-import { NgxLoggerLevel } from "../types/logger-level.enum";
+import { NgxLogLevel } from "../types/logger-levels";
 import { INGXLoggerMetadata } from "./imetadata";
 import { INGXLoggerMetadataService } from "./imetadata.service";
 
@@ -10,7 +10,7 @@ export class NGXLoggerMetadataService implements INGXLoggerMetadataService {
     protected readonly datePipe = inject(DatePipe, { optional: true });
 
     getMetadata(
-        level: NgxLoggerLevel,
+        level: NgxLogLevel,
         config: INGXLoggerConfig,
         message?: any | (() => any),
         additional?: any[],

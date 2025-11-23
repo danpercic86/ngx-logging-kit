@@ -1,223 +1,217 @@
-import {inject, TestBed} from '@angular/core/testing';
-import {TOKEN_LOGGER_CONFIG} from './config/iconfig';
-import {TOKEN_LOGGER_CONFIG_ENGINE_FACTORY} from './config/iconfig-engine-factory';
-import {NGXLogger} from './logger.service';
-import {TOKEN_LOGGER_MAPPER_SERVICE} from './mapper/imapper.service';
-import {TOKEN_LOGGER_METADATA_SERVICE} from './metadata/imetadata.service';
-import {TOKEN_LOGGER_RULES_SERVICE} from './rules/irules.service';
-import {TOKEN_LOGGER_SERVER_SERVICE} from './server/iserver.service';
-import {NGXLoggerConfigEngineFactoryMock} from '../../../../testing/src/lib/config-engine-factory.mock';
-import {NGXLoggerMapperServiceMock} from '../../../../testing/src/lib/mapper.service.mock';
-import {NGXLoggerMetadataServiceMock} from '../../../../testing/src/lib/metadata.service.mock';
-import {NGXLoggerRulesServiceMock} from '../../../../testing/src/lib/rules.service.mock';
-import {NGXLoggerServerServiceMock} from '../../../../testing/src/lib/server.service.mock';
-import {NGXLoggerWriterServiceMock} from '../../../../testing/src/lib/writer.service.mock';
-import {NgxLoggerLevel} from './types/logger-level.enum';
-import {TOKEN_LOGGER_WRITER_SERVICE} from './writer/iwriter.service';
+import { inject, TestBed } from "@angular/core/testing";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { NGXLoggerConfigEngineFactoryMock } from "../../../../testing/src/lib/config-engine-factory.mock";
+import { NGXLoggerMapperServiceMock } from "../../../../testing/src/lib/mapper.service.mock";
+import { NGXLoggerMetadataServiceMock } from "../../../../testing/src/lib/metadata.service.mock";
+import { NGXLoggerRulesServiceMock } from "../../../../testing/src/lib/rules.service.mock";
+import { NGXLoggerServerServiceMock } from "../../../../testing/src/lib/server.service.mock";
+import { NGXLoggerWriterServiceMock } from "../../../../testing/src/lib/writer.service.mock";
+import { TOKEN_LOGGER_CONFIG } from "./config/iconfig";
+import { TOKEN_LOGGER_CONFIG_ENGINE_FACTORY } from "./config/iconfig-engine-factory";
+import { NGXLogger } from "./logger.service";
+import { TOKEN_LOGGER_MAPPER_SERVICE } from "./mapper/imapper.service";
+import { TOKEN_LOGGER_METADATA_SERVICE } from "./metadata/imetadata.service";
+import { TOKEN_LOGGER_RULES_SERVICE } from "./rules/irules.service";
+import { TOKEN_LOGGER_SERVER_SERVICE } from "./server/iserver.service";
+import { NgxLogLevels } from "./types/logger-levels";
+import { TOKEN_LOGGER_WRITER_SERVICE } from "./writer/iwriter.service";
 
-describe('NGXLogger', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        NGXLogger,
-        {provide: TOKEN_LOGGER_CONFIG, useValue: {level: NgxLoggerLevel.ERROR}},
-        {provide: TOKEN_LOGGER_CONFIG_ENGINE_FACTORY, useClass: NGXLoggerConfigEngineFactoryMock},
-        {provide: TOKEN_LOGGER_METADATA_SERVICE, useClass: NGXLoggerMetadataServiceMock},
-        {provide: TOKEN_LOGGER_RULES_SERVICE, useClass: NGXLoggerRulesServiceMock},
-        {provide: TOKEN_LOGGER_MAPPER_SERVICE, useClass: NGXLoggerMapperServiceMock},
-        {provide: TOKEN_LOGGER_WRITER_SERVICE, useClass: NGXLoggerWriterServiceMock},
-        {provide: TOKEN_LOGGER_SERVER_SERVICE, useClass: NGXLoggerServerServiceMock},
-      ]
+describe("NGXLogger", () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                NGXLogger,
+                { provide: TOKEN_LOGGER_CONFIG, useValue: { level: NgxLogLevels.ERROR } },
+                { provide: TOKEN_LOGGER_CONFIG_ENGINE_FACTORY, useClass: NGXLoggerConfigEngineFactoryMock },
+                { provide: TOKEN_LOGGER_METADATA_SERVICE, useClass: NGXLoggerMetadataServiceMock },
+                { provide: TOKEN_LOGGER_RULES_SERVICE, useClass: NGXLoggerRulesServiceMock },
+                { provide: TOKEN_LOGGER_MAPPER_SERVICE, useClass: NGXLoggerMapperServiceMock },
+                { provide: TOKEN_LOGGER_WRITER_SERVICE, useClass: NGXLoggerWriterServiceMock },
+                { provide: TOKEN_LOGGER_SERVER_SERVICE, useClass: NGXLoggerServerServiceMock },
+            ],
+        });
     });
-  });
 
-  describe('trace', () => {
-    it('should call _log with trace', inject(
-      [NGXLogger],
-      (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), 'log_internal');
+    describe("trace", () => {
+        it("should call _log with trace", inject([NGXLogger], (logger: NGXLogger) => {
+            const logSpy = vi.spyOn(logger as any, "log_internal");
 
-        logger.trace('message');
+            logger.trace("message");
 
-        expect(logSpy).toHaveBeenCalledWith(NgxLoggerLevel.TRACE, 'message', []);
-      }
-    ));
-  });
+            expect(logSpy).toHaveBeenCalledWith(NgxLogLevels.TRACE, "message", []);
+        }));
+    });
 
-  describe('debug', () => {
-    it('should call _log with debug', inject(
-      [NGXLogger],
-      (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), 'log_internal');
+    describe("debug", () => {
+        it("should call _log with debug", inject([NGXLogger], (logger: NGXLogger) => {
+            const logSpy = vi.spyOn(logger as any, "log_internal");
 
-        logger.debug('message');
+            logger.debug("message");
 
-        expect(logSpy).toHaveBeenCalledWith(NgxLoggerLevel.DEBUG, 'message', []);
-      }
-    ));
-  });
+            expect(logSpy).toHaveBeenCalledWith(NgxLogLevels.DEBUG, "message", []);
+        }));
+    });
 
-  describe('info', () => {
-    it('should call _log with info', inject(
-      [NGXLogger],
-      (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), 'log_internal');
+    describe("info", () => {
+        it("should call _log with info", inject([NGXLogger], (logger: NGXLogger) => {
+            const logSpy = vi.spyOn(logger as any, "log_internal");
 
-        logger.info('message');
+            logger.info("message");
 
-        expect(logSpy).toHaveBeenCalledWith(NgxLoggerLevel.INFO, 'message', []);
-      }
-    ));
-  });
+            expect(logSpy).toHaveBeenCalledWith(NgxLogLevels.INFO, "message", []);
+        }));
+    });
 
-  describe('log', () => {
-    it('should call _log with log', inject(
-      [NGXLogger],
-      (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), 'log_internal');
+    describe("log", () => {
+        it("should call _log with log", inject([NGXLogger], (logger: NGXLogger) => {
+            const logSpy = vi.spyOn(logger as any, "log_internal");
 
-        logger.log('message');
+            logger.log("message");
 
-        expect(logSpy).toHaveBeenCalledWith(NgxLoggerLevel.LOG, 'message', []);
-      }
-    ));
-  });
+            expect(logSpy).toHaveBeenCalledWith(NgxLogLevels.LOG, "message", []);
+        }));
+    });
 
-  describe('warn', () => {
-    it('should call _log with warn', inject(
-      [NGXLogger],
-      (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), 'log_internal');
+    describe("warn", () => {
+        it("should call _log with warn", inject([NGXLogger], (logger: NGXLogger) => {
+            const logSpy = vi.spyOn(logger as any, "log_internal");
 
-        logger.warn('message');
+            logger.warn("message");
 
-        expect(logSpy).toHaveBeenCalledWith(NgxLoggerLevel.WARN, 'message', []);
-      }
-    ));
-  });
+            expect(logSpy).toHaveBeenCalledWith(NgxLogLevels.WARN, "message", []);
+        }));
+    });
 
-  describe('error', () => {
-    it('should call _log with error', inject(
-      [NGXLogger],
-      (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), 'log_internal');
+    describe("error", () => {
+        it("should call _log with error", inject([NGXLogger], (logger: NGXLogger) => {
+            const logSpy = vi.spyOn(logger as any, "log_internal");
 
-        logger.error('message');
+            logger.error("message");
 
-        expect(logSpy).toHaveBeenCalledWith(NgxLoggerLevel.ERROR, 'message', []);
-      }
-    ));
-  });
+            expect(logSpy).toHaveBeenCalledWith(NgxLogLevels.ERROR, "message", []);
+        }));
+    });
 
-  describe('fatal', () => {
-    it('should call _log with fatal', inject(
-      [NGXLogger],
-      (logger: NGXLogger) => {
-        const logSpy = spyOn((logger as any), 'log_internal');
+    describe("fatal", () => {
+        it("should call _log with fatal", inject([NGXLogger], (logger: NGXLogger) => {
+            const logSpy = vi.spyOn(logger as any, "log_internal");
 
-        logger.fatal('message');
+            logger.fatal("message");
 
-        expect(logSpy).toHaveBeenCalledWith(NgxLoggerLevel.FATAL, 'message', []);
-      }
-    ));
-  });
+            expect(logSpy).toHaveBeenCalledWith(NgxLogLevels.FATAL, "message", []);
+        }));
+    });
 
-  describe('level', () => {
-    it('should return the level', inject(
-      [NGXLogger],
-      (logger: NGXLogger) => {
-        expect(logger.level).toEqual(NgxLoggerLevel.ERROR);
-      }
-    ));
-  });
+    describe("level", () => {
+        it("should return the level", inject([NGXLogger], (logger: NGXLogger) => {
+            expect(logger.level).toEqual(NgxLogLevels.ERROR);
+        }));
+    });
 
-  describe('serverLogLevel', () => {
-    it('should return the serverLogLevel', inject(
-      [NGXLogger],
-      (logger: NGXLogger) => {
-        expect(logger.serverLogLevel).toBe(NgxLoggerLevel.OFF);
-      }
-    ));
-  });
+    describe("serverLogLevel", () => {
+        it("should return the serverLogLevel", inject([NGXLogger], (logger: NGXLogger) => {
+            expect(logger.serverLogLevel).toBe(NgxLogLevels.OFF);
+        }));
+    });
 
-  // xdescribe('registerMonitor', () => {
-  //   // TODO
-  // });
+    // xdescribe('registerMonitor', () => {
+    //   // TODO
+    // });
 
-  // xdescribe('updateConfig', () => {
-  //   // TODO
-  // });
+    // xdescribe('updateConfig', () => {
+    //   // TODO
+    // });
 
-  // xdescribe('getConfigSnapshot', () => {
-  //   // TODO
-  // });
+    // xdescribe('getConfigSnapshot', () => {
+    //   // TODO
+    // });
 
-  describe('log_internal', () => {
-    it('should not do anything if nothing should be called', inject(
-      [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_METADATA_SERVICE],
-      (logger: NGXLogger, ruleService: NGXLoggerRulesServiceMock, metadataService: NGXLoggerMetadataServiceMock) => {
-        spyOn(ruleService, 'shouldCallWriter').and.returnValue(false);
-        spyOn(ruleService, 'shouldCallServer').and.returnValue(false);
-        spyOn(ruleService, 'shouldCallMonitor').and.returnValue(false);
+    describe("log_internal", () => {
+        it("should not do anything if nothing should be called", inject(
+            [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_METADATA_SERVICE],
+            (
+                logger: NGXLogger,
+                ruleService: NGXLoggerRulesServiceMock,
+                metadataService: NGXLoggerMetadataServiceMock,
+            ) => {
+                vi.spyOn(ruleService, "shouldCallWriter").mockReturnValue(false);
+                vi.spyOn(ruleService, "shouldCallServer").mockReturnValue(false);
+                vi.spyOn(ruleService, "shouldCallMonitor").mockReturnValue(false);
 
-        const metadataSpy = spyOn(metadataService, 'getMetadata');
+                const metadataSpy = vi.spyOn(metadataService, "getMetadata");
 
-        logger.error('Test');
+                logger.error("Test");
 
-        expect(metadataSpy).not.toHaveBeenCalled();
-      }
-    ));
+                expect(metadataSpy).not.toHaveBeenCalled();
+            },
+        ));
 
-    it('should not call writer', inject(
-      [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_WRITER_SERVICE],
-      (logger: NGXLogger, ruleService: NGXLoggerRulesServiceMock, writerService: NGXLoggerWriterServiceMock) => {
-        spyOn(ruleService, 'shouldCallWriter').and.returnValue(false);
+        it("should not call writer", inject(
+            [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_WRITER_SERVICE],
+            (
+                logger: NGXLogger,
+                ruleService: NGXLoggerRulesServiceMock,
+                writerService: NGXLoggerWriterServiceMock,
+            ) => {
+                vi.spyOn(ruleService, "shouldCallWriter").mockReturnValue(false);
 
-        const writerSpy = spyOn(writerService, 'writeMessage');
+                const writerSpy = vi.spyOn(writerService, "writeMessage");
 
-        logger.error('Test');
+                logger.error("Test");
 
-        expect(writerSpy).not.toHaveBeenCalled();
-      }
-    ));
+                expect(writerSpy).not.toHaveBeenCalled();
+            },
+        ));
 
-    it('should call writer', inject(
-      [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_WRITER_SERVICE],
-      (logger: NGXLogger, ruleService: NGXLoggerRulesServiceMock, writerService: NGXLoggerWriterServiceMock) => {
-        spyOn(ruleService, 'shouldCallWriter').and.returnValue(true);
+        it("should call writer", inject(
+            [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_WRITER_SERVICE],
+            (
+                logger: NGXLogger,
+                ruleService: NGXLoggerRulesServiceMock,
+                writerService: NGXLoggerWriterServiceMock,
+            ) => {
+                vi.spyOn(ruleService, "shouldCallWriter").mockReturnValue(true);
 
-        const writerSpy = spyOn(writerService, 'writeMessage');
+                const writerSpy = vi.spyOn(writerService, "writeMessage");
 
-        logger.error('Test');
+                logger.error("Test");
 
-        expect(writerSpy).toHaveBeenCalled();
-      }
-    ));
+                expect(writerSpy).toHaveBeenCalled();
+            },
+        ));
 
-    it('should not call server', inject(
-      [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_SERVER_SERVICE],
-      (logger: NGXLogger, ruleService: NGXLoggerRulesServiceMock, serverService: NGXLoggerServerServiceMock) => {
-        spyOn(ruleService, 'shouldCallServer').and.returnValue(false);
+        it("should not call server", inject(
+            [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_SERVER_SERVICE],
+            (
+                logger: NGXLogger,
+                ruleService: NGXLoggerRulesServiceMock,
+                serverService: NGXLoggerServerServiceMock,
+            ) => {
+                vi.spyOn(ruleService, "shouldCallServer").mockReturnValue(false);
 
-        const serverSpy = spyOn(serverService, 'sendToServer');
+                const serverSpy = vi.spyOn(serverService, "sendToServer");
 
-        logger.error('Test');
+                logger.error("Test");
 
-        expect(serverSpy).not.toHaveBeenCalled();
-      }
-    ));
+                expect(serverSpy).not.toHaveBeenCalled();
+            },
+        ));
 
-    it('should call server', inject(
-      [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_SERVER_SERVICE],
-      (logger: NGXLogger, ruleService: NGXLoggerRulesServiceMock, serverService: NGXLoggerServerServiceMock) => {
-        spyOn(ruleService, 'shouldCallServer').and.returnValue(true);
+        it("should call server", inject(
+            [NGXLogger, TOKEN_LOGGER_RULES_SERVICE, TOKEN_LOGGER_SERVER_SERVICE],
+            (
+                logger: NGXLogger,
+                ruleService: NGXLoggerRulesServiceMock,
+                serverService: NGXLoggerServerServiceMock,
+            ) => {
+                vi.spyOn(ruleService, "shouldCallServer").mockReturnValue(true);
 
-        const serverSpy = spyOn(serverService, 'sendToServer');
+                const serverSpy = vi.spyOn(serverService, "sendToServer");
 
-        logger.error('Test');
+                logger.error("Test");
 
-        expect(serverSpy).toHaveBeenCalled();
-      }
-    ));
-  });
+                expect(serverSpy).toHaveBeenCalled();
+            },
+        ));
+    });
 });

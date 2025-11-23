@@ -1,5 +1,5 @@
 import { computed, signal, type Signal, type WritableSignal } from "@angular/core";
-import { NgxLoggerLevel } from "../types/logger-level.enum";
+import { NgxLogLevel, NgxLogLevels } from "../types/logger-levels";
 import { INGXLoggerConfig } from "./iconfig";
 import { INGXLoggerConfigEngine } from "./iconfig-engine";
 
@@ -8,24 +8,25 @@ import { INGXLoggerConfigEngine } from "./iconfig-engine";
  * Provides immutable config updates and computed derived values
  */
 export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
-    private readonly config: WritableSignal<INGXLoggerConfig>;
-
+    readonly #config: WritableSignal<INGXLoggerConfig>;
     // Internal computed signals for reactive state
-    private readonly levelSignal: Signal<NgxLoggerLevel>;
-    private readonly serverLogLevelSignal: Signal<NgxLoggerLevel>;
+    private readonly levelSignal: Signal<NgxLogLevel>;
+    private readonly serverLogLevelSignal: Signal<NgxLogLevel>;
+    readonly config: Signal<INGXLoggerConfig>;
 
     constructor(initialConfig: INGXLoggerConfig) {
-        this.config = signal(initialConfig);
+        this.#config = signal(initialConfig);
+        this.config = this.#config.asReadonly();
 
-        this.levelSignal = computed(() => this.config().level);
-        this.serverLogLevelSignal = computed(() => this.config().serverLogLevel ?? NgxLoggerLevel.OFF);
+        this.levelSignal = computed(() => this.#config().level);
+        this.serverLogLevelSignal = computed(() => this.#config().serverLogLevel ?? NgxLogLevels.OFF);
     }
 
     /**
      * Get a readonly access to the level configured for the NGXLogger
      * @returns The configured minimum log level
      */
-    get level(): NgxLoggerLevel {
+    get level(): NgxLogLevel {
         return this.levelSignal();
     }
 
@@ -33,7 +34,7 @@ export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
      * Get a readonly access to the serverLogLevel configured for the NGXLogger
      * @returns The configured minimum server log level
      */
-    get serverLogLevel(): NgxLoggerLevel {
+    get serverLogLevel(): NgxLogLevel {
         return this.serverLogLevelSignal();
     }
 
@@ -42,7 +43,7 @@ export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
      * @param config New configuration to set
      */
     updateConfig(config: INGXLoggerConfig): void {
-        this.config.set(config);
+        this.#config.set({ ...config });
     }
 
     /**
@@ -51,7 +52,7 @@ export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
      * @param partialConfig Partial configuration to merge with current config
      */
     partialUpdateConfig(partialConfig: Partial<INGXLoggerConfig>): void {
-        this.config.update(current => ({
+        this.#config.update(current => ({
             ...current,
             ...partialConfig,
         }));
@@ -62,6 +63,6 @@ export class NGXLoggerConfigEngine implements INGXLoggerConfigEngine {
      * @returns A cloned copy of the current configuration
      */
     getConfig(): INGXLoggerConfig {
-        return this.config();
+        return { ...this.#config() };
     }
 }

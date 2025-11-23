@@ -1,4 +1,4 @@
-import { NgxLoggerLevel } from "../types/logger-level.enum";
+import { NgxLogLevel } from "../types/logger-levels";
 
 /**
  * Content to be logged and some metadata
@@ -15,7 +15,7 @@ export interface INGXLoggerMetadata {
     additional?: unknown[];
 
     /* Metadata around content */
-    level: NgxLoggerLevel;
+    level: NgxLogLevel;
     timestamp?: string;
     fileName?: string;
     lineNumber?: number;

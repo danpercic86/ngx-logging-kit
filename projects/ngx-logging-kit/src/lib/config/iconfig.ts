@@ -1,6 +1,6 @@
 import { HttpHeaders, HttpParams } from "@angular/common/http";
 import { InjectionToken } from "@angular/core";
-import { NgxLoggerLevel } from "../types/logger-level.enum";
+import { NgxLogLevel } from "../types/logger-levels";
 import { NGXLoggerColorScheme } from "../writer/color-scheme";
 
 /**
@@ -15,7 +15,7 @@ export const TOKEN_LOGGER_CONFIG = new InjectionToken("TOKEN_LOGGER_CONFIG");
 export interface INGXLoggerConfig {
     // Global config
     /** Minimum level to be written */
-    level: NgxLoggerLevel;
+    level: NgxLogLevel;
 
     // metadata-service config
     /** Timestamp format: any format accepted by Angular DatePipe. Defaults to ISOString. If set you need to provide DatePipe from @angular/common */
@@ -41,7 +41,7 @@ export interface INGXLoggerConfig {
 
     // server-service config
     /** Minimum level to be sent to server */
-    serverLogLevel?: NgxLoggerLevel;
+    serverLogLevel?: NgxLogLevel;
     /** URL used to send log to server */
     serverLoggingUrl?: string;
     /** If true, adds "withCredentials" options when sending log to server */
