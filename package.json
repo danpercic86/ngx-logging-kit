@@ -1,45 +1,52 @@
 {
-    "name": "ngx-logging-kit",
-    "license": "MIT",
-    "scripts": {
-        "ng": "ng",
-        "start": "ng serve",
-        "build": "ng build",
-        "test-build-publish": "npm run test && npm run build && cd dist/ngx-logging-kit && npm publish",
-        "test": "ng test --project=ngx-logging-kit --watch=false",
-        "test-watch": "ng test --project=ngx-logging-kit --watch=true",
-        "lint": "ng lint"
-    },
-    "private": true,
-    "packageManager": "yarn@1.22.17",
-    "dependencies": {
-        "@angular/common": "^21.0.0",
-        "@angular/compiler": "^21.0.0",
-        "@angular/core": "^21.0.0",
-        "@angular/platform-browser": "^21.0.0",
-        "@angular/router": "^21.0.0",
-        "rxjs": "~7.8.0",
-        "tslib": "^2.3.0",
-        "vlq": "^2.0.4"
-    },
-    "devDependencies": {
-        "@angular-devkit/build-angular": "^21.0.0",
-        "@angular-eslint/builder": "21.0.0",
-        "@angular/cli": "^21.0.0",
-        "@angular/compiler-cli": "^21.0.0",
-        "@eslint/js": "^9.39.1",
-        "@types/node": "^24.10.1",
-        "angular-eslint": "21.0.0",
-        "eslint": "^9.39.1",
-        "eslint-config-prettier": "^10.1.8",
-        "globals": "^16.5.0",
-        "jsdom": "^27.2.0",
-        "ng-packagr": "^21.0.0",
-        "prettier": "^3.6.2",
-        "ts-node": "~10.9.2",
-        "typescript": "^5.4.5",
-        "typescript-eslint": "^8.47.0",
-        "vitest": "^4.0.13",
-        "zone.js": "~0.15.1"
-    }
+  "name": "ngx-logging-kit",
+  "license": "MIT",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test-build-publish": "npm run test && npm run build && cd dist/ngx-logging-kit && npm publish",
+    "test": "ng test --project=ngx-logging-kit --watch=false",
+    "test-watch": "ng test --project=ngx-logging-kit --watch=true",
+    "lint": "ng lint",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,js,html}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml,scss,css}": [
+      "prettier --write"
+    ]
+  },
+  "private": true,
+  "packageManager": "yarn@1.22.17",
+  "dependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "vlq": "^2.0.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^21.0.0",
+    "@angular-eslint/builder": "21.0.0",
+    "@angular/cli": "^21.0.0",
+    "@angular/compiler-cli": "^21.0.0",
+    "@eslint/js": "^9.39.1",
+    "angular-eslint": "21.0.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "jsdom": "^27.2.0",
+    "lint-staged": "^16.2.7",
+    "ng-packagr": "^21.0.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.47.0",
+    "vitest": "^4.0.13"
+  }
 }
