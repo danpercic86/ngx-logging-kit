@@ -8,9 +8,12 @@ import { NgxLogLevel } from "../../../projects/ngx-logging-kit/src/lib/types/log
 export class NGXLoggerMetadataServiceMock implements INGXLoggerMetadataService {
     getMetadata(
         level: NgxLogLevel,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         config: INGXLoggerConfig,
-        message?: any | (() => any),
-        additional?: any[],
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        message?: unknown,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        additional?: unknown[],
     ): INGXLoggerMetadata {
         return {
             level: level,

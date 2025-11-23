@@ -21,8 +21,9 @@ export interface INGXLoggerRulesService {
     shouldCallWriter(
         level: NgxLogLevel,
         config: INGXLoggerConfig,
-        message?: any | (() => any),
-        additional?: any[],
+        // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+        message?: unknown | (() => unknown),
+        additional?: unknown[],
     ): boolean;
 
     /**
@@ -35,8 +36,9 @@ export interface INGXLoggerRulesService {
     shouldCallServer(
         level: NgxLogLevel,
         config: INGXLoggerConfig,
-        message?: any | (() => any),
-        additional?: any[],
+        // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+        message?: unknown | (() => unknown),
+        additional?: unknown[],
     ): boolean;
 
     /**
@@ -49,7 +51,8 @@ export interface INGXLoggerRulesService {
     shouldCallMonitor(
         level: NgxLogLevel,
         config: INGXLoggerConfig,
-        message?: any | (() => any),
-        additional?: any[],
+        // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+        message?: unknown | (() => unknown),
+        additional?: unknown[],
     ): boolean;
 }

@@ -19,6 +19,7 @@ export interface INGXLoggerMetadataService {
     getMetadata(
         level: NgxLogLevel,
         config: INGXLoggerConfig,
+        // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
         message?: unknown | (() => unknown),
         additional?: unknown[],
     ): INGXLoggerMetadata;

@@ -12,8 +12,9 @@ export class NGXLoggerMetadataService implements INGXLoggerMetadataService {
     getMetadata(
         level: NgxLogLevel,
         config: INGXLoggerConfig,
-        message?: any | (() => any),
-        additional?: any[],
+        // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+        message?: unknown | (() => unknown),
+        additional?: unknown[],
     ): INGXLoggerMetadata {
         const metadata: INGXLoggerMetadata = {
             level: level,
@@ -23,6 +24,7 @@ export class NGXLoggerMetadataService implements INGXLoggerMetadataService {
         // The user can send a function
         // This is useful in order to compute string concatenation only when the log will actually be written
         if (message && typeof message === "function") {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
             metadata.message = message();
         } else {
             metadata.message = message;
@@ -34,19 +36,19 @@ export class NGXLoggerMetadataService implements INGXLoggerMetadataService {
     }
 
     protected computeTimestamp(config: INGXLoggerConfig): string {
-        const defaultTimestamp = () => new Date().toISOString();
+        const defaultTimestamp = new Date().toISOString();
 
         if (config.timestampFormat) {
-            if (!this.datePipe) {
+            if (this.datePipe === null) {
                 console.error(
                     "NGXLogger : Can't use timeStampFormat because DatePipe is not provided. You need to provide DatePipe",
                 );
-                return defaultTimestamp();
+                return defaultTimestamp;
             } else {
-                return this.datePipe.transform(new Date(), config.timestampFormat) || defaultTimestamp();
+                return this.datePipe.transform(new Date(), config.timestampFormat) ?? defaultTimestamp;
             }
         }
 
-        return defaultTimestamp();
+        return defaultTimestamp;
     }
 }

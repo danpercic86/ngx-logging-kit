@@ -6,28 +6,40 @@ import { NgxLogLevel } from "../../../projects/ngx-logging-kit/src/lib/types/log
 @Injectable()
 export class NGXLoggerRulesServiceMock implements INGXLoggerRulesService {
     shouldCallWriter(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         level: NgxLogLevel,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         config: INGXLoggerConfig,
-        message?: any,
-        additional?: any[],
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        message?: unknown,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        additional?: unknown[],
     ): boolean {
         return false;
     }
 
     shouldCallServer(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         level: NgxLogLevel,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         config: INGXLoggerConfig,
-        message?: any,
-        additional?: any[],
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        message?: unknown,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        additional?: unknown[],
     ): boolean {
         return false;
     }
 
     shouldCallMonitor(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         level: NgxLogLevel,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         config: INGXLoggerConfig,
-        message?: any,
-        additional?: any[],
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        message?: unknown,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        additional?: unknown[],
     ): boolean {
         return false;
     }

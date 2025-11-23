@@ -13,10 +13,12 @@ export class NGXLoggerConfigEngineMock implements INGXLoggerConfigEngine {
         return NgxLogLevels.OFF;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     updateConfig(config: INGXLoggerConfig): void {
         /* empty */
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     partialUpdateConfig(partialConfig: Partial<INGXLoggerConfig>): void {
         /* empty */
     }

@@ -5,7 +5,6 @@ import { NgxLogLevel } from "../types/logger-levels";
  */
 export interface INGXLoggerMetadata {
     /* Content sent by the user*/
-
     /** The message sent to the log function
      *
      * If a function was sent, the function is already called

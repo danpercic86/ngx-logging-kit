@@ -23,18 +23,20 @@ export class NGXLoggerWriterService implements INGXLoggerWriterService {
         this.logFunc(metadata, config, metaString);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected getTimestampToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
         return metadata.timestamp ?? "";
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected getLevelToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
-        return getLevelName(metadata.level) ?? "OFF";
+        return getLevelName(metadata.level) ?? getLevelName(NgxLogLevels.OFF)!;
     }
 
     protected getFileDetailsToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
         return config.disableFileDetails === true ?
                 ""
-            :   `[${metadata.fileName}:${metadata.lineNumber}:${metadata.columnNumber}]`;
+            :   `[${metadata.fileName!}:${metadata.lineNumber!.toString()}:${metadata.columnNumber!.toString()}]`;
     }
 
     protected getContextToWrite(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
@@ -44,24 +46,25 @@ export class NGXLoggerWriterService implements INGXLoggerWriterService {
     /** Generate a "meta" string that is displayed before the content sent to the log function */
     protected prepareMetaString(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
         let metaString = "";
-        this.prepareMetaStringFuncs.forEach(prepareMetaStringFunc => {
+        for (const prepareMetaStringFunc of this.prepareMetaStringFuncs) {
             const metaItem = prepareMetaStringFunc(metadata, config);
             if (metaItem) {
                 metaString = metaString + " " + metaItem;
             }
-        });
+        }
         return metaString.trim();
     }
 
     /** Get the color to use when writing to console */
-    protected getColor(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string | undefined {
+    protected getColor(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): string {
         const configColorScheme = config.colorScheme ?? DEFAULT_COLOR_SCHEME;
 
         // this is needed to avoid a build error
         if (metadata.level === NgxLogLevels.OFF) {
-            return undefined;
+            return DEFAULT_COLOR_SCHEME[NgxLogLevels.INFO];
         }
-        return configColorScheme[metadata.level];
+
+        return configColorScheme[metadata.level] ?? DEFAULT_COLOR_SCHEME[NgxLogLevels.INFO];
     }
 
     /** Log to the console */
@@ -69,7 +72,7 @@ export class NGXLoggerWriterService implements INGXLoggerWriterService {
         const color = this.getColor(metadata, config);
 
         // make sure additional isn't null or undefined so that ...additional doesn't error
-        const additional = metadata.additional || [];
+        const additional = metadata.additional ?? [];
 
         switch (metadata.level) {
             case NgxLogLevels.WARN:

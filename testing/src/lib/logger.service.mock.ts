@@ -15,31 +15,70 @@ export class NGXLoggerMock {
         return NgxLogLevels.OFF;
     }
 
-    trace(message?: any | (() => any), ...additional: any[]) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    trace(message?: unknown, ...additional: unknown[]): void {
+        /* empty */
+    }
 
-    debug(message?: any | (() => any), ...additional: any[]) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    debug(message?: unknown, ...additional: unknown[]): void {
+        /* empty */
+    }
 
-    info(message?: any | (() => any), ...additional: any[]) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    info(message?: unknown, ...additional: unknown[]): void {
+        /* empty */
+    }
 
-    log(message?: any | (() => any), ...additional: any[]) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    log(message?: unknown, ...additional: unknown[]): void {
+        /* empty */
+    }
 
-    warn(message?: any | (() => any), ...additional: any[]) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    warn(message?: unknown, ...additional: unknown[]): void {
+        /* empty */
+    }
 
-    error(message?: any | (() => any), ...additional: any[]) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    error(message?: unknown, ...additional: unknown[]): void {
+        /* empty */
+    }
 
-    fatal(message?: any | (() => any), ...additional: any[]) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    fatal(message?: unknown, ...additional: unknown[]): void {
+        /* empty */
+    }
 
-    partialUpdateConfig(partialConfig: Partial<INGXLoggerConfig>): void {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    partialUpdateConfig(partialConfig: Partial<INGXLoggerConfig>): void {
+        /* empty */
+    }
 
-    updateConfig(config: any) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    updateConfig(config: unknown): void {
+        /* empty */
+    }
 
-    setCustomHttpHeaders(headers: HttpHeaders) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setCustomHttpHeaders(headers: HttpHeaders): void {
+        /* empty */
+    }
 
-    setCustomParams(params: HttpParams) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setCustomParams(params: HttpParams): void {
+        /* empty */
+    }
 
-    registerMonitor(monitor: INGXLoggerMonitor) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    registerMonitor(monitor: INGXLoggerMonitor): void {
+        /* empty */
+    }
 
-    setWithCredentialsOptionValue(withCredentials: boolean) {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setWithCredentialsOptionValue(withCredentials: boolean): void {
+        /* empty */
+    }
 
     getConfigSnapshot(): INGXLoggerConfig {
         return { level: NgxLogLevels.ERROR };
