@@ -12,31 +12,31 @@ The type of the payload is `INGXLoggerMetadata` see details [here](../projects/n
 
 ```typescript
 LoggerModule.forRoot({
-...,
-  serverLogLevel: NgxLoggerLevel.TRACE,
-  serverLoggingUrl: '/api/logs',
+    ...,
+    serverLogLevel: NgxLoggerLevel.TRACE,
+    serverLoggingUrl: '/api/logs',
 })
 ```
 
 - Support of responseType for HTTP Requests. A config option `httpResponseType` allows you to set your server's response type.
 
 - Custom HTTP Params
-  - If you need to pass in custom HTTP Params to your backend server, you can use `customHttpParams`.
+    - If you need to pass in custom HTTP Params to your backend server, you can use `customHttpParams`.
 
 ```typescript
 LoggerModule.forRoot({
-...,
-  customHttpParams: new HttpParams()
+    ...,
+    customHttpParams: new HttpParams()
 })
 ```
 
 - Custom HTTP Headers
-  - If you use an auth token, or need to pass in a custom header, you can use `customHttpHeaders`
+    - If you use an auth token, or need to pass in a custom header, you can use `customHttpHeaders`
 
 ```typescript
 LoggerModule.forRoot({
-...,
-  customHttpHeaders: new HttpHeaders({ "X-Custom-Header": "123456" })
+    ...,
+    customHttpHeaders: new HttpHeaders({"X-Custom-Header": "123456"})
 })
 ```
 
@@ -44,64 +44,64 @@ LoggerModule.forRoot({
 
 ```typescript
 LoggerModule.forRoot({
-...,
-  withCredentials: true
+    ...,
+    withCredentials: true
 })
 ```
 
 ## Other features
 
 - Support for Custom Color Schemes in the config
-  - uses the LoggerColorScheme type, it is an array of 7 colors, each color matches to a log level. see `NgxLoggerLevel`
+    - uses the LoggerColorScheme type, it is an array of 7 colors, each color matches to a log level. see `NgxLoggerLevel`
 
 ```typescript
 LoggerModule.forRoot({
-...,
-  colorScheme: ['purple', 'teal', 'gray', 'gray', 'red', 'red', 'red']
+    ...,
+    colorScheme: ['purple', 'teal', 'gray', 'gray', 'red', 'red', 'red']
 })
 ```
 
 - Support for custom parsing of source maps. In order to use it, you must set `enableSourceMaps: true` in your logger config
 
-  - Note: In order for the enableSourceMaps flag to work, your app must generate the source maps during the build process. If your using AngularCli you can generate Source Maps by setting `"sourceMap": {"scripts": true}` (or for older version of angularCli `"sourceMap": true`) in your angular.json
+    - Note: In order for the enableSourceMaps flag to work, your app must generate the source maps during the build process. If your using AngularCli you can generate Source Maps by setting `"sourceMap": {"scripts": true}` (or for older version of angularCli `"sourceMap": true`) in your angular.json
 
 - Custom Log Monitoring is available.
-  - Only one monitor can be registered at a time; registering a new monitor overwrites the previous monitor.
-  - This should be registered as soon as possible so that it does not miss any logs.
+    - Only one monitor can be registered at a time; registering a new monitor overwrites the previous monitor.
+    - This should be registered as soon as possible so that it does not miss any logs.
 
 ```typescript
-import { INGXLoggerMonitor, INGXLoggerMetadata, INGXLoggerConfig } from "ngx-logger";
+import {INGXLoggerMonitor, INGXLoggerMetadata, INGXLoggerConfig} from "ngx-logging-kit";
 
 export class MyLoggerMonitor implements INGXLoggerMonitor {
-  onLog(logObject: INGXLoggerMetadata, config: INGXLoggerConfig) {
-    console.log("myCustomLoggerMonitor", logObject);
-  }
+    onLog(logObject: INGXLoggerMetadata, config: INGXLoggerConfig) {
+        console.log("myCustomLoggerMonitor", logObject);
+    }
 }
 ```
 
 ```typescript
-import { NGXLogger } from "ngx-logger";
-import { MyLoggerMonitor } from "./my-logger-monitor";
+import {NGXLogger} from "ngx-logging-kit";
+import {MyLoggerMonitor} from "./my-logger-monitor";
 
 export class MyService {
-  constructor(private logger: NGXLogger) {
-    this.logger.registerMonitor(new MyLoggerMonitor());
+    constructor(private logger: NGXLogger) {
+        this.logger.registerMonitor(new MyLoggerMonitor());
 
-    this.logger.error("BLAHBLAHBLAH");
-  }
+        this.logger.error("BLAHBLAHBLAH");
+    }
 }
 ```
 
 - Adds context to your log calls
-  - Context is specific to the instance of the logger, if you want several contexts, you need several instances
+    - Context is specific to the instance of the logger, if you want several contexts, you need several instances
 
 Simple example
 
 ```typescript
 LoggerModule.forRoot({
-...,
-  // Context will be printed to all the log messages
-  context: 'context'
+    ...,
+    // Context will be printed to all the log messages
+    context: 'context'
 })
 ```
 

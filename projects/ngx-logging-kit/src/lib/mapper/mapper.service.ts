@@ -71,10 +71,10 @@ export class NGXLoggerMapperService implements INGXLoggerMapperService {
 
                 // Chrome and Edge (last line is the user code):
                 // Error
-                // at Function.getStackLine (ngx-logger.js:329)
-                // at NGXMapperService.getCallerDetails (ngx-logger.js:528)
-                // at NGXLogger._log (ngx-logger.js:801)
-                // at NGXLogger.info (ngx-logger.js:631)
+                // at Function.getStackLine (ngx-logging-kit.js:329)
+                // at NGXMapperService.getCallerDetails (ngx-logging-kit.js:528)
+                // at NGXLogger._log (ngx-logging-kit.js:801)
+                // at NGXLogger.info (ngx-logging-kit.js:631)
                 // at AppComponent.handleLog (app.component.ts:38)
 
                 let defaultProxy = 4; // We make 4 functions call before getting here
@@ -191,7 +191,7 @@ export class NGXLoggerMapperService implements INGXLoggerMapperService {
     private getTranspileLocation(stackLine: string): string {
         // Example stackLine:
         // Firefox : getStackLine@http://localhost:4200/main.js:358:23
-        // Chrome and Edge : at Function.getStackLine (ngx-logger.js:329)
+        // Chrome and Edge : at Function.getStackLine (ngx-logging-kit.js:329)
         let locationStartIndex = stackLine.indexOf("(");
         if (locationStartIndex < 0) {
             locationStartIndex = stackLine.lastIndexOf("@");

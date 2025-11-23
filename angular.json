@@ -1,547 +1,63 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "ngx-logging-kit": {
-      "projectType": "library",
-      "root": "projects/ngx-logging-kit",
-      "sourceRoot": "projects/ngx-logging-kit/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ngx-logging-kit/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/ngx-logging-kit/tsconfig.lib.json"
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "ngx-logging-kit": {
+            "projectType": "library",
+            "root": "projects/ngx-logging-kit",
+            "sourceRoot": "projects/ngx-logging-kit/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular/build:ng-packagr",
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/ngx-logging-kit/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/ngx-logging-kit/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular/build:karma",
+                    "options": {
+                        "tsConfig": "projects/ngx-logging-kit/tsconfig.spec.json"
+                    }
+                }
             }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/ngx-logging-kit/tsconfig.spec.json"
-          }
         }
-      }
     },
-    "demo": {
-      "root": "projects/demo/",
-      "sourceRoot": "projects/demo/src",
-      "projectType": "application",
-      "prefix": "app",
-      "schematics": {
+    "cli": {
+        "analytics": false,
+        "packageManager": "yarn"
+    },
+    "schematics": {
         "@schematics/angular:component": {
-          "style": "scss",
-          "skipTests": true
-        },
-        "@schematics/angular:class": {
-          "skipTests": true
+            "type": "component"
         },
         "@schematics/angular:directive": {
-          "skipTests": true
-        },
-        "@schematics/angular:guard": {
-          "skipTests": true
-        },
-        "@schematics/angular:module": {
-        },
-        "@schematics/angular:pipe": {
-          "skipTests": true
+            "type": "directive"
         },
         "@schematics/angular:service": {
-          "skipTests": true
-        }
-      },
-      "architect": {
-        "build": {
-          "builder": "@angular/build:application",
-          "options": {
-            "outputPath": {
-              "base": "dist/demo"
-            },
-            "index": "projects/demo/src/index.html",
-            "polyfills": [
-              "projects/demo/src/polyfills.ts"
-            ],
-            "tsConfig": "projects/demo/tsconfig.app.json",
-            "assets": [
-              "projects/demo/src/favicon.ico",
-              "projects/demo/src/assets"
-            ],
-            "styles": [
-              "projects/demo/src/styles.scss"
-            ],
-            "scripts": [],
-            "extractLicenses": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true,
-            "browser": "projects/demo/src/main.ts"
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
-                }
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "projects/demo/src/environments/environment.ts",
-                  "with": "projects/demo/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "namedChunks": false,
-              "extractLicenses": true
-            }
-          },
-          "defaultConfiguration": ""
-        },
-        "serve": {
-          "builder": "@angular/build:dev-server",
-          "options": {
-            "buildTarget": "demo:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "demo:build:production"
-            }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/demo/src/test.ts",
-            "polyfills": "projects/demo/src/polyfills.ts",
-            "tsConfig": "projects/demo/tsconfig.spec.json",
-            "karmaConfig": "projects/demo/karma.conf.js",
-            "styles": [
-              "projects/demo/src/styles.scss"
-            ],
-            "scripts": [],
-            "assets": [
-              "projects/demo/src/favicon.ico",
-              "projects/demo/src/assets"
-            ]
-          }
-        }
-      }
-    },
-    "forchild": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss",
-          "skipTests": true
-        },
-        "@schematics/angular:class": {
-          "skipTests": true
-        },
-        "@schematics/angular:directive": {
-          "skipTests": true
+            "type": "service"
         },
         "@schematics/angular:guard": {
-          "skipTests": true
+            "typeSeparator": "."
         },
         "@schematics/angular:interceptor": {
-          "skipTests": true
+            "typeSeparator": "."
         },
         "@schematics/angular:module": {
+            "typeSeparator": "."
         },
         "@schematics/angular:pipe": {
-          "skipTests": true
+            "typeSeparator": "."
         },
-        "@schematics/angular:service": {
-          "skipTests": true
+        "@schematics/angular:resolver": {
+            "typeSeparator": "."
         }
-      },
-      "root": "projects/forchild",
-      "sourceRoot": "projects/forchild/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "outputPath": {
-              "base": "dist/forchild"
-            },
-            "index": "projects/forchild/src/index.html",
-            "polyfills": [
-              "projects/forchild/src/polyfills.ts"
-            ],
-            "tsConfig": "projects/forchild/tsconfig.app.json",
-            "assets": [
-              "projects/forchild/src/favicon.ico",
-              "projects/forchild/src/assets"
-            ],
-            "styles": [
-              "projects/forchild/src/styles.scss"
-            ],
-            "scripts": [],
-            "extractLicenses": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true,
-            "browser": "projects/forchild/src/main.ts"
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/forchild/src/environments/environment.ts",
-                  "with": "projects/forchild/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          },
-          "defaultConfiguration": ""
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "forchild:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "forchild:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "forchild:build"
-          }
-        }
-      }
-    },
-    "customise": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss",
-          "skipTests": true
-        },
-        "@schematics/angular:class": {
-          "skipTests": true
-        },
-        "@schematics/angular:directive": {
-          "skipTests": true
-        },
-        "@schematics/angular:guard": {
-          "skipTests": true
-        },
-        "@schematics/angular:interceptor": {
-          "skipTests": true
-        },
-        "@schematics/angular:module": {
-        },
-        "@schematics/angular:pipe": {
-          "skipTests": true
-        },
-        "@schematics/angular:service": {
-          "skipTests": true
-        }
-      },
-      "root": "projects/customise",
-      "sourceRoot": "projects/customise/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "outputPath": {
-              "base": "dist/customise"
-            },
-            "index": "projects/customise/src/index.html",
-            "polyfills": [
-              "projects/customise/src/polyfills.ts"
-            ],
-            "tsConfig": "projects/customise/tsconfig.app.json",
-            "assets": [
-              "projects/customise/src/favicon.ico",
-              "projects/customise/src/assets"
-            ],
-            "styles": [
-              "projects/customise/src/styles.scss"
-            ],
-            "scripts": [],
-            "extractLicenses": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true,
-            "browser": "projects/customise/src/main.ts"
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/customise/src/environments/environment.ts",
-                  "with": "projects/customise/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          },
-          "defaultConfiguration": ""
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "customise:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "customise:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "customise:build"
-          }
-        }
-      }
-    },
-    "singleton-v1": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/singleton-v1",
-      "sourceRoot": "projects/singleton-v1/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "outputPath": {
-              "base": "dist/singleton-v1"
-            },
-            "index": "projects/singleton-v1/src/index.html",
-            "polyfills": [
-              "projects/singleton-v1/src/polyfills.ts"
-            ],
-            "tsConfig": "projects/singleton-v1/tsconfig.app.json",
-            "assets": [
-              "projects/singleton-v1/src/favicon.ico",
-              "projects/singleton-v1/src/assets"
-            ],
-            "styles": [
-              "projects/singleton-v1/src/styles.scss"
-            ],
-            "scripts": [],
-            "extractLicenses": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true,
-            "browser": "projects/singleton-v1/src/main.ts"
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/singleton-v1/src/environments/environment.ts",
-                  "with": "projects/singleton-v1/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          },
-          "defaultConfiguration": ""
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "singleton-v1:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "singleton-v1:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "singleton-v1:build"
-          }
-        }
-      }
-    },
-    "not-a-singleton": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/not-a-singleton",
-      "sourceRoot": "projects/not-a-singleton/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "outputPath": {
-              "base": "dist/not-a-singleton"
-            },
-            "index": "projects/not-a-singleton/src/index.html",
-            "polyfills": [
-              "projects/not-a-singleton/src/polyfills.ts"
-            ],
-            "tsConfig": "projects/not-a-singleton/tsconfig.app.json",
-            "assets": [
-              "projects/not-a-singleton/src/favicon.ico",
-              "projects/not-a-singleton/src/assets"
-            ],
-            "styles": [
-              "projects/not-a-singleton/src/styles.scss"
-            ],
-            "scripts": [],
-            "extractLicenses": false,
-            "sourceMap": true,
-            "optimization": false,
-            "namedChunks": true,
-            "browser": "projects/not-a-singleton/src/main.ts"
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "projects/not-a-singleton/src/environments/environment.ts",
-                  "with": "projects/not-a-singleton/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          },
-          "defaultConfiguration": ""
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "not-a-singleton:build"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "not-a-singleton:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "not-a-singleton:build"
-          }
-        }
-      }
     }
-  },
-  "cli": {
-    "analytics": false,
-    "packageManager": "yarn"
-  },
-  "schematics": {
-    "@schematics/angular:component": {
-      "type": "component"
-    },
-    "@schematics/angular:directive": {
-      "type": "directive"
-    },
-    "@schematics/angular:service": {
-      "type": "service"
-    },
-    "@schematics/angular:guard": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:interceptor": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:module": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:pipe": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:resolver": {
-      "typeSeparator": "."
-    }
-  }
 }
