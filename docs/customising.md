@@ -55,13 +55,14 @@ export class WriterCustomisedService extends NGXLoggerWriterService {
 Provide the customised service to the logger
 
 ```
-LoggerModule.forRoot(
-  { level: NgxLoggerLevel.DEBUG },
+provideLogger(
+  { level: NgxLogLevels.DEBUG },
   {
     writerProvider: {
       provide: TOKEN_LOGGER_WRITER_SERVICE, useClass: WriterCustomisedService
     }
-  }),
+  }
+),
 ```
 
 And now your logger will write to the sessionStorage instead of the console
@@ -77,7 +78,7 @@ Tweak the rule service :
 export class RulesCustomisedService extends NGXLoggerRulesService {
 
   /** If true the logger will send logs to server */
-  shouldCallServer(level: NgxLoggerLevel, config: INGXLoggerConfig, message?: any | (() => any), additional?: any[]): boolean {
+  shouldCallServer(level: NgxLogLevel, config: INGXLoggerConfig, message?: any | (() => any), additional?: any[]): boolean {
     return (message && typeof message === 'string' && message.includes('SERVER'));
   }
 }
@@ -86,13 +87,14 @@ export class RulesCustomisedService extends NGXLoggerRulesService {
 Provide the customised service to the logger
 
 ```
-LoggerModule.forRoot(
-  { level: NgxLoggerLevel.DEBUG },
+provideLogger(
+  { level: NgxLogLevels.DEBUG },
   {
     ruleProvider: {
       provide: TOKEN_LOGGER_RULES_SERVICE, useClass: RulesCustomisedService
     }
-  }),
+  }
+),
 ```
 
 And now everytime you have 'SERVER' in your message, the log will be sent to your server
@@ -116,7 +118,7 @@ export class ServerCustomisedService extends NGXLoggerServerService {
    */
   public customiseRequestBody(metadata: INGXLoggerMetadata): any {
     let body = { ...metadata };
-    body['levelName'] = NgxLoggerLevel[metadata.level];
+    body['levelName'] = getLevelName(metadata.level);
 
     // note, for the example we log the body but in a real case the log is useless
     console.log('Customised body is', body);
@@ -129,13 +131,14 @@ export class ServerCustomisedService extends NGXLoggerServerService {
 Provide the customised service to the logger
 
 ```
-LoggerModule.forRoot(
-  { level: NgxLoggerLevel.TRACE, serverLogLevel: NgxLoggerLevel.TRACE, serverLoggingUrl: 'dummyURL' },
+provideLogger(
+  { level: NgxLogLevels.TRACE, serverLogLevel: NgxLogLevels.TRACE, serverLoggingUrl: 'dummyURL' },
   {
     serverProvider: {
       provide: TOKEN_LOGGER_SERVER_SERVICE, useClass: ServerCustomisedService
     }
-  }),
+  }
+),
 ```
 
 And now another property levelName will be sent to your API
@@ -167,13 +170,14 @@ export class AuthTokenServerService extends NGXLoggerServerService {
 Provide the auth token service to the logger
 
 ```
-LoggerModule.forRoot(
-  { level: NgxLoggerLevel.TRACE, serverLogLevel: NgxLoggerLevel.TRACE, serverLoggingUrl: 'dummyURL' },
+provideLogger(
+  { level: NgxLogLevels.TRACE, serverLogLevel: NgxLogLevels.TRACE, serverLoggingUrl: 'dummyURL' },
   {
     serverProvider: {
       provide: TOKEN_LOGGER_SERVER_SERVICE, useClass: AuthTokenServerService
     }
-  }),
+  }
+),
 ```
 
 And now another your authorization header will be used when logging to your API

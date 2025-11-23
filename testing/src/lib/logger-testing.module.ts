@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
+import { provideLogger } from "ngx-logging-kit";
 import { TOKEN_LOGGER_CONFIG } from "../../../projects/ngx-logging-kit/src/lib/config/iconfig";
 import { TOKEN_LOGGER_CONFIG_ENGINE_FACTORY } from "../../../projects/ngx-logging-kit/src/lib/config/iconfig-engine-factory";
-import { LoggerModule } from "../../../projects/ngx-logging-kit/src/lib/logger.module";
 import { NGXLogger } from "../../../projects/ngx-logging-kit/src/lib/logger.service";
 import { TOKEN_LOGGER_MAPPER_SERVICE } from "../../../projects/ngx-logging-kit/src/lib/mapper/imapper.service";
 import { TOKEN_LOGGER_METADATA_SERVICE } from "../../../projects/ngx-logging-kit/src/lib/metadata/imetadata.service";
@@ -18,8 +18,8 @@ import { NGXLoggerServerServiceMock } from "./server.service.mock";
 import { NGXLoggerWriterServiceMock } from "./writer.service.mock";
 
 @NgModule({
-    imports: [LoggerModule],
     providers: [
+        provideLogger({ level: NgxLogLevels.ERROR }),
         { provide: NGXLogger, useClass: NGXLoggerMock },
         { provide: TOKEN_LOGGER_CONFIG, useValue: { level: NgxLogLevels.ERROR } },
         { provide: TOKEN_LOGGER_CONFIG_ENGINE_FACTORY, useClass: NGXLoggerConfigEngineFactoryMock },

@@ -27,8 +27,8 @@ The only remaining part is to list the imported module in your application modul
         [
             provideLogger({
                 serverLoggingUrl: '/api/logs',
-                level: NgxLoggerLevel.DEBUG,
-                serverLogLevel: NgxLoggerLevel.ERROR
+                level: NgxLogLevels.DEBUG,
+                serverLogLevel: NgxLogLevels.ERROR
             }),
             ...
         ],
@@ -43,7 +43,7 @@ export class AppModule {
 To use the Logger, you will need to import it locally, then call one of the logging functions
 
 ```typescript
-import {Component} from "@angular/core";
+import {Component, inject} from "@angular/core";
 import {NGXLogger} from "ngx-logging-kit";
 
 @Component({
@@ -52,7 +52,9 @@ import {NGXLogger} from "ngx-logging-kit";
     styleUrls: ["your.component.scss"],
 })
 export class YourComponent {
-    constructor(private logger: NGXLogger) {
+    private readonly logger = inject(NGXLogger);
+
+    constructor() {
         this.logger.error("Your log message goes here");
         this.logger.warn("Multiple", "Argument", "support");
     }
@@ -64,7 +66,7 @@ export class YourComponent {
 ## Configuration
 
 Configuration is sent by the forRoot call
-`LoggerModule.forRoot({level: NgxLoggerLevel.DEBUG})`
+`provideLogger({level: NgxLogLevels.DEBUG})`
 
 For more information about configuration see the [doc](docs/config.md)
 

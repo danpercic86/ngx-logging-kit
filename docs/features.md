@@ -11,9 +11,9 @@ When you call the logger, the content will be sent to your server
 The type of the payload is `INGXLoggerMetadata` see details [here](../projects/ngx-logging-kit/src/lib/metadata/imetadata.ts)
 
 ```typescript
-LoggerModule.forRoot({
+provideLogger({
     ...,
-    serverLogLevel: NgxLoggerLevel.TRACE,
+    serverLogLevel: NgxLogLevels.TRACE,
     serverLoggingUrl: '/api/logs',
 })
 ```
@@ -24,7 +24,7 @@ LoggerModule.forRoot({
     - If you need to pass in custom HTTP Params to your backend server, you can use `customHttpParams`.
 
 ```typescript
-LoggerModule.forRoot({
+provideLogger({
     ...,
     customHttpParams: new HttpParams()
 })
@@ -34,7 +34,7 @@ LoggerModule.forRoot({
     - If you use an auth token, or need to pass in a custom header, you can use `customHttpHeaders`
 
 ```typescript
-LoggerModule.forRoot({
+provideLogger({
     ...,
     customHttpHeaders: new HttpHeaders({"X-Custom-Header": "123456"})
 })
@@ -43,7 +43,7 @@ LoggerModule.forRoot({
 - Support to set WithCredentials on your HTTP requests.
 
 ```typescript
-LoggerModule.forRoot({
+provideLogger({
     ...,
     withCredentials: true
 })
@@ -52,10 +52,10 @@ LoggerModule.forRoot({
 ## Other features
 
 - Support for Custom Color Schemes in the config
-    - uses the LoggerColorScheme type, it is an array of 7 colors, each color matches to a log level. see `NgxLoggerLevel`
+    - uses the LoggerColorScheme type, it is an array of 7 colors, each color matches to a log level. see `NgxLogLevel`
 
 ```typescript
-LoggerModule.forRoot({
+provideLogger({
     ...,
     colorScheme: ['purple', 'teal', 'gray', 'gray', 'red', 'red', 'red']
 })
@@ -84,7 +84,9 @@ import {NGXLogger} from "ngx-logging-kit";
 import {MyLoggerMonitor} from "./my-logger-monitor";
 
 export class MyService {
-    constructor(private logger: NGXLogger) {
+    private readonly logger = inject(NGXLogger);
+
+    constructor() {
         this.logger.registerMonitor(new MyLoggerMonitor());
 
         this.logger.error("BLAHBLAHBLAH");
@@ -98,7 +100,7 @@ export class MyService {
 Simple example
 
 ```typescript
-LoggerModule.forRoot({
+provideLogger({
     ...,
     // Context will be printed to all the log messages
     context: 'context'
