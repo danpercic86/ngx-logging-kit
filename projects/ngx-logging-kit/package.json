@@ -1,46 +1,50 @@
 {
-    "name": "ngx-logging-kit",
-    "version": "21.0.0-next.1",
-    "description": "A comprehensive logging library for Angular applications.",
-    "keywords": [
-        "angular",
-        "logging",
-        "logger",
-        "ngx"
-    ],
-    "author": "Dan Percic <danpercic86@gmail.com>",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/danpercic86/ngx-logging-kit.git"
-    },
-    "bugs": {
-        "url": "https://github.com/danpercic86/ngx-logging-kit/issues"
-    },
-    "contributors": [
-        "dbfaannin <dbfannin.npm@gmail.com>",
-        "martin-reiterer",
-        "danielsogl",
-        "IsNull",
-        "jensengar",
-        "leo6104",
-        "sam-lex",
-        "slindenberg",
-        "yildiraymeric",
-        "th3n3wguy <tarleton.shane@gmail.com>",
-        "bniedermeyer",
-        "jbarrett732",
-        "qortex",
-        "bmtheo",
-        "amilor"
-    ],
-    "peerDependencies": {
-        "@angular/common": "^21.0.0",
-        "@angular/core": "^21.0.0"
-    },
-    "dependencies": {
-        "tslib": "^2.3.0",
-        "vlq": "^2.0.4"
-    },
-    "sideEffects": false
+  "name": "ngx-logging-kit",
+  "version": "21.0.0-next.2",
+  "description": "A comprehensive logging library for Angular applications.",
+  "keywords": [
+    "angular",
+    "logging",
+    "logger",
+    "log",
+    "ng",
+    "ngx",
+    "ngx-logger",
+    "ngx-logging-kit"
+  ],
+  "author": "Dan Percic <danpercic86@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danpercic86/ngx-logging-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/danpercic86/ngx-logging-kit/issues"
+  },
+  "contributors": [
+    "dbfaannin <dbfannin.npm@gmail.com>",
+    "martin-reiterer",
+    "danielsogl",
+    "IsNull",
+    "jensengar",
+    "leo6104",
+    "sam-lex",
+    "slindenberg",
+    "yildiraymeric",
+    "th3n3wguy <tarleton.shane@gmail.com>",
+    "bniedermeyer",
+    "jbarrett732",
+    "qortex",
+    "bmtheo",
+    "amilor"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "vlq": "^2.0.4"
+  },
+  "sideEffects": false
 }

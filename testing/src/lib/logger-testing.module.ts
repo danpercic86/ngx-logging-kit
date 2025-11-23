@@ -1,10 +1,10 @@
 import { NgModule } from "@angular/core";
-import { provideLogger } from "ngx-logging-kit";
 import { TOKEN_LOGGER_CONFIG } from "../../../projects/ngx-logging-kit/src/lib/config/iconfig";
 import { TOKEN_LOGGER_CONFIG_ENGINE_FACTORY } from "../../../projects/ngx-logging-kit/src/lib/config/iconfig-engine-factory";
 import { NGXLogger } from "../../../projects/ngx-logging-kit/src/lib/logger.service";
 import { TOKEN_LOGGER_MAPPER_SERVICE } from "../../../projects/ngx-logging-kit/src/lib/mapper/imapper.service";
 import { TOKEN_LOGGER_METADATA_SERVICE } from "../../../projects/ngx-logging-kit/src/lib/metadata/imetadata.service";
+import { provideLogger } from "../../../projects/ngx-logging-kit/src/lib/provide-logger";
 import { TOKEN_LOGGER_RULES_SERVICE } from "../../../projects/ngx-logging-kit/src/lib/rules/irules.service";
 import { TOKEN_LOGGER_SERVER_SERVICE } from "../../../projects/ngx-logging-kit/src/lib/server/iserver.service";
 import { NgxLogLevels } from "../../../projects/ngx-logging-kit/src/lib/types/logger-levels";
