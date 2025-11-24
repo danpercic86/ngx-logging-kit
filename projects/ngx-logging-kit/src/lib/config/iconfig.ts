@@ -62,4 +62,8 @@ export interface INGXLoggerConfig {
     serverCallsTimer?: number;
     /** If true, logger calls to server will be performed outside NgZone */
     serverCallsOutsideNgZone?: boolean;
+
+    // feature-specific config
+    /** Configuration for specific features/contexts */
+    features?: Record<string, { logLevel: NgxLogLevel; serverLogLevel?: NgxLogLevel }>;
 }

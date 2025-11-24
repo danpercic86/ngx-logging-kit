@@ -2,7 +2,10 @@ import { inject, Injectable } from "@angular/core";
 import { take } from "rxjs/operators";
 import { INGXLoggerConfig, TOKEN_LOGGER_CONFIG } from "./config/iconfig";
 import { INGXLoggerConfigEngine } from "./config/iconfig-engine";
-import { INGXLoggerConfigEngineFactory, TOKEN_LOGGER_CONFIG_ENGINE_FACTORY, } from "./config/iconfig-engine-factory";
+import {
+    INGXLoggerConfigEngineFactory,
+    TOKEN_LOGGER_CONFIG_ENGINE_FACTORY,
+} from "./config/iconfig-engine-factory";
 import { INGXLoggerMapperService, TOKEN_LOGGER_MAPPER_SERVICE } from "./mapper/imapper.service";
 import { INGXLoggerMetadataService, TOKEN_LOGGER_METADATA_SERVICE } from "./metadata/imetadata.service";
 import { INGXLoggerMonitor } from "./monitor/ilogger-monitor";
@@ -174,14 +177,34 @@ export class NGXLogger {
     }
 
     /**
+     * Log with a specific configuration
+     * Used by ContextLogger to apply feature-specific configurations
+     * @param level Log level
+     * @param config Configuration to use
+     * @param message Message to log
+     * @param additional Additional parameters
+     */
+    logWithConfig(
+        level: NgxLogLevel,
+        config: INGXLoggerConfig,
+        message?: unknown,
+        ...additional: unknown[]
+    ): void {
+        this.log_internal(level, message, additional, config);
+    }
+
+    /**
      * Internal logging implementation
      * @param level Log level
      * @param message Message to log
      * @param additional Additional parameters
      */
-    private log_internal(level: NgxLogLevel, message?: unknown, additional: unknown[] = []): void {
-        const config = this.configEngine.getConfig();
-
+    private log_internal(
+        level: NgxLogLevel,
+        message?: unknown,
+        additional: unknown[] = [],
+        config: INGXLoggerConfig = this.configEngine.getConfig(),
+    ): void {
         const shouldCallWriter = this.ruleService.shouldCallWriter(level, config, message, additional);
         const shouldCallServer = this.ruleService.shouldCallServer(level, config, message, additional);
         const shouldCallMonitor = this.ruleService.shouldCallMonitor(level, config, message, additional);

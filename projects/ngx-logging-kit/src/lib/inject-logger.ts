@@ -2,7 +2,7 @@ import { inject } from "@angular/core";
 import { INGXLoggerConfig } from "./config/iconfig";
 import { NGXLogger } from "./logger.service";
 import { INGXLoggerMonitor } from "./monitor/ilogger-monitor";
-import { NgxLogLevel } from "./types/logger-levels";
+import { NgxLogLevel, NgxLogLevels } from "./types/logger-levels";
 
 class ContextLogger extends NGXLogger {
     constructor(
@@ -22,37 +22,37 @@ class ContextLogger extends NGXLogger {
 
     override trace(message?: unknown, ...additional: unknown[]): void {
         const { msg, args } = this.decorate(message, additional);
-        this.parent.trace(msg, ...args);
+        this.parent.logWithConfig(NgxLogLevels.TRACE, this.getFeatureConfig(), msg, ...args);
     }
 
     override debug(message?: unknown, ...additional: unknown[]): void {
         const { msg, args } = this.decorate(message, additional);
-        this.parent.debug(msg, ...args);
+        this.parent.logWithConfig(NgxLogLevels.DEBUG, this.getFeatureConfig(), msg, ...args);
     }
 
     override info(message?: unknown, ...additional: unknown[]): void {
         const { msg, args } = this.decorate(message, additional);
-        this.parent.info(msg, ...args);
+        this.parent.logWithConfig(NgxLogLevels.INFO, this.getFeatureConfig(), msg, ...args);
     }
 
     override log(message?: unknown, ...additional: unknown[]): void {
         const { msg, args } = this.decorate(message, additional);
-        this.parent.log(msg, ...args);
+        this.parent.logWithConfig(NgxLogLevels.LOG, this.getFeatureConfig(), msg, ...args);
     }
 
     override warn(message?: unknown, ...additional: unknown[]): void {
         const { msg, args } = this.decorate(message, additional);
-        this.parent.warn(msg, ...args);
+        this.parent.logWithConfig(NgxLogLevels.WARN, this.getFeatureConfig(), msg, ...args);
     }
 
     override error(message?: unknown, ...additional: unknown[]): void {
         const { msg, args } = this.decorate(message, additional);
-        this.parent.error(msg, ...args);
+        this.parent.logWithConfig(NgxLogLevels.ERROR, this.getFeatureConfig(), msg, ...args);
     }
 
     override fatal(message?: unknown, ...additional: unknown[]): void {
         const { msg, args } = this.decorate(message, additional);
-        this.parent.fatal(msg, ...args);
+        this.parent.logWithConfig(NgxLogLevels.FATAL, this.getFeatureConfig(), msg, ...args);
     }
 
     override registerMonitor(monitor: INGXLoggerMonitor): void {
@@ -73,6 +73,21 @@ class ContextLogger extends NGXLogger {
 
     override flushServerQueue(): void {
         this.parent.flushServerQueue();
+    }
+
+    private getFeatureConfig(): INGXLoggerConfig {
+        const config = this.parent.getConfigSnapshot();
+        const featureConfig = config.features?.[this.context];
+
+        if (featureConfig) {
+            return {
+                ...config,
+                level: featureConfig.logLevel,
+                serverLogLevel: featureConfig.serverLogLevel ?? config.serverLogLevel,
+            };
+        }
+
+        return config;
     }
 
     private decorate(message?: unknown, additional: unknown[] = []): { msg: unknown; args: unknown[] } {
