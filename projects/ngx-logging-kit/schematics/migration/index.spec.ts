@@ -34,14 +34,14 @@ describe(schematicName, () => {
     });
 
     it("should replace 'ngx-logger' imports with 'ngx-logging-kit' when migration is confirmed", async () => {
-        const newTree = await runner.runSchematic(schematicName, { migrate: true }, tree);
+        const newTree = await runner.runSchematic(schematicName, { migrate: true, path: "." }, tree);
         const content = newTree.readContent("src/app/app.component.ts");
         expect(content).toContain("import { LoggerModule } from 'ngx-logging-kit';");
         expect(content).not.toContain("import { LoggerModule } from 'ngx-logger';");
     });
 
     it("should NOT replace imports when migration is NOT confirmed", async () => {
-        const newTree = await runner.runSchematic(schematicName, { migrate: false }, tree);
+        const newTree = await runner.runSchematic(schematicName, { migrate: false, path: "." }, tree);
         const content = newTree.readContent("src/app/app.component.ts");
         expect(content).toContain("import { LoggerModule } from 'ngx-logger';");
         expect(content).not.toContain("import { LoggerModule } from 'ngx-logging-kit';");
@@ -56,10 +56,40 @@ describe(schematicName, () => {
     `,
         );
 
-        const newTree = await runner.runSchematic(schematicName, { migrate: true }, tree);
+        const newTree = await runner.runSchematic(schematicName, { migrate: true, path: "." }, tree);
         const content = newTree.readContent("src/app/other.ts");
 
         expect(content).toContain("import { Component } from '@angular/core';");
         expect(content).toContain("import { Something } from 'other-lib';");
+    });
+
+    it("should only migrate files in the specified path", async () => {
+        tree.create("src/other-folder/file.ts", `import { LoggerModule } from 'ngx-logger';`);
+
+        const newTree = await runner.runSchematic(schematicName, { migrate: true, path: "src/app" }, tree);
+
+        // Should migrate app.component.ts (in src/app)
+        const appContent = newTree.readContent("src/app/app.component.ts");
+        expect(appContent).toContain("import { LoggerModule } from 'ngx-logging-kit';");
+
+        // Should NOT migrate file.ts (in src/other-folder)
+        const otherContent = newTree.readContent("src/other-folder/file.ts");
+        expect(otherContent).toContain("import { LoggerModule } from 'ngx-logger';");
+    });
+
+    it("should exclude node_modules", async () => {
+        tree.create("node_modules/some-lib/index.ts", `import { LoggerModule } from 'ngx-logger';`);
+
+        const newTree = await runner.runSchematic(schematicName, { migrate: true, path: "." }, tree);
+        const content = newTree.readContent("node_modules/some-lib/index.ts");
+        expect(content).toContain("import { LoggerModule } from 'ngx-logger';");
+    });
+
+    it("should exclude hidden folders", async () => {
+        tree.create(".hidden/file.ts", `import { LoggerModule } from 'ngx-logger';`);
+
+        const newTree = await runner.runSchematic(schematicName, { migrate: true, path: "." }, tree);
+        const content = newTree.readContent(".hidden/file.ts");
+        expect(content).toContain("import { LoggerModule } from 'ngx-logger';");
     });
 });

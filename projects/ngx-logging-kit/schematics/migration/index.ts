@@ -14,6 +14,22 @@ export function migrate(options: NgxLoggerMigrationOptions): Rule {
                 return;
             }
 
+            // 1. Check if it's in the target path
+            const normalizePath = (p: string): string => (p.startsWith("/") ? p : "/" + p);
+            const targetPath = options.path === "." || !options.path ? "/" : normalizePath(options.path);
+
+            if (!filePath.startsWith(targetPath)) {
+                return;
+            }
+
+            // 2. Exclude node_modules and hidden folders
+            if (
+                filePath.includes("/node_modules/") ||
+                filePath.split("/").some(part => part.startsWith(".") && part !== ".")
+            ) {
+                return;
+            }
+
             const content = tree.read(filePath);
             if (!content) {
                 return;

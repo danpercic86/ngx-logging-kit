@@ -9,6 +9,12 @@
       "description": "Whether to proceed with the migration from ngx-logger to ngx-logging-kit.",
       "default": true,
       "x-prompt": "Do you want to migrate from ngx-logger to ngx-logging-kit?"
+    },
+    "path": {
+      "type": "string",
+      "description": "The path to migrate.",
+      "default": ".",
+      "x-prompt": "Which folder would you like to migrate? (default: current folder)"
     }
   }
 }
