@@ -1,5 +1,7 @@
 # Customising NGXLogger behavior
 
+> **Note:** NGX Logging Kit is a fork of [ngx-logger](https://github.com/dbfannin/ngx-logger) and maintains full customization capabilities from the original library. All customization interfaces and tokens remain compatible. See the [Migration Guide](migration.md) if you're migrating from ngx-logger.
+
 NGXLogger is fully customisable
 
 Before customising please be mindful of the following
@@ -41,28 +43,33 @@ All thoses services are also extendable, this allows to be specific on the behav
 
 Code your writer :
 
-```
+```typescript
+import { Injectable } from '@angular/core';
+import { NGXLoggerWriterService, INGXLoggerMetadata, INGXLoggerConfig } from 'ngx-logging-kit';
+
 @Injectable()
 export class WriterCustomisedService extends NGXLoggerWriterService {
-
   /** Write the content sent to the log function to the sessionStorage */
   public writeMessage(metadata: INGXLoggerMetadata, config: INGXLoggerConfig): void {
-      sessionStorage.setItem('logger', metadata.message);
+    sessionStorage.setItem('logger', metadata.message);
   }
 }
 ```
 
 Provide the customised service to the logger
 
-```
+```typescript
+import { provideLogger, NgxLogLevels, TOKEN_LOGGER_WRITER_SERVICE } from 'ngx-logging-kit';
+
 provideLogger(
   { level: NgxLogLevels.DEBUG },
   {
     writerProvider: {
-      provide: TOKEN_LOGGER_WRITER_SERVICE, useClass: WriterCustomisedService
+      provide: TOKEN_LOGGER_WRITER_SERVICE,
+      useClass: WriterCustomisedService
     }
   }
-),
+)
 ```
 
 And now your logger will write to the sessionStorage instead of the console
@@ -73,10 +80,12 @@ Full code [here](../projects/customise/src/app/writer)
 
 Tweak the rule service :
 
-```
+```typescript
+import { Injectable } from '@angular/core';
+import { NGXLoggerRulesService, NgxLogLevel, INGXLoggerConfig } from 'ngx-logging-kit';
+
 @Injectable()
 export class RulesCustomisedService extends NGXLoggerRulesService {
-
   /** If true the logger will send logs to server */
   shouldCallServer(level: NgxLogLevel, config: INGXLoggerConfig, message?: any | (() => any), additional?: any[]): boolean {
     return (message && typeof message === 'string' && message.includes('SERVER'));
@@ -86,15 +95,18 @@ export class RulesCustomisedService extends NGXLoggerRulesService {
 
 Provide the customised service to the logger
 
-```
+```typescript
+import { provideLogger, NgxLogLevels, TOKEN_LOGGER_RULES_SERVICE } from 'ngx-logging-kit';
+
 provideLogger(
   { level: NgxLogLevels.DEBUG },
   {
     ruleProvider: {
-      provide: TOKEN_LOGGER_RULES_SERVICE, useClass: RulesCustomisedService
+      provide: TOKEN_LOGGER_RULES_SERVICE,
+      useClass: RulesCustomisedService
     }
   }
-),
+)
 ```
 
 And now everytime you have 'SERVER' in your message, the log will be sent to your server
@@ -107,18 +119,19 @@ NB : This example can be used to change the body however you like
 
 Tweak the server service :
 
-```
+```typescript
+import { Injectable } from '@angular/core';
+import { NGXLoggerServerService, INGXLoggerMetadata } from 'ngx-logging-kit';
+
 @Injectable()
 export class ServerCustomisedService extends NGXLoggerServerService {
-
   /**
-   * Customse the data sent to the API
+   * Customise the data sent to the API
    * @param metadata the data provided by NGXLogger
    * @returns the data customised
    */
   public customiseRequestBody(metadata: INGXLoggerMetadata): any {
-    let body = { ...metadata };
-    body['levelName'] = getLevelName(metadata.level);
+    const body = { ...metadata, levelName: getLevelName(metadata.level) };
 
     // note, for the example we log the body but in a real case the log is useless
     console.log('Customised body is', body);
@@ -130,15 +143,18 @@ export class ServerCustomisedService extends NGXLoggerServerService {
 
 Provide the customised service to the logger
 
-```
+```typescript
+import { provideLogger, NgxLogLevels, TOKEN_LOGGER_SERVER_SERVICE } from 'ngx-logging-kit';
+
 provideLogger(
   { level: NgxLogLevels.TRACE, serverLogLevel: NgxLogLevels.TRACE, serverLoggingUrl: 'dummyURL' },
   {
     serverProvider: {
-      provide: TOKEN_LOGGER_SERVER_SERVICE, useClass: ServerCustomisedService
+      provide: TOKEN_LOGGER_SERVER_SERVICE,
+      useClass: ServerCustomisedService
     }
   }
-),
+)
 ```
 
 And now another property levelName will be sent to your API
@@ -151,33 +167,38 @@ This example adds a header "authorization" to the request sent to the API
 
 Tweak the server service :
 
-```
+```typescript
+import { Injectable } from '@angular/core';
+import { HttpRequest } from '@angular/common/http';
+import { NGXLoggerServerService } from 'ngx-logging-kit';
+
 @Injectable()
 export class AuthTokenServerService extends NGXLoggerServerService {
-
   protected override alterHttpRequest(httpRequest: HttpRequest<any>): HttpRequest<any> {
-    // Alter httpRequest by adding auth token to header 
-    httpRequest = httpRequest.clone({
+    // Alter httpRequest by adding auth token to header
+    return httpRequest.clone({
       setHeaders: {
-        ['Authorization']: 'Bearer MyToken',
-      },
+        'Authorization': 'Bearer MyToken'
+      }
     });
-    return httpRequest;
   }
 }
 ```
 
 Provide the auth token service to the logger
 
-```
+```typescript
+import { provideLogger, NgxLogLevels, TOKEN_LOGGER_SERVER_SERVICE } from 'ngx-logging-kit';
+
 provideLogger(
   { level: NgxLogLevels.TRACE, serverLogLevel: NgxLogLevels.TRACE, serverLoggingUrl: 'dummyURL' },
   {
     serverProvider: {
-      provide: TOKEN_LOGGER_SERVER_SERVICE, useClass: AuthTokenServerService
+      provide: TOKEN_LOGGER_SERVER_SERVICE,
+      useClass: AuthTokenServerService
     }
   }
-),
+)
 ```
 
 And now another your authorization header will be used when logging to your API

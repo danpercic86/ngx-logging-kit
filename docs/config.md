@@ -1,5 +1,7 @@
 # Config options of NGXLogger
 
+> **Note:** NGX Logging Kit is a fork of [ngx-logger](https://github.com/dbfannin/ngx-logger) and is backward compatible with ngx-logger v5. All configuration options from the original library are supported. See the [Migration Guide](migration.md) if you're migrating from ngx-logger.
+
 ## Options
 
 You can see all config details in `INGXLoggerConfig` interface located [here](../projects/ngx-logging-kit/src/lib/config/iconfig.ts)
@@ -24,32 +26,65 @@ Some of the options are detailed below :
 
 ## Setting up the config
 
-You can set it straight from the forRoot call, ex:
+You can configure the logger using `provideLogger()` in both standalone and NgModule-based applications.
+
+### Standalone Applications
 
 ```typescript
-@NgModule({
-  ...
-  imports: [
-    provideLogger({ level: NgxLogLevels.ERROR }),
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideLogger, NgxLogLevels } from 'ngx-logging-kit';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideLogger({ level: NgxLogLevels.ERROR })
   ]
+});
+```
+
+### NgModule-based Applications
+
+```typescript
+import { NgModule } from '@angular/core';
+import { provideLogger, NgxLogLevels } from 'ngx-logging-kit';
+
+@NgModule({
+  declarations: [AppComponent],
+  providers: [
+    provideLogger({ level: NgxLogLevels.ERROR })
+  ],
+  bootstrap: [AppComponent]
 })
+export class AppModule { }
 ```
 
 ## Updating the config
 
-Once your app is running you might want to update the config
+Once your app is running you might want to update the config.
 
-In that case you can use updateConfig : `logger.updateConfig({level: NgxLogLevels.TRACE });`
+In that case you can use `updateConfig`:
 
-> :warning: The updateConfig is **overwriting** all the config
+```typescript
+import { Component, inject } from '@angular/core';
+import { NGXLogger, NgxLogLevels } from 'ngx-logging-kit';
 
-If you want to update only one field you can do as follow
+export class MyComponent {
+  private readonly logger = inject(NGXLogger);
+
+  changeLogLevel() {
+    this.logger.updateConfig({ level: NgxLogLevels.TRACE });
+  }
+}
+```
+
+> ⚠️ **Warning:** The `updateConfig` method **overwrites** all the config
+
+If you want to update only one field, you can do as follows:
 
 ```typescript
 // Get the current config
-var config = logger.getConfigSnapshot();
-// Updating only one field
+const config = this.logger.getConfigSnapshot();
+// Update only one field
 config.disableFileDetails = true;
-// Setting the config
-logger.updateConfig(config);
+// Set the config
+this.logger.updateConfig(config);
 ```

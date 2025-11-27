@@ -1,5 +1,7 @@
 # Features
 
+> **Note:** NGX Logging Kit is a fork of [ngx-logger](https://github.com/dbfannin/ngx-logger) and maintains all features from the original library while adding support for Angular 21+ and modern patterns. See the [Migration Guide](migration.md) if you're migrating from ngx-logger.
+
 Here are listed some features of the logger
 
 ## Server side logging
@@ -80,17 +82,17 @@ export class MyLoggerMonitor implements INGXLoggerMonitor {
 ```
 
 ```typescript
-import {NGXLogger} from "ngx-logging-kit";
-import {MyLoggerMonitor} from "./my-logger-monitor";
+import { Component, inject } from '@angular/core';
+import { NGXLogger } from 'ngx-logging-kit';
+import { MyLoggerMonitor } from './my-logger-monitor';
 
 export class MyService {
-    private readonly logger = inject(NGXLogger);
+  private readonly logger = inject(NGXLogger);
 
-    constructor() {
-        this.logger.registerMonitor(new MyLoggerMonitor());
-
-        this.logger.error("BLAHBLAHBLAH");
-    }
+  constructor() {
+    this.logger.registerMonitor(new MyLoggerMonitor());
+    this.logger.error('BLAHBLAHBLAH');
+  }
 }
 ```
 
