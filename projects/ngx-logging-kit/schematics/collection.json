@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Add ngx-logging-kit to the project.",
+      "factory": "./ng-add/index#ngAdd"
+    },
+    "migration-v1": {
+      "description": "Migrate from ngx-logger to ngx-logging-kit",
+      "factory": "./migration/index#migrate"
+    }
+  }
+}

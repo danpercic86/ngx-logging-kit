@@ -41,6 +41,18 @@ rm -rf $DIST_DIR
 echo "🏗️  Building library..."
 ng build $PROJECT_NAME --configuration production
 
+# 2.1 Build Schematics
+echo "🏗️  Building schematics..."
+npx tsc -p projects/ngx-logging-kit/schematics/tsconfig.json
+mkdir -p $DIST_DIR/schematics
+cp projects/ngx-logging-kit/schematics/collection.json $DIST_DIR/schematics/
+cp projects/ngx-logging-kit/schematics/migration.json $DIST_DIR/schematics/
+cp -r projects/ngx-logging-kit/schematics/ng-add $DIST_DIR/schematics/
+cp -r projects/ngx-logging-kit/schematics/migration $DIST_DIR/schematics/
+# Remove .ts files from dist
+find $DIST_DIR/schematics -name "*.ts" -type f -delete
+
+
 # 3. Copy Assets
 echo "COPYING assets..."
 cp README.md $DIST_DIR/

@@ -1,0 +1,8 @@
+{
+  "schematics": {
+    "migration-v1": {
+      "version": "1.0.0",
+      "description": "Migrate from ngx-logger to ngx-logging-kit"
+    }
+  }
+}
