@@ -3,15 +3,16 @@
 # NGX Logging Kit
 
 This is a fork of [https://github.com/dbfannin/ngx-logger](https://github.com/dbfannin/ngx-logger)
-Version 21 of this package is backward compatible with version 5 of the original NGXLogger, but with modern Angular synthax.
+Version 21 of this package is backward compatible with version 5 of the original NGXLogger, but with modern Angular syntax.
 
 ## Installation
 
 ```shell
-npm install --save ngx-logging-kit
+    ng add ngx-logging-kit
 ```
 
-Once installed you need to provide it:
+Using `ng add` to add the package to your project will also ask you to run the migration from `ngx-logger` to `ngx-logging-kit`.
+Once installed, you need to provide it:
 
 ```typescript
 import {provideLogger} from "ngx-logging-kit";
@@ -65,7 +66,7 @@ export class YourComponent {
 
 ## Configuration
 
-Configuration is sent by the forRoot call
+Configuration is sent by the `provideLogger` call
 `provideLogger({level: NgxLogLevels.DEBUG})`
 
 For more information about configuration see the [doc](docs/config.md)
@@ -110,6 +111,6 @@ All services have mocked classes that can be used for testing located [here](tes
 
 ## Contribute
 
-All are welcome to contribute to NGX Logger.
+All are welcome to contribute to NGX Logging Kit.
 
 See the [doc](docs/contributing.md) to know how
