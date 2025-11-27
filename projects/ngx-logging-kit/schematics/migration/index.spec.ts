@@ -14,9 +14,6 @@ describe(schematicName, () => {
     beforeEach(() => {
         runner = new SchematicTestRunner("schematics", collectionPath);
         tree = new UnitTestTree(Tree.empty());
-    });
-
-    it("should replace ngx-logger imports with ngx-logging-kit", async () => {
         tree.create(
             "src/app/app.component.ts",
             `
@@ -30,17 +27,24 @@ describe(schematicName, () => {
         styleUrls: ['./app.component.scss']
       })
       export class AppComponent {
-        constructor(private logger: LoggerModule) {}
+        constructor(private logger: NGXLogger) {}
       }
     `,
         );
+    });
 
-        const newTree = await runner.runSchematic(schematicName, {}, tree);
+    it("should replace 'ngx-logger' imports with 'ngx-logging-kit' when migration is confirmed", async () => {
+        const newTree = await runner.runSchematic(schematicName, { migrate: true }, tree);
         const content = newTree.readContent("src/app/app.component.ts");
-
         expect(content).toContain("import { LoggerModule } from 'ngx-logging-kit';");
-        expect(content).toContain("import { LoggerConfig } from 'ngx-logging-kit';");
-        expect(content).not.toContain("from 'ngx-logger'");
+        expect(content).not.toContain("import { LoggerModule } from 'ngx-logger';");
+    });
+
+    it("should NOT replace imports when migration is NOT confirmed", async () => {
+        const newTree = await runner.runSchematic(schematicName, { migrate: false }, tree);
+        const content = newTree.readContent("src/app/app.component.ts");
+        expect(content).toContain("import { LoggerModule } from 'ngx-logger';");
+        expect(content).not.toContain("import { LoggerModule } from 'ngx-logging-kit';");
     });
 
     it("should not affect other imports", async () => {
@@ -52,7 +56,7 @@ describe(schematicName, () => {
     `,
         );
 
-        const newTree = await runner.runSchematic(schematicName, {}, tree);
+        const newTree = await runner.runSchematic(schematicName, { migrate: true }, tree);
         const content = newTree.readContent("src/app/other.ts");
 
         expect(content).toContain("import { Component } from '@angular/core';");

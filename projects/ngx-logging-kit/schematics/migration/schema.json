@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgxLoggerMigration",
+  "title": "NGX Logger Migration Options",
+  "type": "object",
+  "properties": {
+    "migrate": {
+      "type": "boolean",
+      "description": "Whether to proceed with the migration from ngx-logger to ngx-logging-kit.",
+      "default": true,
+      "x-prompt": "Do you want to migrate from ngx-logger to ngx-logging-kit?"
+    }
+  }
+}

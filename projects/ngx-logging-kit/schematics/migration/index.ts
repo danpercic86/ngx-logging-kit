@@ -1,7 +1,14 @@
 import { Rule, SchematicContext, Tree } from "@angular-devkit/schematics";
 
-export function migrate(): Rule {
+import { NgxLoggerMigrationOptions } from "./schema";
+
+export function migrate(options: NgxLoggerMigrationOptions): Rule {
     return (tree: Tree, _context: SchematicContext) => {
+        if (!options.migrate) {
+            _context.logger.info("Migration skipped by user.");
+            return tree;
+        }
+
         tree.visit(filePath => {
             if (!filePath.endsWith(".ts")) {
                 return;

@@ -46,13 +46,9 @@ Thumbs.db
 .angular/cache
 
 projects/ngx-logging-kit/schematics/migration/index.d.ts
-
 projects/ngx-logging-kit/schematics/migration/index.js
-
-projects/ngx-logging-kit/schematics/migration/index.js.map
-
 projects/ngx-logging-kit/schematics/ng-add/index.d.ts
-
 projects/ngx-logging-kit/schematics/ng-add/index.js
-
-projects/ngx-logging-kit/schematics/ng-add/index.js.map
+projects/ngx-logging-kit/schematics/migration/schema.d.ts
+projects/ngx-logging-kit/schematics/migration/schema.js
+**/*.js.map
