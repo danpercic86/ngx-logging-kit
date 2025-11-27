@@ -22,7 +22,7 @@ if ! npm whoami > /dev/null 2>&1; then
     echo "⚠️  You are not logged in to npm."
     echo "🔑  Please log in..."
     npm login
-    
+
     if ! npm whoami > /dev/null 2>&1; then
         echo "❌  Login failed. Aborting."
         exit 1
@@ -60,6 +60,9 @@ PUBLISH_CMD="npm publish --access public"
 if [[ "$VERSION" == *"-"* ]]; then
     echo "⚠️  Prerelease version detected. Adding '--tag next'."
     PUBLISH_CMD="$PUBLISH_CMD --tag next"
+else
+    echo "ℹ️  Stable release version detected. Adding '--tag latest'."
+    PUBLISH_CMD="$PUBLISH_CMD --tag latest"
 fi
 
 if [ "$DRY_RUN" = true ]; then
