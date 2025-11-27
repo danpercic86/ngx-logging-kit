@@ -15,7 +15,7 @@ import { NgxLogLevel, NgxLogLevels } from "./types/logger-levels";
 import { INGXLoggerWriterService, TOKEN_LOGGER_WRITER_SERVICE } from "./writer/iwriter.service";
 
 /**
- * Main logger service for NGX Logger
+ * Main logger service for NGX Logging Kit
  * Provides logging functionality with configurable output to console and server
  *
  * @example

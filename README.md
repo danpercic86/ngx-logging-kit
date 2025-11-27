@@ -92,7 +92,7 @@ You can see more of the features supported by NGXLogger in this [doc](docs/featu
 
 ## Testing Your App When Using NGXLogger
 
-If you inject any of the NGX Logger services into your application, you will need to provide them in your Testing Module.
+If you inject any of the NGX Logging Kit services into your application, you will need to provide them in your Testing Module.
 
 To provide them in your Testing Module:
 
