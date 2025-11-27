@@ -5,7 +5,7 @@
       "description": "Add ngx-logging-kit to the project.",
       "factory": "./ng-add/index#ngAdd"
     },
-    "migration-v1": {
+    "ngx-logger-migration": {
       "description": "Migrate from ngx-logger to ngx-logging-kit",
       "factory": "./migration/index#migrate"
     }
