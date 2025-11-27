@@ -1,8 +1,8 @@
 import { HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { INGXLoggerConfig } from "../../../projects/ngx-logging-kit/src/lib/config/iconfig";
-import { INGXLoggerMonitor } from "../../../projects/ngx-logging-kit/src/lib/monitor/ilogger-monitor";
-import { NgxLogLevel, NgxLogLevels } from "../../../projects/ngx-logging-kit/src/lib/types/logger-levels";
+import { INGXLoggerConfig } from "../../src/lib/config/iconfig";
+import { INGXLoggerMonitor } from "../../src/lib/monitor/ilogger-monitor";
+import { NgxLogLevel, NgxLogLevels } from "../../src/lib/types/logger-levels";
 
 // todo bmtheo, there should be an interface or something to make sure this mock sticks to the real API
 @Injectable()

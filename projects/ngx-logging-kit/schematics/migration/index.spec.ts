@@ -92,4 +92,16 @@ describe(schematicName, () => {
         const content = newTree.readContent(".hidden/file.ts");
         expect(content).toContain("import { LoggerModule } from 'ngx-logger';");
     });
+
+    it("should migrate ngx-logger/testing imports", async () => {
+        tree.create(
+            "src/app/test-helper.spec.ts",
+            `import { LoggerTestingModule } from 'ngx-logger/testing';`,
+        );
+
+        const newTree = await runner.runSchematic(schematicName, { migrate: true, path: "." }, tree);
+        const content = newTree.readContent("src/app/test-helper.spec.ts");
+        expect(content).toContain("import { LoggerTestingModule } from 'ngx-logging-kit/testing';");
+        expect(content).not.toContain("import { LoggerTestingModule } from 'ngx-logger/testing';");
+    });
 });

@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { INGXLoggerConfig } from "../../../projects/ngx-logging-kit/src/lib/config/iconfig";
-import { INGXLoggerMetadata } from "../../../projects/ngx-logging-kit/src/lib/metadata/imetadata";
-import { INGXLoggerMetadataService } from "../../../projects/ngx-logging-kit/src/lib/metadata/imetadata.service";
-import { NgxLogLevel } from "../../../projects/ngx-logging-kit/src/lib/types/logger-levels";
+import { INGXLoggerConfig } from "../../src/lib/config/iconfig";
+import { INGXLoggerMetadata } from "../../src/lib/metadata/imetadata";
+import { INGXLoggerMetadataService } from "../../src/lib/metadata/imetadata.service";
+import { NgxLogLevel } from "../../src/lib/types/logger-levels";
 
 @Injectable()
 export class NGXLoggerMetadataServiceMock implements INGXLoggerMetadataService {

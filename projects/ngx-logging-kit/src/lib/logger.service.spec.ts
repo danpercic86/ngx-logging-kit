@@ -1,11 +1,13 @@
 import { inject, TestBed } from "@angular/core/testing";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { NGXLoggerConfigEngineFactoryMock } from "../../../../testing/src/lib/config-engine-factory.mock";
-import { NGXLoggerMapperServiceMock } from "../../../../testing/src/lib/mapper.service.mock";
-import { NGXLoggerMetadataServiceMock } from "../../../../testing/src/lib/metadata.service.mock";
-import { NGXLoggerRulesServiceMock } from "../../../../testing/src/lib/rules.service.mock";
-import { NGXLoggerServerServiceMock } from "../../../../testing/src/lib/server.service.mock";
-import { NGXLoggerWriterServiceMock } from "../../../../testing/src/lib/writer.service.mock";
+import {
+    NGXLoggerConfigEngineFactoryMock,
+    NGXLoggerMapperServiceMock,
+    NGXLoggerMetadataServiceMock,
+    NGXLoggerRulesServiceMock,
+    NGXLoggerServerServiceMock,
+    NGXLoggerWriterServiceMock,
+} from "../../testing";
 import { TOKEN_LOGGER_CONFIG } from "./config/iconfig";
 import { TOKEN_LOGGER_CONFIG_ENGINE_FACTORY } from "./config/iconfig-engine-factory";
 import { NGXLogger } from "./logger.service";
@@ -15,6 +17,10 @@ import { TOKEN_LOGGER_RULES_SERVICE } from "./rules/irules.service";
 import { TOKEN_LOGGER_SERVER_SERVICE } from "./server/iserver.service";
 import { NgxLogLevels } from "./types/logger-levels";
 import { TOKEN_LOGGER_WRITER_SERVICE } from "./writer/iwriter.service";
+
+interface LoggerInternal {
+    log_internal: (...args: unknown[]) => void;
+}
 
 describe("NGXLogger", () => {
     beforeEach(() => {
@@ -34,7 +40,7 @@ describe("NGXLogger", () => {
 
     describe("trace", () => {
         it("should call _log with trace", inject([NGXLogger], (logger: NGXLogger) => {
-            const logSpy = vi.spyOn(logger as any, "log_internal");
+            const logSpy = vi.spyOn(logger as unknown as LoggerInternal, "log_internal");
 
             logger.trace("message");
 
@@ -44,7 +50,7 @@ describe("NGXLogger", () => {
 
     describe("debug", () => {
         it("should call _log with debug", inject([NGXLogger], (logger: NGXLogger) => {
-            const logSpy = vi.spyOn(logger as any, "log_internal");
+            const logSpy = vi.spyOn(logger as unknown as LoggerInternal, "log_internal");
 
             logger.debug("message");
 
@@ -54,7 +60,7 @@ describe("NGXLogger", () => {
 
     describe("info", () => {
         it("should call _log with info", inject([NGXLogger], (logger: NGXLogger) => {
-            const logSpy = vi.spyOn(logger as any, "log_internal");
+            const logSpy = vi.spyOn(logger as unknown as LoggerInternal, "log_internal");
 
             logger.info("message");
 
@@ -64,7 +70,7 @@ describe("NGXLogger", () => {
 
     describe("log", () => {
         it("should call _log with log", inject([NGXLogger], (logger: NGXLogger) => {
-            const logSpy = vi.spyOn(logger as any, "log_internal");
+            const logSpy = vi.spyOn(logger as unknown as LoggerInternal, "log_internal");
 
             logger.log("message");
 
@@ -74,7 +80,7 @@ describe("NGXLogger", () => {
 
     describe("warn", () => {
         it("should call _log with warn", inject([NGXLogger], (logger: NGXLogger) => {
-            const logSpy = vi.spyOn(logger as any, "log_internal");
+            const logSpy = vi.spyOn(logger as unknown as LoggerInternal, "log_internal");
 
             logger.warn("message");
 
@@ -84,7 +90,7 @@ describe("NGXLogger", () => {
 
     describe("error", () => {
         it("should call _log with error", inject([NGXLogger], (logger: NGXLogger) => {
-            const logSpy = vi.spyOn(logger as any, "log_internal");
+            const logSpy = vi.spyOn(logger as unknown as LoggerInternal, "log_internal");
 
             logger.error("message");
 
@@ -94,7 +100,7 @@ describe("NGXLogger", () => {
 
     describe("fatal", () => {
         it("should call _log with fatal", inject([NGXLogger], (logger: NGXLogger) => {
-            const logSpy = vi.spyOn(logger as any, "log_internal");
+            const logSpy = vi.spyOn(logger as unknown as LoggerInternal, "log_internal");
 
             logger.fatal("message");
 
