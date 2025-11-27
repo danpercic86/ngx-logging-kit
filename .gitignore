@@ -52,3 +52,7 @@ projects/ngx-logging-kit/schematics/ng-add/index.js
 projects/ngx-logging-kit/schematics/migration/schema.d.ts
 projects/ngx-logging-kit/schematics/migration/schema.js
 **/*.js.map
+
+projects/ngx-logging-kit/schematics/migration/index.spec.d.ts
+
+projects/ngx-logging-kit/schematics/migration/index.spec.js
