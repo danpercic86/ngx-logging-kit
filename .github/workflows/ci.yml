@@ -30,8 +30,11 @@ jobs:
       #      - name: Lint
       #        run: yarn run lint
 
-      - name: Test
-        run: npx ng test --project=ngx-logging-kit --watch=false --browsers=ChromeHeadless
+      - name: Test Project
+        run: yarn test
+
+      - name: Test Schematics
+        run: yarn test:schematics
 
       - name: Build
-        run: yarn run build
+        run: yarn build
