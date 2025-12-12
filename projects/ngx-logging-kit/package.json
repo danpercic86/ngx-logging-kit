@@ -47,7 +47,6 @@
     "tslib": "^2.3.0",
     "vlq": "^2.0.4"
   },
-  "sideEffects": false,
   "schematics": "./schematics/collection.json",
   "ng-update": {
     "migrations": "./schematics/migration.json"
