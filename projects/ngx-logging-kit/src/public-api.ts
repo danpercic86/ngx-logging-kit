@@ -25,5 +25,5 @@ export * from "./lib/writer/color-scheme";
 export * from "./lib/types/logger-level.enum";
 export * from "./lib/logger.service";
 export * from "./lib/logger.module";
-export * from "./lib/provide-logger";
+export * from "./lib/logger.provider";
 export * from "./lib/inject-logger";
