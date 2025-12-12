@@ -1,6 +1,6 @@
 {
   "name": "ngx-logging-kit",
-  "version": "20.0.0",
+  "version": "20.0.1",
   "description": "A comprehensive logging library for Angular applications.",
   "keywords": [
     "angular",
