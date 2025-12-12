@@ -74,7 +74,7 @@ if [[ "$VERSION" == *"-"* ]]; then
     PUBLISH_CMD="$PUBLISH_CMD --tag next"
 else
     echo "ℹ️  Stable release version detected. Adding '--tag latest'."
-    PUBLISH_CMD="$PUBLISH_CMD --tag latest"
+    PUBLISH_CMD="$PUBLISH_CMD --tag v20-latest"
 fi
 
 if [ "$DRY_RUN" = true ]; then
